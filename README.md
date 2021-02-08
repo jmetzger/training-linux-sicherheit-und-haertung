@@ -30,3 +30,6 @@ locale
 ## Documentation 
 
   * http://schulung.t3isp.de/documents/linux-security.pdf
+  * Wrong concerning nmap in document
+    * : -T5 = insane (quickest option, less accuracy, o.k ?)
+    * should be -T5 = insane (most dangerous option, because it can kill running processes on target machine) 
