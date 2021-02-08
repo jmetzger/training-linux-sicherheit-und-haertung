@@ -17,3 +17,8 @@ locale
 ## tcpdump 
 
   * https://danielmiessler.com/study/tcpdump/
+  
+## Patching of packages (e.g.) 
+ 
+  * Ubuntu will patch packages when CVE's occur 
+  * https://ubuntu.com/security/CVE-2020-11984
