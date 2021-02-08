@@ -1,2 +1,3 @@
-# lfs416-02-2021
-Notes on training
+# Notes for Linux Foundation Training 02/2012 
+
+## 
