@@ -22,3 +22,7 @@ locale
  
   * Ubuntu will patch packages when CVE's occur 
   * https://ubuntu.com/security/CVE-2020-11984
+
+## Search - Engine IoT 
+
+  * https://www.shodan.io/
