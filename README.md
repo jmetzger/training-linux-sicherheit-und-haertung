@@ -4,4 +4,12 @@
 
 ```
 dpkg-reconfigure locales 
+# see locales that are current configured
+locale 
+# place where it is configured 
+/etc/default/locale 
+
+# After that relogin or do 
+# su student 
+locale 
 ```
