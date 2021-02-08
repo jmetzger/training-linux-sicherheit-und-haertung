@@ -13,3 +13,7 @@ locale
 # su student 
 locale 
 ```
+
+## tcpdump 
+
+  * https://danielmiessler.com/study/tcpdump/
