@@ -3,6 +3,7 @@
 ## Docs 
 
   1. [Installation ossec on Ubuntu](ossec.md)
+  2. [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
 
 
 ## Change language on Ubuntu 
