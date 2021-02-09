@@ -57,6 +57,8 @@ update-grub
 ```
 ## rsyslog 
 
+### Basics 
+
 ```
 # Hyphen before filename : -/..... 
 # is for syncing but enabled by default since 
@@ -65,7 +67,12 @@ https://serverfault.com/questions/463170/what-does-filepath-action-mean-in-rsysl
 # You may prefix each entry with the minus “-‘’ sign to omit syncing the file after every logging.
 ```
 
+### Bug on ubuntu kern.* logs to user.* 
 
+```
+logger -p kern.debug "Testmessage"
+# that one logs to user.* 
+```
  
 ## Documentation 
 
