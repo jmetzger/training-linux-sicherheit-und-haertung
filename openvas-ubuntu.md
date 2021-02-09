@@ -1,5 +1,16 @@
 # OpenVas 
 
+## Vagrant 
+
+```
+virtualbox 
+vagrant 
+git for windows 
+# 
+mkdir ubuntu 
+cd ubuntu
+vagrant init  
+
 ## Installation for version GVM 11 
 
 ```
@@ -12,9 +23,13 @@ greenbone-nvt-sync
 sudo greenbone-scapdata-sync
 sudo greenbone-certdata-sync
 
-systemctl status ospd-openvas # scanner
-systemctl status gvmd # manager
-systemctl status gsad # web ui
+systemctl start ospd-openvas # scanner
+systemctl start gvmd # manager
+systemctl start gsad # web ui
+
+# adjustment /etc/default/gvm 
+# change listen address for web interface 
+
 
 ```
 
