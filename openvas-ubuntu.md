@@ -10,39 +10,38 @@ git for windows
 mkdir ubuntu 
 cd ubuntu
 vagrant init  
-
+```
 ## Installation for version GVM 11 
 
-```
-# Refering to: https://launchpad.net/~mrazavi/+archive/ubuntu/gvm
-sudo add-apt-repository ppa:mrazavi/gvm
-# installation commands is different for 11 
-sudo apt install gvm
 
-greenbone-nvt-sync
-sudo greenbone-scapdata-sync
-sudo greenbone-certdata-sync
+#  OpenVAS (Ubuntu 20.04LTS)
 
-systemctl start ospd-openvas # scanner
-systemctl start gvmd # manager
-systemctl start gsad # web ui
+## Requirements 
 
-# adjustment /etc/default/gvm 
-# change listen address for web interface 
-
-
-```
+  * tested with 1 GB and 25 GB -> does not work, 
+    df -> 100% // GMP error during authentication -> when trying to login 
+  * tested with 2 GB and 50 GB -> WORKS !
 
 ## openvas -> gvm (Greenbone Vulnerability Management) / mrazavi 
 
 ```
 Installation on Ubuntu 20.04 LTS
 https://launchpad.net/~mrazavi/+archive/ubuntu/gvm
-https://www.osboxes.org/ubuntu/
+# https://www.osboxes.org/ubuntu/
+# Done with vagrant init ubuntu/focal64 instead 
 
-https://<ip>:9392
+# postgresql is needed
+sudo apt install -y postgresql 
+sudo add-apt-repository ppa:mrazavi/gvm
+sudo apt install -y gvm
+# only from one machine (when same source ip) at a time 
+greenbone-nvt-sync
+sudo greenbone-scapdata-sync
+sudo greenbone-certdata-sync
 
-(The port number has changed according to the upstream in the new version and the old 4000 port number is no longer the default)
+You can access the Greenbone Security Assistant web interface at:
+
+https://localhost:9392
 
 The default username/password is as follows:
 
@@ -55,4 +54,21 @@ systemctl status ospd-openvas # scanner
 systemctl status gvmd # manager
 systemctl status gsad # web ui
 
+# change /etc/default 
+https://<ip>:9392
+
 ```
+
+Documentation 
+https://docs.greenbone.net/GSM-Manual/gos-20.08/en/web-interface.html
+
+## PDF - Generation 
+
+```
+# 2 packages are needed for the pdf-generation:
+apt install -y texlive-latex-extra --no-install-recommends
+apt install -y texlive-fonts-recommended
+# after having installed these, pdf generation works ! 
+
+```
+
