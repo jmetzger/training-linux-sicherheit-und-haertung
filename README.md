@@ -1,5 +1,10 @@
 # Notes for Linux Foundation Training 02/2021 
 
+## Docs 
+
+  1. [Installation ossec on Ubuntu](ossec.md)
+
+
 ## Change language on Ubuntu 
 
 ```
