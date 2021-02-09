@@ -51,7 +51,8 @@ ssh root@localhost
 # enter wrong password 3 times 
 
 # alert is logged to 
- tail alerts.log
+cd /var/ossec/logs/alerts/
+tail alerts.log
 2020 Nov 11 13:48:59 server2->/var/log/auth.log
 Rule: 5710 (level 5) -> 'Attempt to login using a non-existent user'
 Src IP: 127.0.0.1
@@ -63,7 +64,7 @@ Rule: 5710 (level 5) -> 'Attempt to login using a non-existent user'
 Nov 11 13:49:07 server2 sshd[56463]: message repeated 2 times: [ Failed password for invalid user root from 127.0.0.1 port 44032 ssh2]
 ```
 
-## Installation server 1 (agent) 
+## Installation server 2 (agent) 
 
 ```
 apt install ossec-hids-agent 
