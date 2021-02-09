@@ -109,6 +109,38 @@ Confirm the test message was written to the log:
 
 ```
  
+## systemd-journald -> remote logging 
+
+```
+# Step 1
+on both machines:
+main and secondary
+apt install systemd-journal-remote
+
+# Step 1a
+cp -a /lib/systemd/system/systemd-journal-remote.service /etc/systemd/systemd-journal-remote
+# Change line with ExecStart -> param https to http 
+
+# Step 2 
+# on secondary 
+/etc/systemd/journal-upload.cnf
+[Upload]
+URL=http://192.168.56.103:19532
+
+# Step 2a 
+# Start service 
+systemctl start systemd-journal-upload
+systemctl status systemd-journal-upload
+
+# Testing 
+# on main 
+journalctl -f -D /var/log/journal/remote 
+# on seocndary
+logger 'test logging"
+
+``` 
+ 
+ 
 ## Documentation 
 
   * http://schulung.t3isp.de/documents/linux-security.pdf
