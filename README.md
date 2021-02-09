@@ -43,6 +43,9 @@ set superusers='grub'
 password_pbkdf2 grub grub.pbkpdf2.sha512.....
 EOF
 
+##
+chmod a+x /etc/grub.d/01_password 
+
 ## Datei 10_linux 
 ## Variable CLASS
 ## at then 
