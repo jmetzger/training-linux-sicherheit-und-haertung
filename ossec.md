@@ -80,7 +80,7 @@ apt install ossec-hids-agent
 
 ```
 
-## Manage Agent (server 1) on server2 (ossec-server) 
+## Manage Agent (server 2) on server1 (ossec-server) 
 
 ```
  /var/ossec/bin/manage_agents
@@ -104,7 +104,7 @@ Choose your action: A,E,L,R or Q: A
    * An ID for the new agent[001]:
 Agent information:
    ID:001
-   Name:server1
+   Name:server2
    IP Address:10.10.11.141
 
 Confirm adding it?(y/n): y
@@ -123,7 +123,7 @@ Agent added with ID 001.
 Choose your action: A,E,L,R or Q: e
 
 Available agents:
-   ID: 001, Name: server1, IP: 10.10.11.141
+   ID: 001, Name: server2, IP: 10.10.11.141
 Provide the ID of the agent to extract the key (or '\q' to quit): 1
 
 Agent key information for '001' is:
@@ -155,7 +155,7 @@ root@server2:/var/ossec/logs/alerts#
 
 ```
 
-## Import Key on agent - system (server 1) 
+## Import Key on agent - system (server 2) 
 
 ```
  /var/ossec/bin/manage_agents
@@ -177,7 +177,7 @@ Paste it here (or '\q' to quit): MDAxIHNlcnZlcjEgMTAuMTAuMTEuMTQxIDkyMjAyMGQ5NzN
 
 Agent information:
    ID:001
-   Name:server1
+   Name:server2
    IP Address:10.10.11.141
 
 Confirm adding it?(y/n): y
@@ -206,7 +206,7 @@ root@server1:/var/ossec/etc#
 
 ```
 
-### produce problem on server 1 (agent) 
+### produce problem on server 2 (agent) 
 
 ```
 # enter wrong password 3 times 
@@ -255,7 +255,7 @@ root@server2:/var/ossec/rules# vi local_rules.xml
 </group> <!-- SYSLOG,LOCAL -->
 ```
 
-### Restart hids-server (server2) 
+### Restart hids-server (server1) 
 
 ```
  /var/ossec/bin/ossec-control restart
