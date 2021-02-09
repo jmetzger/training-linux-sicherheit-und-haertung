@@ -55,7 +55,18 @@ CLASS="--class gnu-linux ..... --unrestricted"
 update-grub 
 
 ```
-  
+## rsyslog 
+
+```
+# Hyphen before filename : -/..... 
+# is for syncing but enabled by default since 
+https://serverfault.com/questions/463170/what-does-filepath-action-mean-in-rsyslog-configuration
+## it is set on by default anyways 
+# You may prefix each entry with the minus “-‘’ sign to omit syncing the file after every logging.
+```
+
+
+ 
 ## Documentation 
 
   * http://schulung.t3isp.de/documents/linux-security.pdf
