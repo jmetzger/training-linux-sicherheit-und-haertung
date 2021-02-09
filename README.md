@@ -43,6 +43,14 @@ set superusers='grub'
 password_pbkdf2 grub grub.pbkpdf2.sha512.....
 EOF
 
+## Datei 10_linux 
+## Variable CLASS
+## at then 
+## 
+CLASS="--class gnu-linux ..... --unrestricted" 
+
+update-grub 
+
 ```
   
 ## Documentation 
