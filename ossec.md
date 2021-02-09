@@ -228,7 +228,7 @@ server2: /var/ossec/bin/ossec-control restart
 # Please retry to ssh with wrong pw 3 x !!! 
 ```
 
-### Change scan config on server2 ossec.conf 
+### Change scan config on server1 ossec.conf 
 
 ```
 # like so --> first lines 
@@ -245,7 +245,7 @@ server2: /var/ossec/bin/ossec-control restart
 
 ```
 # Adjust local rules 
-root@server2:/var/ossec/rules# vi local_rules.xml
+root@server1:/var/ossec/rules# vi local_rules.xml
   <rule id="554" level="7" overwrite="yes">
      <category>ossec</category>
      <decoded_as>syscheck_new_entry</decoded_as>
