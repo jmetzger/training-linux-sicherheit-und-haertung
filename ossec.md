@@ -213,11 +213,13 @@ root@server1:/var/ossec/etc#
 ssh root@localhost
 ```
 
-### validatte on server 2 (agent)
+### validatte on server 1 (server)
 
 ```
 you should get an email to root 
 please check 
+/var/ossec/logs/alert/alert.log 
+
 
 # if this is not working restart server2 and agent->server1
 server1: /var/ossec/bin/ossec-control restart
