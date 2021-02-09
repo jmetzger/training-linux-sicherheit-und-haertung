@@ -74,6 +74,41 @@ logger -p kern.debug "Testmessage"
 # that one logs to user.* 
 ```
  
+### Walkthrough remote logging ubuntu
+
+```
+/etc/rsyslog.conf.d/99_remote.conf
+
+# Provides UDP syslog reception
+$ModLoad imudp 
+$UDPServerRun 514
+# Provides TCP syslog reception
+$ModLoad imtcp 
+$InputTCPServerRun 514
+
+3. Then restart rsyslog:
+# systemctl restart rsyslog
+4. and generate a test message:
+    
+$ logger -p local0.info 'test logging'
+Confirm the test message was written to the log:
+# tail -n 100 /var/log/messages
+```
+
+```
+# On secondary.example.com
+#/etc/rsyslog.d/99-forward.conf 
+
+# Provides UDP forwarding
+*.*   @192.168.1.10
+# Provides TCP forwarding
+*.*   @@192.168.1.10
+# systemctl restart  rsyslog
+#Test by using the logger utility on the client, secondary.example.com, and view the message on the server, main. example.com.
+#The configuration from this exercise will be used in the next exercise. Please keep the changes.
+
+```
+ 
 ## Documentation 
 
   * http://schulung.t3isp.de/documents/linux-security.pdf
