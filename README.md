@@ -27,6 +27,24 @@ locale
 
   * https://www.shodan.io/
   
+## Secure grub with password (not at boot but for changes and subentries 
+
+```
+#  Create password 
+#  e.g. password 
+grub-mkpasswd-pbkdf2
+
+# /etc/grub.d/01_password 
+#!/bin/sh
+set -e 
+
+cat << EOF 
+set superusers='grub'
+password_pbkdf2 grub grub.pbkpdf2.sha512.....
+EOF
+
+```
+  
 ## Documentation 
 
   * http://schulung.t3isp.de/documents/linux-security.pdf
