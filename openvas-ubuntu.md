@@ -1,5 +1,23 @@
 # OpenVas 
 
+## Installation for version GVM 11 
+
+```
+# Refering to: https://launchpad.net/~mrazavi/+archive/ubuntu/gvm
+sudo add-apt-repository ppa:mrazavi/gvm
+# installation commands is different for 11 
+sudo apt install gvm
+
+greenbone-nvt-sync
+sudo greenbone-scapdata-sync
+sudo greenbone-certdata-sync
+
+systemctl status ospd-openvas # scanner
+systemctl status gvmd # manager
+systemctl status gsad # web ui
+
+```
+
 ## openvas -> gvm (Greenbone Vulnerability Management) / mrazavi 
 
 ```
