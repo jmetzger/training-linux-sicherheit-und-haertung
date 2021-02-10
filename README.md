@@ -171,3 +171,4 @@ semodule -X 300 -i my-httpd.pp
   * Wrong concerning nmap in document
     * : -T5 = insane (quickest option, less accuracy, o.k ?)
     * should be -T5 = insane (most dangerous option, because it can kill running processes on target machine) 
+  * https://github.com/telekomsecurity/TelekomSecurity.Compliance.Framework/blob/master/Linux%20OS%20for%20Servers%20(3.65)/linux.(02)basic-hardening.adoc
