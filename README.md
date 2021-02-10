@@ -145,8 +145,23 @@ journalctl -f -D /var/log/journal/remote
 # on seocndary
 logger 'test logging"
 
-``` 
- 
+```
+
+## setroubleshoot -> alert 
+
+```
+# install setroubleshoot 
+yum install troubleshoot 
+sealert -a /var/log/audit/audit.log
+```
+
+## Create a module and load it 
+
+```
+ausearch -c 'httpd' --raw | audit2allow -M my-httpd
+semodule -X 300 -i my-httpd.pp
+```
+
  
 ## Documentation 
 
