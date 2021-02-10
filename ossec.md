@@ -268,6 +268,7 @@ root@server1:/var/ossec/rules# vi local_rules.xml
 ```
 #it is possible from the hids-server (server1 aka main.example)
 #to do an immediate scan on the agents (server2 aka secondary.example.com) 
+# by restarting agent
 
-/var/ossec/bin/agent_control -r -a
+/var/ossec/bin/agent_control -R 001
 ```
