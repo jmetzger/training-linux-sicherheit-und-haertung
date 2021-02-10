@@ -57,4 +57,27 @@ unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/html/index.html
 # open in browser again
 # http://<yourip>
 # Now testpage works again
+```
 
+## setroubleshoot to find problems 
+
+```
+yum install setroubleshoot 
+sealert -a /var/log/audit/audit.log 
+# see how to fix 
+```
+
+## Create module 
+```
+setenforce 0
+# replay situation, like opening page in webbrowser -> httpd 
+# analyse logs 
+ausearch -c 'httpd' --raw | audit2allow -M my-httpd
+semodule -i my-httpd.pp
+setenforce 1
+# retest- should work now 
+```
+
+## Docs 
+
+  * http://schulung.t3isp.de/documents/linux-security.pdf
