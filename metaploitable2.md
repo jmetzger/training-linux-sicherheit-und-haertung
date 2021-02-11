@@ -14,3 +14,8 @@ echo "Content-type: text/html"
 echo ""
 echo "Hello world!"
 ```
+
+```
+# chmod u+x is not sufficient 
+chmod 755 hello.sh
+```
