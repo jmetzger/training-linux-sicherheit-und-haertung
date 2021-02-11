@@ -55,6 +55,9 @@ root@host [~]# nft add rule inet filter input tcp dport \{ ssh, telnet, https, h
 
 #To show rule handles:
 root@host [~]# nft --handle --numeric list chain family table chain
+# show handles and numbers 
+nft --handle --numeric list ruleset
+
 
 #To delete a rule:
 root@host [~]# nft delete rule inet filter input handle 3
