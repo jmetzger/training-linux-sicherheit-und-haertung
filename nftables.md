@@ -159,16 +159,25 @@ table inet firewall {
   * https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_server
 
 
+## Some commands ;o
 
+```
+# add chain 
+# lower priority first
+nft add chain inet example_table example_chain { type filter hook input priority 10 \; policy drop \; }
+
+## append at the end 
+nft add rule inet my_table my_filter_chain tcp dport ssh accept
+
+## add at the beginning
+nft insert rule inet my_table my_filter_chain tcp dport http accept
+
+```
 
 ## revert back to iptables 
 ```
 ‘firewallbackend‘ entry in /etc/firewalld/firewalld.conf back to ‘iptables‘,
 ```
-
-
-
-
 
 
 ## References 
