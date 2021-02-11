@@ -9,6 +9,7 @@
 ```
 cd /usr/lib/cgi-bin
 # sudo hello.sh
+#!/bin/bash
 echo "Content-type: text/html"
 echo ""
 echo "Hello world!"
