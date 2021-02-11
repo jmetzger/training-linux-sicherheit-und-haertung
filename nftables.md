@@ -186,4 +186,5 @@ nft insert rule inet my_table my_filter_chain tcp dport http accept
 ## References 
 
   * https://www.liquidweb.com/kb/how-to-install-nftables-in-ubuntu/
-  * 
+  * https://wiki.nftables.org/wiki-nftables/index.php/Configuring_chains#Base_chain_priority
+
