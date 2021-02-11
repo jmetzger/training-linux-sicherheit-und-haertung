@@ -48,7 +48,7 @@ root@host [~]# nft list ruleset
 root@host [~]# nft add table inet filter
 
 #Add a new chain, to accept all inbound traffic:
-root@host [~]# nft add chain inet filter input \{ type filter hook input priority 0 \; policy accept \}
+root@host [~]# nft add chain inet filter input \{ type filter hook input priority 10 \; policy drop \}
 
 #Add a new rule, to accept several TCP ports:
 root@host [~]# nft add rule inet filter input tcp dport \{ ssh, telnet, https, http \} accept
