@@ -19,3 +19,12 @@ echo "Hello world!"
 # chmod u+x is not sufficient 
 chmod 755 hello.sh
 ```
+
+## Start attack from Kali (192.168.56.109) 
+
+```
+# per ssh 
+msfconsole
+search shellshock 
+etc.
+```
