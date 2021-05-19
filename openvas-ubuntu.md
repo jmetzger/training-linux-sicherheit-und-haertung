@@ -11,6 +11,22 @@ mkdir ubuntu
 cd ubuntu
 vagrant init  
 ```
+
+## Installation for version GVM 20.08 (2021-05-19) 
+
+```
+Variant 1:
+Install on Ubuntu Server 20.04:
+as follows:
+https://launchpad.net/~mrazavi/+archive/ubuntu/gvm
+
+or 
+Variant 2:
+docker-container 
+https://github.com/admirito/gvm-containers
+```
+
+
 ## Installation for version GVM 11 
 
 
