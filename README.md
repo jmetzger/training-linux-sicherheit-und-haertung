@@ -1,6 +1,6 @@
 # Notes for Linux Foundation Training 02/2021 
 
-## Docs 
+## Agenda 
 
   1. [Installation ossec on Ubuntu](ossec.md)
   2. [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
