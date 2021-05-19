@@ -11,7 +11,7 @@
   1. [Install Metasploitable 2](metasploitable2.md)
   1. [ssh-ca](ssh-ca.md)
   1. Hardening 
-     [Kernel Hardening](kernel-hardening.md)
+    * Kernel Hardening](kernel-hardening.md)
   1. [Hacking](hacking.md)
 
 
