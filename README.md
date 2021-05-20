@@ -11,7 +11,8 @@
   1. [Install Metasploitable 2](metasploitable2.md)
   1. [ssh-ca](ssh-ca.md)
   1. Securing Network Services 
-     * [Securing Tomcat (Standalone)](securing-tomcat.md)  
+     * [Securing Tomcat (Standalone)](securing-tomcat.md) 
+     * [SSH](securing-ssh.md) 
   1. Kernel Hardening 
      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
      * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
