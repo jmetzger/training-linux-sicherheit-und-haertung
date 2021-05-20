@@ -3,7 +3,9 @@
 ## Agenda 
 
   1. [Installation ossec on Ubuntu](ossec.md)
-  1. [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
+  1. Vulnerability Scans 
+     * [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
+     * [Nikto - commandline](nikto.md) 
   1. [SELinux including Walkthrough](selinux.md)
   1. [ReverseShell](reverse-shell.md)
   1. [nftables](nftables.md)
