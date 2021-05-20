@@ -2,7 +2,7 @@
 
 ## Tools 
 
-  * https://www.ssh-audit.com/hardening_guides.html>
+  * https://www.ssh-audit.com/hardening_guides.html
 
 ## Ref:
 
