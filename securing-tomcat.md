@@ -66,6 +66,11 @@ java.lang.Exception /error.jsp
 Start tomcat with open "-security"
 This imposes the security manager 
 
+# debian 10 
+# Enable SECURITY_MANAGER = true 
+# in /etc/default/tomcat9 
+
+https://tomcat.apache.org/tomcat-9.0-doc/security-manager-howto.html
 ```
 
 ## Ref: 
