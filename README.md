@@ -14,7 +14,8 @@
      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
      * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
   1. Hacking 
-     * [Hacking - ShellShock (unprivileged permissions)](hacking.md)
+     * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
+     * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
  
 
 ## Change language on Ubuntu 
