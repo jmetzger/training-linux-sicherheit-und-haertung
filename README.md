@@ -11,7 +11,7 @@
   1. [Install Metasploitable 2](metasploitable2.md)
   1. [ssh-ca](ssh-ca.md)
   1. Kernel Hardening 
-     * [Kernel Hardening](kernel-hardening.md)
+     * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
      * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
   1. [Hacking](hacking.md)
 
