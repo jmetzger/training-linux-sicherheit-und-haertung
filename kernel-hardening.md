@@ -3,8 +3,8 @@
 ## Hardening params 
 
 ```
-# avoid live patching of kernel 
-kernel.kexec_load_disabled=1
+# Prevent loading of modules after a specific timeframe after boot
+kernel.modules_disabled=1
 
 # Disable live patching 
 kernel.kexec_load_disabled=1
