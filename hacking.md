@@ -6,7 +6,8 @@
 # metasploitable 2 should be up and running 
 
 # Step 1:
-
+# als root: sudo su 
+# password: msfadmin 
 cd /usr/lib/cgi-bin
 vi hello.sh
 # --> content (#! /bin/bash will be the first line 
