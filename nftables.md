@@ -160,6 +160,7 @@ table inet firewall {
 ### Ref: 
 
   * https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_server
+  * https://firewalld.org/documentation/man-pages/firewalld.conf.html
 
 
 ## Some commands ;o
