@@ -38,6 +38,48 @@ tcpdump -A -s0 port 80
 
 ```
 
+## Only from and/or to a specific host 
+
+```
+# to or from host
+tcpdump -i eth0 host 10.10.1.1
+
+# To a specific host 
+tcpdump -i eth0 dst 10.10.1.20
+```
+
+## Write to a pcap file 
+
+```
+
+
+```
+
+## Only show GET requests 
+
+```
+# this show only all tcp packages 
+tcpdump -i eth0 tcp 
+
+# now let us filter specific ones -> 0x474554 -> is equivalent for GET as hex - numbers 
+# https://www.torsten-horn.de/techdocs/ascii.htm
+# tcp header has 20 bytes and maximum of 60 bytes, allowing for up to 40 bytes of options in the header.
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
+
+# Same goes for post - operations 
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
+
+```
+
+
+
+
+# Deeply explained here
+https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp121-0xf0-24
+
+```
+
+
 
 ## Refs: 
 
