@@ -6,6 +6,8 @@
      * [Examples tcpdump](tcpdump-examples.md)  
   1. OSSEC 
      * [Installation ossec on Ubuntu](ossec.md)
+  1. aide 
+     * [AIDE on Ubuntu/Debian](aide.md)  
   1. Vulnerability Scans 
      * [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
      * [Nikto - commandline](nikto.md) 
