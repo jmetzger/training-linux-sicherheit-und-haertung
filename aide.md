@@ -1,4 +1,4 @@
-# Aide (Ubuntu) 
+# Aide (Debian/Ubuntu) 
 
 ## Install
 
@@ -7,6 +7,10 @@ apt install aide
 # adjust config 
 # /etc/aide.conf /etc/aide.conf.d <- rules 
 aideinit 
+
+# To use it, we have to move it 
+# Right position in Debian ? 
+mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 ```
 
 ## Backup 
