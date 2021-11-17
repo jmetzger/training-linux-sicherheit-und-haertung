@@ -1,4 +1,4 @@
-# OSSEC and Wazuh 
+# OSSEC and Wazuh (Ubuntu)
 
 ## Wazuh
 
