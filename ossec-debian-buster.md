@@ -1,10 +1,52 @@
+# OSSEC and Wazuh (Debian Buster)
+
+## Wazuh
+
+```
+# Fork / Weiterentwicklung
+https://wazuh.com/
+
+```
+
+## Important 
+
+```
+Currently as of 2021-11-17 there no precombiled packages for bullseye (Debian 11) 
+```
 
 
+## OSSEC -> Installation 
+
+```
+## Install on 2 servers 
+## server 1: ossec-hids-server
+## server 2: ossec-hids-agent 
+
+# https://www.ossec.net/downloads/#apt-automated-installation-on-ubuntu-and-debian
+# Installs repo-config but not correctly ! 
+wget -q -O - https://updates.atomicorp.com/installers/atomic | sudo bash
+
+```
+
+```
+# Install ossec-hids-server 
+apt install ossec-hids-server 
+
+# adjust /var/ossec/etc/ossec.conf 
+<ossec_config>
+  <global>
+    <email_notification>yes</email_notification>
+    <email_to>root@localhost</email_to>
+    <smtp_server>127.0.0.1</smtp_server>
+    <email_from>ossec@localhost</email_from>
+  </global>
+  
 ```
 
 ```
 # Start 
 /var/ossec/bin/ossec-control start 
+
 ```
 
 ## Testing on server 1
