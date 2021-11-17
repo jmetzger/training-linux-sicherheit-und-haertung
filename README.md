@@ -2,7 +2,10 @@
 
 ## Agenda 
 
-  1. [Installation ossec on Ubuntu](ossec.md)
+  1. Wireshark / tcpdump 
+     * [Example tcpdump](tcpdump-examples.md)  
+  1. OSSEC 
+     * [Installation ossec on Ubuntu](ossec.md)
   1. Vulnerability Scans 
      * [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
      * [Nikto - commandline](nikto.md) 
