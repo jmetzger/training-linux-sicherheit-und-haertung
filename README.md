@@ -28,6 +28,8 @@
   11. Hacking 
      * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
      * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
+  12. Documentation 
+     * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
  
 
 ## Change language on Ubuntu 
