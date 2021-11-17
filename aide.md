@@ -8,9 +8,9 @@ apt install aide
 # /etc/aide.conf /etc/aide.conf.d <- rules 
 aideinit 
 
-# To use it, we have to move it 
-# Right position in Debian ? 
-mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+# No necessary on Debian / Ubuntu 
+# aideinit does this 
+# mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 ```
 
 ## Backup 
