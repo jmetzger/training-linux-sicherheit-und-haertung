@@ -3,32 +3,34 @@
 ## Agenda 
 
   1. Wireshark / tcpdump 
-     * [Examples tcpdump](tcpdump-examples.md)  
-  1. OSSEC 
+     * [Examples tcpdump](tcpdump-examples.md) 
+  1. nmap 
+     * [Example nmap](nmap.md) 
+  3. OSSEC 
      * [Installation ossec on Ubuntu](ossec.md)
-  1. aide 
+  4. aide 
      * [AIDE on Ubuntu/Debian](aide.md)  
-  1. Vulnerability Scans 
+  5. Vulnerability Scans 
      * [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
      * [Nikto - commandline](nikto.md) 
-  1. Disk Managemenet 
+  6. Disk Managemenet 
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
-  3. [SELinux including Walkthrough](selinux.md)
-  4. [ReverseShell](reverse-shell.md)
-  5. [nftables](nftables.md)
-  6. [Security Docker](security-docker.md)
-  7. [Install Metasploitable 2](metasploitable2.md)
-  8. [ssh-ca](ssh-ca.md)
-  9. Securing Network Services 
+  7. [SELinux including Walkthrough](selinux.md)
+  8. [ReverseShell](reverse-shell.md)
+  9. [nftables](nftables.md)
+  10. [Security Docker](security-docker.md)
+  11. [Install Metasploitable 2](metasploitable2.md)
+  12. [ssh-ca](ssh-ca.md)
+  13. Securing Network Services 
      * [Securing Tomcat (Standalone)](securing-tomcat.md) 
      * [SSH](securing-ssh.md) 
-  10. Kernel Hardening 
+  14. Kernel Hardening 
       * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
       * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
-  11. Hacking 
+  15. Hacking 
       * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
       * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
-  12. Documentation 
+  16. Documentation 
       * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
  
 
