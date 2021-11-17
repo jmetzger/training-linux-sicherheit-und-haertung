@@ -26,11 +26,17 @@ tcpdump -i ens3 -nn
 ```
 tcpdump ! -p stp -i eth0 
 # more user friendly 
-tcpdump -i eth0 not stp and not arp
-
+tcpdump -i eth0 not stp and not icmp
 ```
 
+## Include ascii output 
 
+```
+# s0 show unlimited content 
+# -A ASCII 
+tcpdump -A -s0 port 80
+
+```
 
 
 ## Refs: 
