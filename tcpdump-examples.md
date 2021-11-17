@@ -73,12 +73,18 @@ tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
 
 
 
-
+```
 # Deeply explained here
 https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp121-0xf0-24
 
 ```
 
+## Extra http get/post urls 
+
+```
+tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
+
+```
 
 
 ## Refs: 
