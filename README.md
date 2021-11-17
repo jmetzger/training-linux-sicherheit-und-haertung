@@ -9,19 +9,21 @@
   1. Vulnerability Scans 
      * [OpenVAS Installation on Ubuntu](openvas-ubuntu.md)
      * [Nikto - commandline](nikto.md) 
-  1. [SELinux including Walkthrough](selinux.md)
-  1. [ReverseShell](reverse-shell.md)
-  1. [nftables](nftables.md)
-  1. [Security Docker](security-docker.md)
-  1. [Install Metasploitable 2](metasploitable2.md)
-  1. [ssh-ca](ssh-ca.md)
-  1. Securing Network Services 
+  1. Disk Managemenet 
+     * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
+  3. [SELinux including Walkthrough](selinux.md)
+  4. [ReverseShell](reverse-shell.md)
+  5. [nftables](nftables.md)
+  6. [Security Docker](security-docker.md)
+  7. [Install Metasploitable 2](metasploitable2.md)
+  8. [ssh-ca](ssh-ca.md)
+  9. Securing Network Services 
      * [Securing Tomcat (Standalone)](securing-tomcat.md) 
      * [SSH](securing-ssh.md) 
-  1. Kernel Hardening 
+  10. Kernel Hardening 
      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
      * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
-  1. Hacking 
+  11. Hacking 
      * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
      * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
  
