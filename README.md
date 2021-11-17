@@ -23,13 +23,13 @@
      * [Securing Tomcat (Standalone)](securing-tomcat.md) 
      * [SSH](securing-ssh.md) 
   10. Kernel Hardening 
-     * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
-     * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
+      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
+      * [Disable TCP timestamps](kernel-disable-tcp-timestamps.md)
   11. Hacking 
-     * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
-     * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
+      * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
+      * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
   12. Documentation 
-     * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
+      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
  
 
 ## Change language on Ubuntu 
