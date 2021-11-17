@@ -82,6 +82,7 @@ https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp1
 ## Extra http get/post urls 
 
 ```
+# show linewise 
 tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
 
 ```
