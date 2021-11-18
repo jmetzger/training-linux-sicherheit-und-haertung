@@ -1,15 +1,19 @@
 # OpenVas 
 
-## Vagrant 
+## Working with Vagrant 
 
 ```
+## 1. Install: 
 virtualbox 
 vagrant 
 git for windows 
-# 
+## 2. Create the box
+# click context-menu -> git bash here 
 mkdir ubuntu 
 cd ubuntu
-vagrant init  
+vagrant init ubuntu/focal   
+vagrant up 
+vagrant ssh # log into the box 
 ```
 
 ## Installation for version GVM 20.08 (2021-05-19) 
@@ -22,7 +26,7 @@ https://launchpad.net/~mrazavi/+archive/ubuntu/gvm
 
 or 
 Variant 2:
-docker-container 
+docker-container (not tested from my side)  
 https://github.com/admirito/gvm-containers
 ```
 
