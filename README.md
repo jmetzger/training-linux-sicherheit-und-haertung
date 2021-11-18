@@ -5,6 +5,7 @@
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
      * [Example nmap](nmap.md) 
+     * [Detect nmap scans on server](https://nmap.org/book/nmap-defenses-detection.html)
 
   1. Host Intrusion Detection 
      * [Installation ossec on Ubuntu](ossec.md)
