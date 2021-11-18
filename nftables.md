@@ -13,6 +13,14 @@ In nftables, there are no default chains or tables.
 Starting from Ubuntu 20.10 it will be the default system -> nftables 
 ```
 
+## nftables in Debian 
+
+```
+nftables are use by default in Debian 10,11 
+(by using iptables -> which are translate to nft) 
+```
+
+
 ## Walkthrough / migration to nftables 
 
 ### take care of current rules 
