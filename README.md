@@ -14,6 +14,7 @@
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
 
   1. SELinux / appArmor  
+     * [Install selinux on Debian](selinux-debian.md)
      * [SELinux including Walkthrough](selinux.md)
 
   1. Firewall 
@@ -43,6 +44,7 @@
 
   1. Documentation 
       * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
+      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
  
 
 ## Change language on Ubuntu 
@@ -200,11 +202,5 @@ ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -X 300 -i my-httpd.pp
 ```
 
- 
-## Documentation 
 
-  * http://schulung.t3isp.de/documents/linux-security.pdf
-  * Wrong concerning nmap in document
-    * : -T5 = insane (quickest option, less accuracy, o.k ?)
-    * should be -T5 = insane (most dangerous option, because it can kill running processes on target machine) 
-  * https://github.com/telekomsecurity/TelekomSecurity.Compliance.Framework/blob/master/Linux%20OS%20for%20Servers%20(3.65)/linux.(02)basic-hardening.adoc
+  
