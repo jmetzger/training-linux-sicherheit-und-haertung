@@ -11,6 +11,9 @@
      * [Installation ossec on Ubuntu](ossec.md)
      * [AIDE on Ubuntu/Debian](aide.md)  
   
+  1. Logging 
+     * [Remote logging with rsyslog and tls](rsyslog-remote-logging.md)
+  
   1. Disk Managemenet 
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
 
