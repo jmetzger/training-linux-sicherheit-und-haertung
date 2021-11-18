@@ -19,6 +19,12 @@ aideinit
 tar czvf initial-aide.tgz /etc/aide/aide.conf /usr/bin/aide /var/lib/aide/aide.db.new
 ```
 
+## Simulate modification 
+
+```
+echo "11.11.11.11 bad.host.com bad" >> /etc/hosts
+```
+
 ## Do the check 
 
 ```
