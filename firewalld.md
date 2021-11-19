@@ -1,19 +1,7 @@
 # firewalld
 
-## Install firewalld and restrict ufw 
+## Install firewalld 
 
-```
-apt install firewalld 
-systemctl status firewalld 
-systemctl status ufw 
-
-# ufw service is still running, but :
-ufw status
--> disabled # this has to be the case 
-
-# 
-systemctl disable --now ufw.service 
-```
 
 
 ## Is firewalld running ?
@@ -139,6 +127,22 @@ firewall-cmd --runtime-to-permanent
 
 
 ```
+
+## Install firewalld and restrict ufw (Ubuntu) 
+
+```
+apt install firewalld 
+systemctl status firewalld 
+systemctl status ufw 
+
+# ufw service is still running, but :
+ufw status
+-> disabled # this has to be the case 
+
+# 
+systemctl disable --now ufw.service 
+```
+
 
 
 ## References 
