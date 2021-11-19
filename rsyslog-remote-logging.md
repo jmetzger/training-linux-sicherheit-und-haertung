@@ -83,4 +83,4 @@ logger "Does this work"
 /var/log/messages 
 
 # <- should be in both log files 
-
+```
