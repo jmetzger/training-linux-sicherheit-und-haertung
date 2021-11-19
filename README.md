@@ -23,6 +23,9 @@
      * [SELinux Troubleshooting on Debian](selinux-troubleshooting-debian.md)
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
 
+  1. Docker / Seccomp 
+     * [Restricting Syscall in Docker](https://raw.githubusercontent.com/docker/labs/master/security/seccomp/seccomp-profiles/default.json)
+
   1. Firewall 
      * [nftables](nftables.md)
      * [firewalld](firewalld.md)
