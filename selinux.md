@@ -1,5 +1,18 @@
 # SELinux
 
+## context ändern und wiederherstellen 
+
+```
+cd /var/www/html
+echo "hallo welt" > welt.html 
+chcon -t var_t welt.html
+# when enforcing fehler beim aufruf im Browser 
+
+# herstellen auf basis der policies 
+restorecon -vr /var/www/html 
+```
+
+
 ## Walkthrough 
 
 ```
