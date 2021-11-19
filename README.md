@@ -25,6 +25,7 @@
 
   1. Firewall 
      * [nftables](nftables.md)
+     * [firewalld](firewalld.md)
   
   1. Kernel Hardening 
      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
