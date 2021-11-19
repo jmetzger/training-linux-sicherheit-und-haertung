@@ -69,9 +69,10 @@ public
 
 ```
 
-## Show services 
+## Show services / show service details (Which ports?)
 ```
 firewall-cmd --get-services 
+firewall-cmd --info-service=http 
 ```
 ## Adding/Removing a service 
 
