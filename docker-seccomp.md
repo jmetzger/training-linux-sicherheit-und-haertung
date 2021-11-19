@@ -14,3 +14,8 @@ docker run --rm -it --security-opt seccomp=no-chmod.json alpine sh
 / # chmod 777 /etc/services
 chmod: /etc/services: Operation not permitted
 ```
+
+## References 
+
+  * https://docs.docker.com/engine/security/seccomp/
+  * https://martinheinz.dev/blog/41
