@@ -20,6 +20,7 @@
   1. SELinux / appArmor  
      * [Install selinux on Debian](selinux-debian.md)
      * [SELinux including Walkthrough](selinux.md)
+     * [SELinux Troubleshooting on Debian](selinux-troubleshooting-debian.md)
 
   1. Firewall 
      * [nftables](nftables.md)
