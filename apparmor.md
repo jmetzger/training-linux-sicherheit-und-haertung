@@ -56,3 +56,6 @@ sudo rm /etc/apparmor.de/disable/<profile>
 cat /etc/apparmor.d/<profile> | sudo apparmor_parser -a
 ```
 
+## Reference 
+
+  * https://wiki.debian.org/AppArmor/HowToUse
