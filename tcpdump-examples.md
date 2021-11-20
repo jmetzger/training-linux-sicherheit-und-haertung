@@ -85,7 +85,7 @@ https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp1
 # show linewise 
 tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
 
-```
+
 
 
 ## Refs: 
