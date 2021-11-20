@@ -201,6 +201,8 @@ logger 'test logging"
 ## setroubleshoot -> alert 
 
 ```
+### as of 2021-11-21
+### Only available on Centos/Redhat/Rocky.. but not Ubuntu/Debian !! 
 # install setroubleshoot 
 yum install troubleshoot 
 sealert -a /var/log/audit/audit.log
