@@ -14,6 +14,7 @@
   1. Logging 
      * [Overview Logging Systems](logging.md) 
      * [Remote logging with rsyslog and tls](rsyslog-remote-logging.md)
+     * [Remote logging with rsyslog and tls](rsyslog-remote-logging.md)
   
   1. Disk Managemenet 
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
