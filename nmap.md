@@ -3,6 +3,13 @@
 ## Example 1 
 
 ```
+# including additional information 
+nmap -A main.training.local 
+```
+
+## Example 2 
+
+```
 Server 1:
 nmap -p 80 --script=http-enum.nse targetip 
 
