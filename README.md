@@ -12,6 +12,7 @@
      * [AIDE on Ubuntu/Debian](aide.md)  
   
   1. Logging 
+     * [Overview Logging Systems](logging.md) 
      * [Remote logging with rsyslog and tls](rsyslog-remote-logging.md)
   
   1. Disk Managemenet 
