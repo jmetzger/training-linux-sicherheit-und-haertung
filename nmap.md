@@ -7,7 +7,15 @@
 nmap -A main.training.local 
 ```
 
-## Example 2 
+## Example 2
+
+```
+# ping target system 
+nmap -sP main
+```
+
+
+## Example 3 
 
 ```
 Server 1:
