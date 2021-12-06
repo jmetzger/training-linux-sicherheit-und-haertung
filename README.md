@@ -53,6 +53,9 @@
      * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
      * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
 
+  1. Basics 
+     * [Type of Attackers](attackers.md) 
+
   1. Documentation 
       * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
       * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
