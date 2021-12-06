@@ -58,6 +58,7 @@
 
   1. Basics 
      * [Type of Attackers](attackers.md) 
+     * [Basic Principles](basic-principles-security.md) 
 
   1. Documentation 
       * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
