@@ -51,7 +51,7 @@ tcpdump -i eth0 dst 10.10.1.20
 ## Write to a pcap file 
 
 ```
-
+tcpdump -i eth0 -w output.pcap 
 
 ```
 
@@ -84,6 +84,9 @@ https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp1
 ```
 # show linewise 
 tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
+
+# show linewise only using port http
+tcpdump -s 0 -v -n -l port http and not port ssh | egrep -i "POST /|GET /|Host:"
 
 ```
 
