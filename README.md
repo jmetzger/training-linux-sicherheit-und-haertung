@@ -1,4 +1,4 @@
-# Linux Security 
+# Linux Security and Hardening 
 
 ## Agenda 
 
