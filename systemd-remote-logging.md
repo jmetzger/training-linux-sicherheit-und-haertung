@@ -12,4 +12,14 @@ dnf install -y systemd-journal-remote
 ExecStart=
 ExecStart=/usr/lib/systemd/systemd-journal-remote --listen-http=-3 --output=/var/log/journal/remote/
 
+systemctl enable --now systemd-journal-remote 
+
+
+# on secondary adjust URL= in /etc/systemd/journal-upload.conf 
+[Upload]
+URL=http://192.168.33.10:19532
+
+# Restart upload - daemon 
+systemctl enable --now systemd-journal-upload 
+
 ```
