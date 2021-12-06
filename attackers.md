@@ -1,4 +1,7 @@
-# Attackers 
+# Security Basics
+
+
+## Attackers 
 
   * White Hat 
   * Black Hat 
@@ -8,3 +11,18 @@
   * Organized Crimes 
   * Bots 
 
+## Active 
+
+  * Denial-of-service 
+  * Spoofing 
+  * Port Scanning 
+  * Network 
+
+## Passive 
+ 
+  * Wiretapping
+    * Ethernet 
+    * WiFi 
+    * USB 
+    * Mobile 
+ 
