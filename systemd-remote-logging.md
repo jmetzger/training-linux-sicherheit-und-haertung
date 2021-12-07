@@ -37,28 +37,10 @@ systemctl enable --now systemd-journal-upload
 # Troubelshooting on secondary 
 # according to: 
 ```
-
-  * [Troubleshooting a service on Centos (SELINUX)]()
-
-## Assumption: Golden Rule of Centos/Redhat 
-!!! If everything looks nice (permissions), but NOT START 
-it MIGHT BE selinux <-- !!! 
-
-## Check 1: Does service start in permissive mode of selinux  
-sestatus
-setenforce 0 
+  * [Troubleshooting a service on Centos (SELINUX)](selinux-troubleshooting-centos.md)
 
 
-dnf whatprovides sealert 
-dnf install -y setroubleshoot-server 
-cd /var/log/audit
-# this take a little while - grab some coffee 
-sealert -a audit.log > report.txt
-
-# now look into the report.txt.
-# in most there are 2-3 solutions for you problem 
-
-
+```
 # on secondary 
 logger -p local0.info testlogeintrag 
 # show entries 
