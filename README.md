@@ -86,10 +86,7 @@ locale
 locale 
 ```
 
-## tcpdump 
 
-  * https://danielmiessler.com/study/tcpdump/
-  
 ## Patching of packages (e.g.) 
  
   * Ubuntu will patch packages when CVE's occur 
@@ -146,88 +143,3 @@ logger -p kern.debug "Testmessage"
 # that one logs to user.* 
 ```
  
-### Walkthrough remote logging ubuntu
-
-```
-/etc/rsyslog.conf.d/99_remote.conf
-
-# Provides UDP syslog reception
-$ModLoad imudp 
-$UDPServerRun 514
-# Provides TCP syslog reception
-$ModLoad imtcp 
-$InputTCPServerRun 514
-
-3. Then restart rsyslog:
-# systemctl restart rsyslog
-4. and generate a test message:
-    
-$ logger -p local0.info 'test logging'
-Confirm the test message was written to the log:
-# tail -n 100 /var/log/messages
-```
-
-```
-# On secondary.example.com
-#/etc/rsyslog.d/99-forward.conf 
-
-# Provides UDP forwarding
-*.*   @192.168.1.10
-# Provides TCP forwarding
-*.*   @@192.168.1.10
-# systemctl restart  rsyslog
-#Test by using the logger utility on the client, secondary.example.com, and view the message on the server, main. example.com.
-#The configuration from this exercise will be used in the next exercise. Please keep the changes.
-
-```
- 
-## systemd-journald -> remote logging 
-
-```
-# Step 1
-on both machines:
-main and secondary
-apt install systemd-journal-remote
-
-# Step 1a
-cp -a /lib/systemd/system/systemd-journal-remote.service /etc/systemd/systemd-journal-remote
-# Change line with ExecStart -> param https to http 
-
-# Step 2 
-# on secondary 
-/etc/systemd/journal-upload.cnf
-[Upload]
-URL=http://192.168.56.103:19532
-
-# Step 2a 
-# Start service 
-systemctl start systemd-journal-upload
-systemctl status systemd-journal-upload
-
-# Testing 
-# on main 
-journalctl -f -D /var/log/journal/remote 
-# on seocndary
-logger 'test logging"
-
-```
-
-## setroubleshoot -> alert 
-
-```
-### as of 2021-11-21
-### Only available on Centos/Redhat/Rocky.. but not Ubuntu/Debian !! 
-# install setroubleshoot 
-yum install troubleshoot 
-sealert -a /var/log/audit/audit.log
-```
-
-## Create a module and load it 
-
-```
-ausearch -c 'httpd' --raw | audit2allow -M my-httpd
-semodule -X 300 -i my-httpd.pp
-```
-
-
-  
