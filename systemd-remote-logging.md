@@ -35,6 +35,10 @@ systemctl enable --now systemd-journal-upload
 
 ```
 # Troubelshooting on secondary 
+# according to: 
+```
+
+  * [Troubleshooting a service on Centos (SELINUX)]()
 
 ## Assumption: Golden Rule of Centos/Redhat 
 !!! If everything looks nice (permissions), but NOT START 
