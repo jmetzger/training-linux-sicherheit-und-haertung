@@ -7,6 +7,9 @@
      * [Example nmap](nmap.md) 
      * [Detect nmap scans on server](https://nmap.org/book/nmap-defenses-detection.html)
 
+  1. Network Intrusion Detection 
+    * [Overview](nids-overview.md) 
+
   1. Host Intrusion Detection 
      * [Overview](hids-overview.md) 
      * [Installation ossec on Ubuntu](ossec.md)
