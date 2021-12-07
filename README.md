@@ -63,6 +63,7 @@
   1. Basics 
      * [Type of Attackers](attackers.md) 
      * [Basic Principles](basic-principles-security.md) 
+     * [Kill Chain](kill-chain.md) 
    
   1. Server Automation 
      * [gitops by example (Ansible)](gitops-by-example.md) 
