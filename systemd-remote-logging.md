@@ -6,7 +6,9 @@
 # Install on main and secondary 
 dnf install -y systemd-journal-remote 
 
-# on main modify systemd-journal-remote 
+# on main modify systemd-journal-remote
+# Find info by:
+# systemctl cat systemd-journal-remote 
 # systemctl edit systemd-journal-remote 
 [Service]
 ExecStart=
@@ -22,5 +24,10 @@ URL=http://192.168.33.10:19532
 
 # Restart upload - daemon 
 systemctl enable --now systemd-journal-upload 
+
+# Result -> failed 
+# systemctl status systemd-journal-upload 
+# o http://192.168.33.10:19532/upload failed: Couldn't connect to server
+
 
 ```
