@@ -13,7 +13,17 @@
      * up to this, keys still are in Memory 
      * Attack szenarion (cold-boot)   
 
+## Wichtig AES128/AES256
+
+  * OPAL2.0 / OPAAL Enterprise
+  * FIPS 140.x 
+
 ## Advantages LUKS 
 
    * Possible to not encrypt complete disk, but also files or partitions 
    * Can use TPM together with 
+
+## Disadvantages LUKS 
+
+   * Overhead performance because sofware encryption decryption (25-35% overhead) 
+ 
