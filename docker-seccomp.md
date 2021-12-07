@@ -5,7 +5,9 @@
 ```
 # Step 1: Download default.json 
 # From:
-# https://raw.githubusercontent.com/docker/labs/master/security/seccomp/seccomp-profiles/default.json
+# 
+cd /usr/src 
+wget https://raw.githubusercontent.com/docker/labs/master/security/seccomp/seccomp-profiles/default.json
 
 # Step 2: remove chmod from syscall in json + rename file to no-chmod.json 
 
