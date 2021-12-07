@@ -12,8 +12,8 @@ https://wazuh.com/
 
 ```
 ## Install on 2 servers 
-## server 1: ossec-hids-server
-## server 2: ossec-hids-agent 
+## server 1 (main): ossec-hids-server
+## server 2 (secondary): ossec-hids-agent 
 
 # https://www.ossec.net/downloads/#apt-automated-installation-on-ubuntu-and-debian
 # Installs repo-config but not correctly ! 
