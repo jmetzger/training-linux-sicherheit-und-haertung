@@ -13,6 +13,7 @@
   1. Host Intrusion Detection 
      * [Overview](hids-overview.md) 
      * [Installation ossec on Ubuntu](ossec.md)
+     * [Installation/Walkthrough ossec on Centos 8](ossec-centos8.md)
      * [AIDE on Ubuntu/Debian](aide.md)  
   
   1. Logging 
