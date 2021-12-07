@@ -29,5 +29,14 @@ systemctl enable --now systemd-journal-upload
 # systemctl status systemd-journal-upload 
 # o http://192.168.33.10:19532/upload failed: Couldn't connect to server
 
+# on secondary 
+logger -p local0.info testlogeintrag 
+# show entries 
+journalctl -e | grep testlogeintrag 
+
+# on main 
+# Show entries of log-directory of journal (systemd) 
+journalctl -D /var/log/journal/remote 
+
 
 ```
