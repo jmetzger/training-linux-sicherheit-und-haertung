@@ -12,7 +12,7 @@ nikto -h http://main
 
 ```
 # root do 
-dnf install -y git 
+dnf install -y perl git 
 cd /root  
 git clone https://github.com/sullo/nikto
 cd nikto/program 
