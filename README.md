@@ -8,6 +8,7 @@
      * [Detect nmap scans on server](https://nmap.org/book/nmap-defenses-detection.html)
 
   1. Host Intrusion Detection 
+     * [Overview](hids-overview.md) 
      * [Installation ossec on Ubuntu](ossec.md)
      * [AIDE on Ubuntu/Debian](aide.md)  
   
