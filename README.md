@@ -52,7 +52,8 @@
 
   1. Hacking 
      * [Install Metasploitable 2](metasploitable2.md)
-     * [Install Metasploit on Digitalocean (Ubuntu)](https://secprentice.medium.com/how-to-build-inexpensive-red-team-infrastructure-dfb6af0fe15d)
+     * [Install Metasploit on Digitalocean - Version 1 (Ubuntu)](https://secprentice.medium.com/how-to-build-inexpensive-red-team-infrastructure-dfb6af0fe15d)
+     * [Install Metasploit on Digitalocean - Version 2 (Ubuntu)](https://webtips4u.com/guides/linux/learn-how-to-install-metasploit-framework-on-ubuntu-18-04-16-04/)
      * [ReverseShell](reverse-shell.md)
      * [Hacking I - ShellShock (unprivileged permissions)](hacking.md)
      * [Hacking II - privilege escalation](hacking-privilege-escalation.md)
