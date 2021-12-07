@@ -66,7 +66,7 @@ Nov 11 13:49:07 server2 sshd[56463]: message repeated 2 times: [ Failed password
 ## Installation server 2 (agent) 
 
 ```
-apt install ossec-hids-agent 
+dnf install -y ossec-hids-agent 
 
 # vi /var/ossec/etc/ossec.conf 
 # change to ip of server 2 
@@ -74,7 +74,7 @@ apt install ossec-hids-agent
 
 <ossec_config>
   <client>
-    <server-ip>10.10.11.142</server-ip>
+    <server-ip>192.168.33.10</server-ip>
   </client>
 
 ```
