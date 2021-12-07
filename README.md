@@ -19,6 +19,7 @@
   1. Disk Managemenet 
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
      * [Verschlüsselung mit Cryptsetup](cryptsetup.md)
+     * [Self Encryption Hard Disks (SED) vs. LUKS](sed-vs-luks.md)
 
   1. SELinux / appArmor  
      * [Install selinux on Debian](selinux-debian.md)
