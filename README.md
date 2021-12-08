@@ -30,6 +30,7 @@
   1. SELinux / appArmor  
      * [Install selinux on Debian](selinux-debian.md)
      * [SELinux including Walkthrough](selinux.md)
+     * [SELinux - working with booleans](selinux-boolean.md)
      * [SELinux Troubleshooting on Debian](selinux-troubleshooting-debian.md)
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
 
