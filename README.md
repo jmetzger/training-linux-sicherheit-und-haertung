@@ -31,6 +31,7 @@
      * [Install selinux on Debian](selinux-debian.md)
      * [SELinux including Walkthrough](selinux.md)
      * [SELinux - working with booleans](selinux-boolean.md)
+     * [Managing SELinux Policies](selinux-manage.md)
      * [SELinux Troubleshooting on Debian](selinux-troubleshooting-debian.md)
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
 
