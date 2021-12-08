@@ -22,9 +22,13 @@ systemctl status systemd-journal-upload
 dnf whatprovides sealert 
 dnf install -y setroubleshoot-server 
 cd /var/log/audit
+
 # this take a little while - grab some coffee 
 sealert -a audit.log > report.txt
+```
+  * [Alternative way using sealert](selinux-sealert.md) 
 
+```
 # now look into the report.txt.
 # in most there are 2-3 solutions for you problem 
 
