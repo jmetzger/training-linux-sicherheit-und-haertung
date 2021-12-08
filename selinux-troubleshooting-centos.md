@@ -58,7 +58,7 @@ semodule -i systemd_journal_fixer.pp
     1. setsebool (only, if it only opens a small subset of allow-rules) 
     1. semanage 
     1. create module (last resort) 
-  * Verify what rules a triggered when using setsebool (might be a low like in nis_enabled) 
+  * Verify what rules are triggered when using setsebool (might be a lot like in nis_enabled) 
   * Refer to [Using booleans](selinux-boolean.md)
 
 
