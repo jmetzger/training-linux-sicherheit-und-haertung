@@ -11,6 +11,8 @@ systemctl status auditd
 cd /var/www/html
 echo "hallo welt" > welt.html 
 chcon -t var_t welt.html
+# includes context from welt.html 
+ls -laZ welt.html
 # when enforcing fehler beim aufruf im Browser 
 
 # You can find log entries like so
@@ -22,24 +24,19 @@ ausearch -c httpd
 restorecon -vr /var/www/html 
 ```
 
-## Walkthrough 
+## Analyze 
 
 ```
-# be sure selinux is activated
-setenforce 1
-ps -efZ | grep apache2
-system_u:system_r:httpd_t:s0 root 9967 1 0 04:18 ?
-00:00:00 /usr/sbin/apache2 -k start
-touch /var/www/html/index.html
-ls -Z /var/www/html/*
-# output
-unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/html/index.html
+# Under which type/domain does httpd run 
+ps auxZ | grep httpd
+
+# What is the context of the file 
+ls -Z /var/www/html/welt.html 
+
 # So is http_t - domain allowed to access ?
-sesearch --allow --source httpd_t --target httpd_sys_content_t --class
-file
+sesearch --allow --source httpd_t --target httpd_sys_content_t --class file
 # Yes !
-2019/07/31 08:25 47/56
-Training materials / Schulungsunterlagen - http://localhost/dokuwiki/
+
 # output
 allow httpd_t httpd_sys_content_t:file { lock ioctl read getattr open
 };
