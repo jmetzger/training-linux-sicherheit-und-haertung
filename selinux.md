@@ -35,8 +35,8 @@ ls -Z /var/www/html/welt.html
 
 # So is http_t - domain allowed to access ?
 sesearch --allow --source httpd_t --target httpd_sys_content_t --class file
+sesearch -A -s httpd_t -t httpd_sys_content_t -C file 
 # Yes !
-
 # output
 allow httpd_t httpd_sys_content_t:file { lock ioctl read getattr open
 };
@@ -54,6 +54,7 @@ chmod 775 /var/www/html/index.html
 # Now change the type of the file
 # ONLY changes temporarily
 # NEXT restorecon breaks it.
+
 chcon --type var_t /var/www/html/index.html
 ls -Z /var/www/html/index.html
 # open in browser again
