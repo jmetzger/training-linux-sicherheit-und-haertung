@@ -22,6 +22,9 @@
      * [Remote logging with rsyslog and tls](rsyslog-remote-logging-ssl.md)
      * [Systemd Remote Logging](systemd-remote-logging.md)
   
+  1. Local Security
+     * [sgid - bit on files](sgid-bit.md)
+  
   1. Disk Managemenet 
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
      * [Verschlüsselung mit Cryptsetup](cryptsetup.md)
