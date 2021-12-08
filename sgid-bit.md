@@ -8,7 +8,7 @@ Beispiel
 
 hans:buero rwxrws-- executable 
 
-Wir executable auch mit der Gruppe buero ausgeführt. 
+Wird executable auch mit der Gruppe buero ausgeführt. 
 
 ```
 
