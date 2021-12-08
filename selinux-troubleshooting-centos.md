@@ -55,9 +55,12 @@ semodule -i systemd_journal_fixer.pp
 ## What is best: setsebool, semanage, create module
 
   * Best things first 
-    1. setsebool 
+    1. setsebool (only, if it only opens a small subset of allow-rules) 
     1. semanage 
     1. create module (last resort) 
+  * Verify what rules a triggered when using setsebool (might be a low like in nis_enabled) 
+  * Refer to [Using booleans](selinux-boolean.md)
+
 
 ## General 
 ```
