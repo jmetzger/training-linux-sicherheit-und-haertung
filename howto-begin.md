@@ -1,4 +1,4 @@
-# Howto begin (with a server) ? 
+# Howto begin (with a server) securing it? 
 
 ## Which services are running and are they needed ? 
 
