@@ -114,6 +114,45 @@ ErrorDocument 403 " "
 ErrorDocument 500 " "
 ```
 
+## Disable modules not used 
+
+```
+# Examples 
+/etc/conf.modules.d
+00-dav.conf
+00-lua.conf
+
+# disable by overwriting file 
+# Test it before that by disabling 
+cd /etc/conf.modules.d/
+echo " " > 00-dav.conf 
+echo " " > 00-lua.conf 
+
+systemctl restart httpd 
+```
+
+## If .htaccess is not needed, disable it altogether
+
+```
+1. Improves security (user cannot break system) 
+2. Better for performance 
+```
+
+```
+# 1. How to test 
+echo "test" > /var/www/html/test.html 
+echo "really-unknown-config" >> /var/www/html/.htaccess
+
+curl -I http://192.168.33.10/test.html 
+# if it is working (should not), you will get a 500 Status Code 
+# --> Then you have to disable it 
+
+# In this case -> disable it 
+# /etc/httpd/conf.d/z_security.conf 
+<Directory /var/www/html/>
+AllowOverride None   # .htaccess is simply ignored 
+</Directory>
+
 ```
 
 ## Reference 
