@@ -21,7 +21,7 @@ oscap xccdf eval --fetch-remote-resources  --profile xccdf_org.ssgproject.conten
 # Prerequisites: We need an arp.xml file (machine readable results file) 
 # Created in last step 
 
-oscap xccdf generate fix --fix-type ansible --result-id "" /tmp/arf.xml > playbook.yml
+oscap xccdf generate fix --fetch-remote-sources --fix-type ansible --result-id "" /tmp/arf.xml > playbook.yml
 
 ```
 
