@@ -105,8 +105,14 @@ curl http://192.168.33.10
 
 ```
 
-## 
+## Harden error-pages 
 
+```
+ErrorDocument 404 " "
+ErrorDocument 401 " "
+ErrorDocument 403 " "
+ErrorDocument 500 " "
+```
 
 ```
 
