@@ -81,6 +81,9 @@
   1. Server Automation 
      * [gitops by example (Ansible)](gitops-by-example.md) 
 
+  1. Starting 
+     * [How to begin with security/securing](howto-begin.md)
+
   1. Documentation 
       * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
       * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
