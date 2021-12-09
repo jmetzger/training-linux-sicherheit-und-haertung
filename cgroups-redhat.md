@@ -18,6 +18,10 @@
   * Although RHEL 8 allows v2, it is disabled 
   * All applications currently use v1  
 
+## How do cgroups work ? 
+
+  * https://www.redhat.com/sysadmin/sites/default/files/styles/embed_large/public/2020-09/CGroup_Diagram.png?itok=pbB1JLje
+
 ## Install cgroup tools (Redhat) 
 
   * This way of working with cgroups is deprecated in RHEL 8 
