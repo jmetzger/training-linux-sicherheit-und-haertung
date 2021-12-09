@@ -21,7 +21,7 @@ oscap xccdf eval --fetch-remote-resources  --profile xccdf_org.ssgproject.conten
 # Prerequisites: We need an arp.xml file (machine readable results file) 
 # Created in last step 
 
-oscap xccdf generate fix --fetch-remote-sources --fix-type ansible --result-id "" /tmp/arf.xml > playbook.yml
+oscap xccdf generate fix --fetch-remote-resources --fix-type ansible --result-id "" /tmp/arf.xml > playbook.yml
 
 ```
 
@@ -31,6 +31,8 @@ oscap xccdf generate fix --fetch-remote-sources --fix-type ansible --result-id "
 # in production of course, this should be done remotely 
 dnf install centos-release-ansible-29 
 dnf install -y ansible 
+# takes a long time to run 
+ansible-playbook -i "localhost," -c local playbook.yml
 ```
 
 ## Show versions 
