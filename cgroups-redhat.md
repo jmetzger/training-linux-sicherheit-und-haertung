@@ -3,6 +3,28 @@
 ## Why ? 
 
   * Allows restriction to resources 
+ 
+## What are the most important categories 
+
+  * The number of CPU shares per process.
+  * The limits on memory per process.
+  * Block Device I/O per process.
+  * Mark network packets to be identified as the same type 
+    * another application can use that to enforce traffic rules  
+
+## What else (Redhat) ? 
+
+  * There are 2 versions, v1 and v2
+  * Although RHEL 8 allows v2, it is disabled 
+  * All applications currently use v1  
+
+## Install cgroup tools (Redhat) 
+
+  * This way of working with cgroups is deprecated in RHEL 8 
+
+```
+dnf install -y libcgroup libcgroup-tools
+```
 
 ## Install cgroup tools (Debian) 
 
@@ -56,15 +78,21 @@ cgdelete -g cpu,memory,blkio,devices,freezer:/resourcebox
 
 ```
 
-
+## Restrict system resources with systemd-run 
 
 ```
-Systemresourcen beschränken mit systemd-run
+# Start stress test twice 
 systemd-run stress -c 3
 systemd-run stress -c 3
+
+
 systemctl show run-r<UUID>.service
+# default is 3600
 systemctl set-property run-r<UUID>.service CPUShares=100
 systemctl set-property run-r<UUID>.service CPUQuota=100
+
+```
+
 systemd Sicherheit
 • http://0pointer.de/blog/projects/security.html [http://0pointer.de/blog/projects/security.html]
 Einfache Direktiven
@@ -87,3 +115,7 @@ Restart=on-failure
 #LimitFSIZE=0 #darf keine Files schreiben
 ExecStart=/bin/python -m SimpleHTTPServer 8000
 
+## References (Redhat) 
+
+  * https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/resource_management_guide/chap-using_libcgroup_tools
+  * https://www.redhat.com/sysadmin/cgroups-part-one
