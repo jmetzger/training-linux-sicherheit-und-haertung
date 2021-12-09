@@ -34,6 +34,27 @@ ServerTokens prod
 ServerSignature off
 ```
 
+## Restrict information from php (Centos 8 with php-fpm) 
+
+```
+grep -r php_expose /etc 
+#vi /etc/php.ini
+# find line with php_expose = On 
+# replace by 
+php_expose = off 
+
+# to take effect reload php-fpm service 
+systemctl list-units | grep php 
+systemctl reload php-fpm # reload is sufficient 
+
+# and finally check from other server 
+curl -I http://192.168.33.10/info.php 
+# no php-version sould be visible with X- header 
+```
+
+## 
+
+
 ## Reference 
 
-  * 
+  * https://httpd.apache.org/docs/2.4/de/mod/core.html#serversignature
