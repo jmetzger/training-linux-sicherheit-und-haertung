@@ -21,3 +21,19 @@ curl -I http://192.168.33.10
 
 curl -I http://192.168.33.10/info.php 
 ```
+
+## Be sure to restrict communication (headers) 
+
+```
+#vi /etc/httpd/conf.d/z_security.conf 
+ServerTokens prod 
+
+# also disable server signature,
+# just to be sure, it will ap
+# But this should already be the case by default 
+ServerSignature off
+```
+
+## Reference 
+
+  * 
