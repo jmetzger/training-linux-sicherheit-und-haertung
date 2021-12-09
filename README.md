@@ -44,6 +44,9 @@
   1. Docker / Podman with Seccomp 
      * [Restricting Syscall in Docker/Podman](docker-seccomp.md)
 
+  1. Attacks 
+     * [Slow loris Attack - apache](/attacks/slow-loris-apache.md)
+
   1. Firewall 
      * [nftables](nftables.md)
      * [firewalld](firewalld.md)
