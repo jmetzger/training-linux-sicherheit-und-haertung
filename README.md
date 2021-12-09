@@ -24,7 +24,8 @@
   
   1. Local Security
      * [sgid - bit on files](sgid-bit.md)
-     * [xattr - special permissions](xattr.md) 
+     * [xattr - special permissions](xattr.md)
+     * [cgroups on Redhat](cgroups-redhat.md) 
   
   1. Disk Managemenet 
      * [Install partprobe/parted on Debian](partprobe-parted-debian.md)
