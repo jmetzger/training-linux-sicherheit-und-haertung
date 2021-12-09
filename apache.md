@@ -54,7 +54,7 @@ curl -I http://192.168.33.10/info.php
 
 ## Disabled directory listing (Version 1: Best solution) 
 
-  * Please do not, if you do not need diretory listing at all on server 
+  * Please use this !!!, if you do not need diretory listing at all on server 
 
 ```
 # Testing from other machine 
