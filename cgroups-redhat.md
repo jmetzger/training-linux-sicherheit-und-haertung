@@ -22,6 +22,12 @@
 
   ![cgroups](https://www.redhat.com/sysadmin/sites/default/files/styles/embed_large/public/2020-09/CGroup_Diagram.png?itok=pbB1JLje)
 
+## cgroups and the ressource-controllers 
+
+  * Memory
+  * CPU 
+  * Disk I/O
+
 ## Install cgroup tools (Redhat) 
 
   * This way of working with cgroups is deprecated in RHEL 8 
