@@ -29,6 +29,7 @@ https://www.systutorials.com/docs/linux/man/8-oscap-ssh/
 ## openscap workbench  
 
   * here it is possible to customize it. 
+  * [Customize Profile](http://static.open-scap.org/scap-workbench-1.1/#_customize_the_selected_profile_optional)
 
 ## Scale OpenSCAP with Redhat Satellite (x machines) 
 
