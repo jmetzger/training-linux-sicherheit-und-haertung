@@ -97,6 +97,23 @@ systemctl set-property run-r<UUID>.service CPUQuota=20%
 
 ```
 
+## restrict httpd service 
+
+```
+systemctl status httpd
+systemctl set-property httpd.service CPUShares=600 MemoryLimit=500M
+systemctl daemon-reload 
+systemctl status httpd
+
+# show ressource usage 
+systemd-cgtop
+# after having properties, how does it look
+systemctl cat httpd
+
+```
+
+
+
 ```
 systemd Sicherheit
 • http://0pointer.de/blog/projects/security.html [http://0pointer.de/blog/projects/security.html]
