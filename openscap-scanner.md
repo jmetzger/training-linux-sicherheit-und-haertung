@@ -22,6 +22,14 @@ https://www.systutorials.com/docs/linux/man/8-oscap-ssh/
 
 ```
 
+## Scale OpenSCAP with Redhat Satellite (x machines) 
+
+```
+OpenSCAP, Red Hat Satellite, Red Hat Ansible Automation, and Red Hat CloudForms®
+
+```
+
+
 ## Reference / Documentation 
 
   * https://github.com/RedHatDemos/SecurityDemos/blob/master/2019Labs/RHELSecurityLab/documentation/lab1_OpenSCAP.adoc
