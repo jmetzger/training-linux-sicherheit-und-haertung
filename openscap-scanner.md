@@ -15,12 +15,20 @@ oscap xccdf eval --fetch-remote-resources  --profile xccdf_org.ssgproject.conten
 
 ```
 
+
+
+
+
 ## Alternative: done per ssh 
 
 ```
 https://www.systutorials.com/docs/linux/man/8-oscap-ssh/
 
 ```
+
+## openscap workbench  
+
+  * here it is possible to customize it. 
 
 ## Scale OpenSCAP with Redhat Satellite (x machines) 
 
