@@ -97,6 +97,7 @@ systemctl set-property run-r<UUID>.service CPUQuota=20%
 
 ```
 
+```
 systemd Sicherheit
 • http://0pointer.de/blog/projects/security.html [http://0pointer.de/blog/projects/security.html]
 Einfache Direktiven
@@ -118,6 +119,7 @@ Restart=on-failure
 #LimitNPROC=1 #darf nicht forken
 #LimitFSIZE=0 #darf keine Files schreiben
 ExecStart=/bin/python -m SimpleHTTPServer 8000
+```
 
 ## References (Redhat) 
 
