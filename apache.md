@@ -13,3 +13,11 @@ touch /var/www/html/daten/datei1.html
 touch /var/www/html/daten/datei2.html 
 
 ```
+
+## Testing with curl 
+
+```
+curl -I http://192.168.33.10 
+
+curl -I http://192.168.33.10/info.php 
+```
