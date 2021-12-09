@@ -1,4 +1,4 @@
-# Hardening apache 
+# Hardening apache (Centos 8) 
 
 ## Prerequisites 
 
@@ -52,8 +52,35 @@ curl -I http://192.168.33.10/info.php
 # no php-version sould be visible with X- header 
 ```
 
-## 
+## Disabled directory listing 
 
+```
+# Testing from other machine 
+# you should not see a directory listing 
+curl -I http://192.168.33.10/icons/ 
+
+## Step 1 ## 
+# in /etc/httpd/conf.modules.d/00-base.conf 
+# find line 
+LoadModule autoindex_module modules/mod_autoindex.so
+
+# and comment it
+#LoadModule autoindex_module modules/mod_autoindex.so
+
+## Step 2 ## 
+# overwrite autoindex.conf in /etc/httpd/conf.d 
+# Why ? to be sure, that update process, does not create 
+echo " " > /etc/httpd/conf.d/autoindex.conf 
+
+## Step 3 ## 
+# restart 
+systemctl restart httpd 
+
+## Step 4 ## 
+# finally test from other server
+curl -I 192.168.33.10 
+
+```
 
 ## Reference 
 
