@@ -2,7 +2,7 @@
 
 ## Why ? 
 
-  * Allows restriction to resources 
+  * Allows restriction and prioritizing to resources 
  
 ## What are the most important categories 
 
