@@ -105,6 +105,12 @@ systemctl set-property httpd.service CPUShares=600 MemoryLimit=500M
 systemctl daemon-reload 
 systemctl status httpd
 
+# also restrict io - activity 
+systemctl set-property httpd.service IODeviceWeight="/var/log 400"
+systemctl set-property httpd.service BlockIOReadBandwidth="/var/lib/mysql 5M"
+systemctl daemon-reload
+systemctl cat httpd.service
+
 # show ressource usage 
 systemd-cgtop
 # after having properties, how does it look
@@ -136,6 +142,12 @@ Restart=on-failure
 #LimitNPROC=1 #darf nicht forken
 #LimitFSIZE=0 #darf keine Files schreiben
 ExecStart=/bin/python -m SimpleHTTPServer 8000
+```
+
+## Special man pages 
+
+```
+man systemd.resource-control
 ```
 
 ## References (Redhat) 
