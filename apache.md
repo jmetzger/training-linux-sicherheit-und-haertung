@@ -146,6 +146,10 @@ echo "really-unknown-config" >> /var/www/html/.htaccess
 curl -I http://192.168.33.10/test.html 
 # if it is working (should not), you will get a 500 Status Code 
 # --> Then you have to disable it 
+ curl -I http://192.168.33.10/test.html
+HTTP/1.1 500 Internal Server Error                                      Date: Thu, 09 Dec 2021 14:43:16 GMT                                     Server: Apache
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
 
 # In this case -> disable it 
 # /etc/httpd/conf.d/z_security.conf 
