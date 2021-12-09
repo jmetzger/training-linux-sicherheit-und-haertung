@@ -15,7 +15,9 @@ oscap xccdf eval --fetch-remote-resources  --profile xccdf_org.ssgproject.conten
 
 ```
 
+## Show versions 
 
+  * oscap -V
 
 
 
