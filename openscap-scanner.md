@@ -33,4 +33,5 @@ OpenSCAP, Red Hat Satellite, Red Hat Ansible Automation, and Red Hat CloudFormsÂ
 ## Reference / Documentation 
 
   * https://github.com/RedHatDemos/SecurityDemos/blob/master/2019Labs/RHELSecurityLab/documentation/lab1_OpenSCAP.adoc
+  * https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/sect-using_oscap
 
