@@ -14,3 +14,15 @@ oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_pci-dss --result
 oscap xccdf eval --fetch-remote-resources  --profile xccdf_org.ssgproject.content_profile_pci-dss --results-arf arf.xml --report report.html /usr/share/xml/scap/ssg/content/ssg-centos8-ds.xml 
 
 ```
+
+## Alternative: done per ssh 
+
+```
+https://www.systutorials.com/docs/linux/man/8-oscap-ssh/
+
+```
+
+## Reference / Documentation 
+
+  * https://github.com/RedHatDemos/SecurityDemos/blob/master/2019Labs/RHELSecurityLab/documentation/lab1_OpenSCAP.adoc
+
