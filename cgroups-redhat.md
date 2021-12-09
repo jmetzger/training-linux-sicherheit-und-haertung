@@ -1,4 +1,4 @@
-# Cgroups 
+# Cgroups (Redhat)
 
 ## Why ? 
 
@@ -24,12 +24,6 @@
 
 ```
 dnf install -y libcgroup libcgroup-tools
-```
-
-## Install cgroup tools (Debian) 
-
-```
-apt install libpam-cgroup cgroup-tools libcgroup1
 ```
 
 ## Show informations about cgroups 
