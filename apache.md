@@ -52,12 +52,14 @@ curl -I http://192.168.33.10/info.php
 # no php-version sould be visible with X- header 
 ```
 
-## Disabled directory listing 
+## Disabled directory listing (Version 1: Best solution) 
+
+  * Please do not, if you do not need diretory listing at all on server 
 
 ```
 # Testing from other machine 
 # you should not see a directory listing 
-curl -I http://192.168.33.10/icons/ 
+curl http://192.168.33.10/icons/ 
 
 ## Step 1 ## 
 # in /etc/httpd/conf.modules.d/00-base.conf 
@@ -78,7 +80,7 @@ systemctl restart httpd
 
 ## Step 4 ## 
 # finally test from other server
-curl -I 192.168.33.10 
+curl http://192.168.33.10/icons/ 
 
 ```
 
