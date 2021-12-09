@@ -84,6 +84,32 @@ curl http://192.168.33.10/icons/
 
 ```
 
+## Disable directory listing on Directory - Level (Version 1: Best solution) 
+
+
+```
+# This is needed, because Directory Indexing is activated
+# for icons folder within /etc/httpd/conf.d/autoindex.conf
+
+# /etc/httpd/conf.d/z_security.conf 
+Options -Indexes
+
+<Directory "/usr/share/httpd/icons">
+    Options -Indexes
+</Directory>
+
+systemctl reload httpd 
+
+# verify with browser 
+curl http://192.168.33.10 
+
+```
+
+## 
+
+
+```
+
 ## Reference 
 
   * https://httpd.apache.org/docs/2.4/de/mod/core.html#serversignature
