@@ -25,6 +25,14 @@ oscap xccdf generate fix --fetch-remote-sources --fix-type ansible --result-id "
 
 ```
 
+## Execute playbook (for testing purpose locally on server) 
+
+```
+# in production of course, this should be done remotely 
+dnf install centos-release-ansible-29 
+dnf install -y ansible 
+```
+
 ## Show versions 
 
   * oscap -V
