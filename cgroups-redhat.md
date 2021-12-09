@@ -60,7 +60,7 @@ cgset -r cpu.cfs_period_us=100000 \
 cgset -r memory.limit_in_bytes=256M resourcebox
 
 # Step 4: Restrict access to 1 MB/s 
-for dev in 253:0 252:0 252:16 8:0 8:16 1:0; do
+for dev in 8:0 8:16 1:0; do
  cgset -r blkio.throttle.read_bps_device="${dev} 1048576" resourcebox
  cgset -r blkio.throttle.write_bps_device="${dev} 1048576" resourcebox
 done
@@ -93,7 +93,7 @@ systemd-run stress -c 3
 systemctl show run-r<UUID>.service
 # default is 3600
 systemctl set-property run-r<UUID>.service CPUShares=100
-systemctl set-property run-r<UUID>.service CPUQuota=100
+systemctl set-property run-r<UUID>.service CPUQuota=20%
 
 ```
 
