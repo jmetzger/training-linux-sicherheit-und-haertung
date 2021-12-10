@@ -64,6 +64,7 @@
   1. Securing Network Services 
      * [Securing Tomcat (Standalone)](securing-tomcat.md) 
      * [Securing apache (Centos 8)](apache.md)
+     * [SSL with letsencrypt apache (Centos 8)](apache-letsencrypt-ssl.md)
      * [SSH](securing-ssh.md) 
      * [ssh-ca](ssh-ca.md)
 
