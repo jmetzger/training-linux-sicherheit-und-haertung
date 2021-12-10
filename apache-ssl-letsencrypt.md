@@ -18,8 +18,9 @@ IncludeOptional sites-enabled/*.conf
 
 
 ```
-#  
-#  dx.t3isp.de 
+#  x = 1 to 7
+#  apx.t3isp.de 
+#  mx.t3isp.de
 <VirtualHost *:80>
     ServerName www.ap1.t3isp.de
     ServerAlias ap1.t3isp.de
