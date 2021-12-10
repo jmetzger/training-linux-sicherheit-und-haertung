@@ -95,6 +95,12 @@ firewall-cmd --add-port=82/tcp --zone=public --permanent
 
 ```
 
+## Allow only specific sources 
+
+```
+firewall-cmd --add-source=192.168.33.11
+```
+
 ## Enable / Disabled icm 
 ```
 firewall-cmd --get-icmptypes
