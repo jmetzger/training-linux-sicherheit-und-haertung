@@ -44,9 +44,13 @@ echo "ich bin ap1 von jochen" > index.html
 ```
 dnf install -y epel-release 
 dnf install -y certbot python3-certbot-apache mod_ssl
-
 ```
 
+## Use certbot to configure 
+
+```
+certbot --apache -d ap1.t3isp.de 
+```
 
 ## Refs:
 
