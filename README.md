@@ -65,6 +65,7 @@
      * [Securing Tomcat (Standalone)](securing-tomcat.md) 
      * [Securing apache (Centos 8)](apache.md)
      * [SSL with letsencrypt apache (Centos 8)](apache-letsencrypt-ssl.md)
+     * [SSL Testing / Config Hints](apache-testing-config-hints.md) 
      * [SSH](securing-ssh.md) 
      * [ssh-ca](ssh-ca.md)
 
