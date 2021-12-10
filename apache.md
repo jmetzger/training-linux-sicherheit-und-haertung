@@ -131,6 +131,17 @@ echo " " > 00-lua.conf
 systemctl restart httpd 
 ```
 
+## Hardening startpage / default page
+
+```
+# In most cases, apache has a default,
+# which is shown, when not other domain triggers 
+# in centos this will the info-page 
+
+echo " " > /var/www/html/index.html 
+
+```
+
 ## If .htaccess is not needed, disable it altogether
 
 ```
