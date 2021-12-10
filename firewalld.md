@@ -15,6 +15,12 @@ firewall-cmd --state
   
   * firewall-cmd 
 
+
+## Show information about all zones that are used 
+```
+firewall-cmd --list-all
+```
+
 ## Best way to add a new rule 
 ```
 # Step1: do it persistent -> written to disk 
