@@ -21,11 +21,11 @@ IncludeOptional sites-enabled/*.conf
 #  
 #  dx.t3isp.de 
 <VirtualHost *:80>
-    ServerName www.example.com
-    ServerAlias example.com
-    DocumentRoot /var/www/example.com/html
-    ErrorLog /var/www/example.com/log/error.log
-    CustomLog /var/www/example.com/log/requests.log combined
+    ServerName www.ap1.t3isp.de
+    ServerAlias ap1.t3isp.de
+    DocumentRoot /var/www/ap1.t3isp.de/html
+    ErrorLog /var/log/httpd/ap1-t3isp-de-error.log
+    CustomLog /var/log/httpd/ap1-t3isp-de-access.log combined
 </VirtualHost>
 ```
 
