@@ -49,7 +49,7 @@ dnf install -y certbot python3-certbot-apache mod_ssl
 ## Use certbot to configure 
 
 ```
-certbot --apache -d ap1.t3isp.de 
+certbot --apache --register-unsafely-without-email 
 ```
 
 ## Refs:
