@@ -32,10 +32,20 @@ AllowGroups sshonly
 ## ssh audit 
 
 ```
-pip3 install ssh-audit2
-
+dnf install python3
+pip3 install ssh-audit
+ssh-audit ap1.t3isp.de 
 ```
 
+## Hardening guide ssh-audit 
+
+  * https://www.ssh-audit.com/hardening_guides.html#rhel8
+
+## generic place for crypto policies .
+
+```
+/etc/crypto-policies 
+```
 
 ## BSI - ssh 
 
