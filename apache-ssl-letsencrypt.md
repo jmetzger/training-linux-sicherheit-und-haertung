@@ -86,6 +86,10 @@ https://ap1.t3isp.de
 
 ```
 
+## Test Certificate with ssl labs 
+
+  * https://ssllabs.com
+
 ## Refs:
 
   * https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-centos-8
