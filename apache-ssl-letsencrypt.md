@@ -1,5 +1,13 @@
 # Apache SSL with letsencrypt ssl 
 
+## Step 0:
+
+```
+dnf install -y httpd 
+systemctl enable httpd
+systemctl start httpd 
+```
+
 ## Step 1: setup virtual host 
 
 ```
