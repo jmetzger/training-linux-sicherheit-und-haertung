@@ -39,6 +39,14 @@ cd ap1.t3isp.de/html/
 echo "ich bin ap1 von jochen" > index.html
 ```
 
+## Install certbot (Centos 8) 
+
+```
+dnf install -y certbot python3-certbot-apache mod_ssl
+
+```
+
+
 ## Refs:
 
   * https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-centos-8
