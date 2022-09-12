@@ -1,5 +1,4 @@
-# Linux Security and Hardening 
-
+# Linux Sicherheit und Härtung
 ## Agenda 
 
   1. Wireshark / tcpdump / nmap
