@@ -7,6 +7,12 @@
 nmap -A main.training.local 
 ```
 
+## Example 1a
+
+```
+nmap -A -F -T4 192.168.56.102
+```
+
 ## Example 2
 
 ```
