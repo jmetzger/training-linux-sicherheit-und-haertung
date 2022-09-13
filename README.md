@@ -12,7 +12,9 @@
   1. SELinux 
      * [Debian Installation](selinux-debian.md)
      * [Important commands and files](selinux-commands.md)
-
+     * [SELinux Walkthrough Rocky Linux](selinux.md) 
+     * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
+     
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
 
@@ -54,7 +56,6 @@
      * [Install selinux on Debian](selinux-debian.md)
      * [SELinux including Walkthrough](selinux.md)
      * [SELinux - working with booleans](selinux-boolean.md)
-     * [Managing SELinux Policies](selinux-manage.md)
      * [Troubleshoot with sealert on Centos/Redhat](selinux-sealert.md)
      * [SELinux Troubleshooting on Debian](selinux-troubleshooting-debian.md)
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
