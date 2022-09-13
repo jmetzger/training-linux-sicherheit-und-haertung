@@ -1,5 +1,16 @@
 # Linux Sicherheit und Härtung
-## Agenda 
+
+## Agenda
+
+  1. Wireshark / tcpdump / nmap
+     * [Examples tcpdump](tcpdump-examples.md) 
+     * [Example nmap](nmap.md) 
+
+  1. Documentation
+     * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
+
+
+## Backlog  
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
@@ -91,7 +102,6 @@
      * [How to begin with security/securing](howto-begin.md)
 
   1. Documentation 
-      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
       * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
  
 
