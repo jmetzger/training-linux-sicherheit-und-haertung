@@ -10,6 +10,9 @@ systemctl status auditd
 
 cd /var/www/html
 echo "hallo welt" > welt.html 
+# Dann im browser aufrufen
+# z.B. 192.168.56.103/welt.html 
+
 chcon -t var_t welt.html
 # includes context from welt.html 
 ls -laZ welt.html
