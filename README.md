@@ -5,6 +5,9 @@
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
      * [Example nmap](nmap.md) 
+     
+  1. Erweiterte Dateiattribute (xattr) 
+     * [lsattr/chattr](lsattr-chattr.md)
 
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
