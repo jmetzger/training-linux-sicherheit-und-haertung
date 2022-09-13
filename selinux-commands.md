@@ -17,3 +17,11 @@ sestatus
 
 
 ```
+
+## Force relabeling of files  
+
+```
+touch /.autorelabel 
+# important - might take some time 
+reboot
+```
