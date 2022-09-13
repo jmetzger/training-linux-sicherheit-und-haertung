@@ -11,6 +11,7 @@
      
   1. SELinux 
      * [Debian Installation](selinux-debian.md)
+     * [Important commands and files](selinux-commands.md)
 
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
