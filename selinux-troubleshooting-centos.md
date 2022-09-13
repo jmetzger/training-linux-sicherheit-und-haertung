@@ -1,24 +1,24 @@
 # Troubleshooting SELinux Centos 
 
-## Troubleshooting a service 
+## General saying 
 
 ```
 ## Assumption: Golden Rule of Centos/Redhat 
 
-!!! If everything looks nice (permissions), but NOT START 
+!!! If everything looks nice (permissions), but DOES NOT START 
 it MIGHT BE selinux <-- !!! 
+```
+## Walkthrough with debugging 
 
-## Step 1: Does service start in permissive mode of selinux  
+### Step 1:
 
-sestatus
-setenforce 0 
-# example 
-systemctl start systemd-journal-upload 
-systemctl status systemd-journal-upload 
-# -> Works so, now we know, SELINUX is the problem. 
+```
 
-## Step 2: Findout what go into the way, with smart tools
+```
 
+## Step 3: Findout what go into the way, with smart tools
+
+```
 dnf whatprovides sealert 
 dnf install -y setroubleshoot-server 
 cd /var/log/audit
@@ -26,6 +26,7 @@ cd /var/log/audit
 # this take a little while - grab some coffee 
 sealert -a audit.log > report.txt
 ```
+
   * [Alternative way using sealert](selinux-sealert.md) 
 
 ```
@@ -85,3 +86,23 @@ semanage port -l | grep 80
 semanage port -a -t http_port_t -p tcp 85
 
 ```
+
+
+## Troubleshooting a service 
+
+```
+## Assumption: Golden Rule of Centos/Redhat 
+
+!!! If everything looks nice (permissions), but DOES NOT START 
+it MIGHT BE selinux <-- !!! 
+
+## Step 1: Does service start in permissive mode of selinux  
+
+sestatus
+setenforce 0 
+# example 
+systemctl start systemd-journal-upload 
+systemctl status systemd-journal-upload 
+# -> Works so, now we know, SELINUX is the problem. 
+
+
