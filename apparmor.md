@@ -42,9 +42,7 @@ systemctl stop apparmor
 /etc/apparmor.d/
 
 # Default logging will be to 
-cat 
-
-
+cat /etc/apparmor/logprof.conf  | grep logfiles
 ```
 
 ## Status 
@@ -67,6 +65,8 @@ there are only a minimal number of profiles
 So:
 
 apt install apparmor-profiles
+# Achtung, diese sind teilweise experimentell 
+apt install apparmor-profiles-extra 
 
 ```
 
@@ -84,8 +84,23 @@ sudo rm /etc/apparmor.de/disable/<profile>
 cat /etc/apparmor.d/<profile> | sudo apparmor_parser -a
 ```
 
+## Wichtige Befehle:
 
-## Apparmor aktivieren (Kernel) 
+```
+aa-enabled	simple Abfrage, ob AppArmor aktiviert ist
+aa-status	Überblick über die geladenen AppArmor-Profile mit Angabe des Modus
+aa-unconfined	Ausgabe der Prozesse mit Netzwerkzugriff ohne Profil
+aa-audit	Profil in den Audit-Modus versetzen
+aa-complain	Profil in den Complain-Modus versetzen
+aa-enforce	Profil in den Enforce-Modus versetzen
+aa-autodep	Erstellung eines Basis-Profils im Complain-Modus
+aa-genprof	Erstellung eines Basis-Profils mit interaktiver Ergänzung von Regeln und abschließender Versetzung des Profils in den Enforce-Modus
+aa-logprof	interaktive Ergänzung von Regeln anhand der Einträge in /var/log/syslog
+aa-cleanprof	automatisches Aufräumen eines Profils
+```
+
+
+## Apparmor aktivieren (Kernel) - just in case (ältere Versionen) 
 
 ```
 # Dies ist ab Debian 10 und Ubuntu x 
