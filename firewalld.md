@@ -65,6 +65,7 @@ firewall-cmd --reload
 # Variante 2
 firewall-cmd --zone=public --add-interface=enp0s8
 firewall-cmd --get-active-zones 
+# Nach dem Testen 
 firewall-cmd --runtime-to-permanent 
 firewall-cmd --list-all 
 firewall-cmd --list-all --permanent 
@@ -77,7 +78,11 @@ public
 
 ## Show information about all zones that are used 
 ```
+# Anzeigen der runtime 
 firewall-cmd --list-all 
+# Anzeigen der permanenten Konfiguration 
+firewall-cmd --list-all --permanent 
+
 firewall-cmd --list-all-zones 
 ```
 
