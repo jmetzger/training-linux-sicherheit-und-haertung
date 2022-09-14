@@ -129,13 +129,11 @@ firewall-cmd --reload
 # Listen 81 
 systemctl restart apache2 
 
-# Step1: do it persistent -> written to disk 
+# Best Practice version 
 firewall-cmd --add-port=81/tcp 
 # after testing 
 firewall-cmd --runtime-to-permanent 
 
-# Step 2: + reload firewall 
-firewall-cmd --reload 
 ```
 
 ## Enable / Disabled icmp 
