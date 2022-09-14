@@ -65,13 +65,13 @@ firewall-cmd --reload
 # Variante 2
 firewall-cmd --zone=public --add-interface=enp0s8
 firewall-cmd --get-active-zones 
-firewall-cmd --get-active-zones --permanent 
 firewall-cmd --runtime-to-permanent 
-
+firewall-cmd --list-all 
+firewall-cmd --list-all --permanent 
 
 firewall-cmd --get-active-zones 
 public
-  interfaces: enp0s3
+  interfaces: enp0s8
 
 ```
 
