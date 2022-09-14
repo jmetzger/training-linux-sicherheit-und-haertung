@@ -127,6 +127,7 @@ firewall-cmd --reload
 # in /etc/apache2/ports.conf 
 # Hinzufügen 
 # Listen 81 
+echo "Listen 81" >> /etc/apache2/ports.conf 
 systemctl restart apache2 
 
 # Best Practice version 
