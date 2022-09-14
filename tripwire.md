@@ -2,6 +2,7 @@
 ```
 apt install -y tripwire 
 
+
 ```
 
 ```
@@ -18,6 +19,9 @@ We want to document what gets scanned
 ```
 
 ```
+# Datenbank initialisieren einmalig 
+tripwire --init 
+
 # We want to document what gets scanned
 tripwire --check | grep Filename > test_results'
 #If we view this file, we should see entries that look like this:
