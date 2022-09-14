@@ -8,7 +8,10 @@
      
   1. Erweiterte Dateiattribute (xattr) 
      * [lsattr/chattr](lsattr-chattr.md)
-     
+   
+  1. LSM-Modules (aka SELinux or apparmor) 
+     * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
+   
   1. SELinux 
      * [Debian Installation](selinux-debian.md)
      * [Important commands and files](selinux-commands.md)
