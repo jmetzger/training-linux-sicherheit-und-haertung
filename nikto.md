@@ -3,7 +3,17 @@
 ## Walkthrough (Debian / Ubuntu)  
 
 ```
-# Debian 10 
+# Teststellung
+# main: 
+apt install -y apache2
+apt install -y php 
+# vi /var/www/html
+echo "<?php phpinfo(); ?>" > /var/www/html/info.php 
+```
+
+```
+# Debian 10/Ubuntu 2x.04  
+# secondary:
 apt install nikto 
 nikto -h http://main
 ```
