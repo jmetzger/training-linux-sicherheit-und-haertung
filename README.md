@@ -26,10 +26,14 @@
      * [Installation ossec on Ubuntu](ossec.md)
      * [Installation/Walkthrough ossec on Centos 8](ossec-centos8.md)
      * [AIDE on Ubuntu/Debian](aide.md)  
+     * [Tripwire](tripwire.md) 
    
   1. Network Intrusion Detection 
      * [Overview](nids-overview.md) 
-    
+   
+  1. Vulnerability Scanns 
+     * [nikto](nikto.md) 
+   
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
