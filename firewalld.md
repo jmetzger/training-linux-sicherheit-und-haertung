@@ -123,8 +123,16 @@ firewall-cmd --reload
 
 ## Best way to add a new rule 
 ```
+# Walkthrough / Ubuntu 
+# in /etc/apache2/ports.conf 
+# Hinzufügen 
+# Listen 81 
+systemctl restart apache2 
+
 # Step1: do it persistent -> written to disk 
-firewall-cmd --add-port=82/tcp --permanent  
+firewall-cmd --add-port=81/tcp 
+# after testing 
+firewall-cmd --runtime-to-permanet 
 
 # Step 2: + reload firewall 
 firewall-cmd --reload 
