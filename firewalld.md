@@ -132,7 +132,7 @@ systemctl restart apache2
 # Step1: do it persistent -> written to disk 
 firewall-cmd --add-port=81/tcp 
 # after testing 
-firewall-cmd --runtime-to-permanet 
+firewall-cmd --runtime-to-permanent 
 
 # Step 2: + reload firewall 
 firewall-cmd --reload 
