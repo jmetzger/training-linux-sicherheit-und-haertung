@@ -14,7 +14,10 @@
      * [Important commands and files](selinux-commands.md)
      * [SELinux Walkthrough Rocky Linux](selinux.md) 
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
-     
+   
+  1. apparmor 
+     * [apparmor](apparmor.md) 
+   
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
 
