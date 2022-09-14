@@ -32,7 +32,7 @@
     
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
-
+     * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
 
 ## Backlog  
 
@@ -125,7 +125,7 @@
      * [How to begin with security/securing](howto-begin.md)
 
   1. Documentation 
-      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
+     
  
 
 ## Change language on Ubuntu 
