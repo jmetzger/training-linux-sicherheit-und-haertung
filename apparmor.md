@@ -1,7 +1,7 @@
 # Apparmor
 
 
-## How does it works ?
+## How does it work ?
 
 ``` In practice
 
