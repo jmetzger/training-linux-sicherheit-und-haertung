@@ -1,4 +1,4 @@
-# Apparmor
+# Apparmor (Ubuntu 22.04) 
 
 
 ## How does it work ?
@@ -19,6 +19,10 @@ dpkg -l | grep apparmor-utils
 
 Set up utilities you need for management
 sudo apt install apparmor-utils
+
+# in addition install auditd
+sudo apt install auditd 
+
 ```
 
 ## Systemd 
@@ -73,15 +77,10 @@ apt install apparmor-profiles-extra
 ## Enable/Disable a profile 
 
 ```
-# Disable a profile altogether
-sudo ln -s /etc/apparmor.d/<profile> /etc/apparmor/disable/
+aa-disable 
+aa-enable 
 
-# rereads that single profile
-sudo apparmor_parser -R /etc/apparmor.d/<profile>
 
-# Re-Enable a disabled profile
-sudo rm /etc/apparmor.de/disable/<profile>
-cat /etc/apparmor.d/<profile> | sudo apparmor_parser -a
 ```
 
 ## Wichtige Befehle:
