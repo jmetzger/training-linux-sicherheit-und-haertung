@@ -18,6 +18,26 @@ apt install nikto
 nikto -h http://main
 ```
 
+## Walkthrough II (Debian / Ubuntu) 
+
+```
+# We detected, that Apache shows Version and Ubuntu -> Apache/2.4.xx (Ubuntu) 
+# that's not what we want - let us fix this:
+
+# main - Create new file 
+#vi /etc/apache2/conf-available/z-security.conf 
+#ServerTokens Prod 
+a2enconf z-security 
+systemctl reload apache 
+
+# secondary 
+nikto -h http://main
+# or simply do a curl to check the headers
+curl -I main 
+```
+
+
+
 ## Walkthrough (Centos 8/Redhat 8)
 
 ```
