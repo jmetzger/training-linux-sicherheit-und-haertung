@@ -7,7 +7,11 @@ cd /usr/local/bin
 ```
 
 ```
-# vi example.sh
+# vi example.sh 
+# see next block for content
+```
+
+```
 #!/bin/bash
 
 echo "This is an apparmor example."
