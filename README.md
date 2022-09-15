@@ -31,8 +31,9 @@
   1. Network Intrusion Detection 
      * [Overview](nids-overview.md) 
    
-  1. Vulnerability Scanns 
+  1. Vulnerability / Vulnerability Scans 
      * [nikto](nikto.md) 
+     * [apache - etags](apache-etags.md) 
    
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
