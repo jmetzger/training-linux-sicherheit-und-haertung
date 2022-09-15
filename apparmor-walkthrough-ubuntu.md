@@ -49,7 +49,7 @@ Session 2:
 # Does it still work 
 example.sh 
 # Now add new commands 
-echo "echo somedata" >> righthere.txt 
+echo "echo somedata > righthere.txt" >> example.sh   
 # Execute again 
 example.sh 
 # permission denied
