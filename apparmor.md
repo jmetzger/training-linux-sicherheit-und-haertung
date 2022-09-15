@@ -55,7 +55,7 @@ cat /etc/apparmor/logprof.conf  | grep logfiles
 Show the current status of apparmor
 sudo apparmor_status
 # or
-sudo aa_status
+sudo aa-status
 ```
 
 ## Profiles and additional profiles 
