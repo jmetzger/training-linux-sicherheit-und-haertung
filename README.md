@@ -20,6 +20,7 @@
    
   1. apparmor 
      * [apparmor](apparmor.md) 
+     * [apparmor walkthrough ubuntu](apparmor-walkthrough-ubuntu.md)
         
   1. Host Intrusion Detection 
      * [Overview](hids-overview.md) 
