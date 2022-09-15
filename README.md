@@ -36,6 +36,9 @@
      * [nikto](nikto.md) 
      * [apache - etags](apache-etags.md) 
    
+  1. Malware - Scans 
+     * [maldet - lmd](maldet.md)
+   
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
