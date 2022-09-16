@@ -36,12 +36,12 @@ systemctl status nftables
 nft list ruleset
 ```
 
-## Ebene 2: Table 
+### Ebene 2: Table 
 
-## Ebene 3: Chain 
+### Ebene 3: Chain 
 
 
-## Ebene 4: Rule 
+### Ebene 4: Rule 
 
 
 ## Gegenüberstellung iptables und nft (Befehle) 
