@@ -46,14 +46,14 @@ echo "\nNix gut cheerleader war hier." >> /shared/mutants/victims
 exit
 ```
 
-5. Hat Sue Zugriff ? Verify that user sue has no access to the directory /shared/heroes and its files.
+5. Hat Sue Zugriff ? Verify that user sue has no access to the directory /shared/mutants and its files.
 ```
 su - sue
 cat /shared/mutants/victims
 ```
 
 
-6. Zugriff für Sue (files erstellen, lesen und modifizieren in /shared/heroes.
+6. Zugriff für Sue (files erstellen, lesen und modifizieren in /shared/mutants .
 2 acls: 1x für default (neue files), 1x für zugriff 
 
 # setfacl -m d:u:sue:rwx /shared/mutants
