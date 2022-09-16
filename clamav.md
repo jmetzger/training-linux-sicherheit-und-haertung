@@ -81,3 +81,24 @@ systemctl restart clamav-freshclam
 
 ```
 
+
+
+## Testen 
+
+```
+wget -P /tmp https://secure.eicar.org/eicar_com.zip
+# clamscan -ir /tmp
+# better: so you can see what is going on:
+clamscan --debug -vir /tmp
+
+# cpu schonender - nice - nice 15 -> niedrigste Priorität  
+nice -n 15 clamscan && clamscan -ir /tmp
+```
+
+## clamscan return - codes 
+
+```
+0 : No virus found.
+1 : Virus(es) found.
+2 : Some error(s) occurred.
+```
