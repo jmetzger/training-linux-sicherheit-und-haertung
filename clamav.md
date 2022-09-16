@@ -102,3 +102,15 @@ clamscan --debug -vir /tmp
 1 : Virus(es) found.
 2 : Some error(s) occurred.
 ```
+
+## on access scanning (clamonacc) 
+
+  * https://gist.github.com/ChadDevOps/dc5428e8d816344f68b03c99359731f9
+
+```
+# konfig in 
+man clamd.conf 
+vi /etc/clamav/clamd.conf 
+
+# Wichtig: Service erstellen 
+```
