@@ -50,6 +50,11 @@ apt install -y texlive-fonts-recommended
 # after having installed these, pdf generation works ! 
 ```
 
+## Alternative Installation 
+
+  * https://github.com/admirito/gvm-containers
+
+
 ## Documentation 
 
   * https://launchpad.net/~mrazavi/+archive/ubuntu/gvm
