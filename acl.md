@@ -34,16 +34,24 @@ chmod g+ws,o=- /shared/mutants
 ```
 
 4. Wechsel in sylar und cheerleader
-# su - sylar
-$ echo "Sylar was here" >> /shared/mutants/victims
-$ exit
-# su - cheerleader
-$ echo "\nNix gut cheerleader war hier." >> /shared/mutants/victims
-$ exit
+```
+su - sylar
+echo "Sylar was here" >> /shared/mutants/victims
+exit
+```
+
+``` 
+su - cheerleader
+echo "\nNix gut cheerleader war hier." >> /shared/mutants/victims
+exit
+```
 
 5. Hat Sue Zugriff ? Verify that user sue has no access to the directory /shared/heroes and its files.
-# su - sue
-$ cat /shared/mutants/victims
+```
+su - sue
+cat /shared/mutants/victims
+```
+
 
 6. Zugriff für Sue (files erstellen, lesen und modifizieren in /shared/heroes.
 2 acls: 1x für default (neue files), 1x für zugriff 
