@@ -56,9 +56,10 @@ iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
 
 ## Beispiel 2:
 
-flush ruleset                                                                    
  
- ```
+```
+flush ruleset
+
 table inet firewall {
                                                                                  
     chain inbound_ipv4 {
