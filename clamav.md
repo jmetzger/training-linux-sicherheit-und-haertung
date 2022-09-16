@@ -57,3 +57,25 @@ systemctl status clamav-daemon
 systemctl status clamav-freshclam 
 
 ```
+
+## Privaten Mirror einrichten 
+
+```
+# Auf dediziertem Server
+#!/bin/bash 
+apt update
+apt install -y python3 pip apache2 
+pip3 install cvdupdate 
+cvd config set --dbdir=/var/www/html
+# better set this up as cron 
+cvd update 
+```
+
+```
+# In freshclam verwenden 
+# /etc/clamav/freshclam.conf 
+PrivateMirror=http://46.101.158.176
+
+systemctl restart clamav-freshclam 
+```
+
