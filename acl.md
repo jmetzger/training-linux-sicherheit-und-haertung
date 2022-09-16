@@ -2,16 +2,22 @@
 
 ```
 1. Gemeinsamer Ordner heroes
-# groupadd -r heroes
-# mkdir -p /shared/mutants
-# chgrp heroes /shared/mutants
+````
+
+```
+groupadd -r heroes
+mkdir -p /shared/mutants
+chgrp heroes /shared/mutants
+```
 
 2. 3 Benutzer erstelle (sue gehört nicht der Gruppe an)
-# useradd sylar
-# useradd cheerleader
-# useradd sue
-# usermod -aG heroes sylar
-# usermod -aG heroes cheerleader
+```
+useradd sylar
+useradd cheerleader
+useradd sue
+usermod -aG heroes sylar
+usermod -aG heroes cheerleader
+```
 
 3. SGID - Bit setzen 
 # chmod g+ws,o=- /shared/mutants
