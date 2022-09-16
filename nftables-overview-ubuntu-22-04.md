@@ -38,6 +38,5 @@ nft list ruleset
 iptables -L  -> nft list table ip filter
 iptables -L INPUT -> nft list chain ip filter INPUT
 
-iptables -t nat -L PREROUTING
-
-nft list chain ip nat PREROUTING
+iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
+```
