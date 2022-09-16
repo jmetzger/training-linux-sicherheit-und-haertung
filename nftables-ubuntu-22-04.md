@@ -5,7 +5,8 @@
 ```
 Disable firewalld and ufw if we you want to use nftables (by itself) 
 
-systemctl stop firewalld 
+systemctl stop firewalld
+systemctl disable firewalld
 ```
 
 ## Schaubild 
