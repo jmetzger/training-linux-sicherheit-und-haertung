@@ -5,7 +5,7 @@
 ```
 clamav - client 
 clamav-daemon - daemon
-clamav-fresclam - service -> Dienst der die Virensignaturen aktualisiert 
+clamav-freshclam - service -> Dienst der die Virensignaturen aktualisiert 
 ```
 
 ## Wichtige clamscan Kommandos 
