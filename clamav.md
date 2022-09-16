@@ -113,4 +113,5 @@ man clamd.conf
 vi /etc/clamav/clamd.conf 
 
 # Wichtig: Service erstellen 
+systemctl edit --full --force clamonacc.service
 ```
