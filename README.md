@@ -42,6 +42,10 @@
      * [maldet - lmd](maldet.md)
      * [clamav](clamav.md)
      
+  1. Firewall 
+     * [nftables](nftables-ubuntu-22-04.md)
+     * [firewalld](firewalld.md)  
+     
   1. Documentation
      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
@@ -92,10 +96,6 @@
 
   1. Attacks 
      * [Slow loris Attack - apache](/attacks/slow-loris-apache.md)
-
-  1. Firewall 
-     * [nftables](nftables.md)
-     * [firewalld](firewalld.md)
   
   1. Kernel Hardening 
      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
