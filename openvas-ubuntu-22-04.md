@@ -7,10 +7,17 @@ sudo apt install postgresql
 sudo add-apt-repository ppa:mrazavi/gvm
 sudo apt install gvm
 
-sudo -u gvm -g gvm greenbone-nvt-sync
-sudo -u gvm -g gvm greenbone-feed-sync --type CERT
-sudo -u gvm -g gvm greenbone-feed-sync --type SCAP
-sudo -u gvm -g gvm greenbone-feed-sync --type GVMD_DATA
+# Does not work 
+#sudo -u gvm -g gvm greenbone-nvt-sync
+#sudo -u gvm -g gvm greenbone-feed-sync --type CERT
+#sudo -u gvm -g gvm greenbone-feed-sync --type SCAP
+#sudo -u gvm -g gvm greenbone-feed-sync --type GVMD_DATA
+sudo runuser -u _gvm -- greenbone-nvt-sync
+sudo runuser -u _gvm -- greenbone-feed-sync --type CERT
+sudo runuser -u _gvm -- greenbone-feed-sync --type SCAP
+sudo runuser -u _gvm -- greenbone-feed-sync --type GVMD_DATA
+
+
 
 # To remove NVT db, and rebuild it from the scanner:
 
@@ -35,6 +42,13 @@ systemctl status gsad # web ui
 
 ```
 
+## Fixing pdf-export problems 
+
+```
+apt install -y texlive-latex-extra --no-install-recommends
+apt install -y texlive-fonts-recommended
+# after having installed these, pdf generation works ! 
+```
 
 ## Documentation 
 
