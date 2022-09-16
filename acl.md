@@ -68,7 +68,7 @@ getfacl /shared/mutants/victims
 # nun mit sue testen
 su - sue
 echo "kann ich jetzt ?" >> /shared/mutants/victims 
-touch sue-gruppe >> /shared/mutants 
+touch sue-gruppe
 mkdir /shared/mutants/sue-gruppe-ver
 exit 
 ```
