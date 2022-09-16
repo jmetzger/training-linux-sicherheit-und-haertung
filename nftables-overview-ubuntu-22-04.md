@@ -8,6 +8,10 @@ Disable firewalld and ufw if we you want to use nftables (by itself)
 systemctl stop firewalld 
 ```
 
+## Schaubild 
+
+  * https://www.teldat.com/blog/wp-content/uploads/2020/11/figure_05.png
+
 ## Hierarchie-Ebenen 
 
 ### Ebene 1: Ruleset 
@@ -32,6 +36,14 @@ systemctl status nftables
 nft list ruleset
 ```
 
+## Ebene 2: Table 
+
+## Ebene 3: Chain 
+
+
+## Ebene 4: Rule 
+
+
 ## Gegenüberstellung iptables und nft (Befehle) 
 
 ```   
@@ -40,3 +52,12 @@ iptables -L INPUT -> nft list chain ip filter INPUT
 
 iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
 ```
+
+## Beispiel 2:
+
+
+
+
+## Documentation 
+
+  * https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes
