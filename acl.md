@@ -50,17 +50,28 @@ exit
 ```
 su - sue
 cat /shared/mutants/victims
+exit
 ```
-
 
 6. Zugriff für Sue (files erstellen, lesen und modifizieren in /shared/mutants .
 2 acls: 1x für default (neue files), 1x für zugriff 
 
-# setfacl -m d:u:sue:rwx /shared/mutants
-# setfacl -m u:sue:rwx /shared/mutants
+```
+setfacl -m d:u:sue:rwx /shared/mutants
+setfacl -m u:sue:rwx /shared/mutants
+setfacl -m u:sue:rw /shared/mutants/victims
+getfacl /shared/mutants 
+getfacl /shared/mutants/victims
+```
 
-Anpassen für bestehende files 
-# setfacl -m u:sue:rw /shared/mutants/victims
+```
+# nun mit sue testen
+su - sue
+echo "kann ich jetzt ?" >> /shared/mutants/victims 
+touch sue-gruppe >> /shared/mutants 
+mkdir /shared/mutants/sue-gruppe-ver
+exit 
+```
 
 7. Privates file von cheerleader /shared/mutants/private
    Zugriff von sylar verhindern
