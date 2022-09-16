@@ -54,7 +54,7 @@ iptables -L INPUT -> nft list chain ip filter INPUT
 iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
 ```
 
-## Beispiel 2:
+## Beispiel 1:
 
  
 ```
