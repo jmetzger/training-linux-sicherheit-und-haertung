@@ -75,7 +75,9 @@ cvd update
 # In freshclam verwenden 
 # /etc/clamav/freshclam.conf 
 PrivateMirror=http://46.101.158.176
-
 systemctl restart clamav-freshclam 
+
+# Oder dpkg-reconfigure clamav-freshclam 
+
 ```
 
