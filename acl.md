@@ -1,5 +1,14 @@
 # ACL's 
 
+## Installation of tools 
+
+```
+apt install acl 
+```
+
+## Walkthrough 
+
+
 ```
 1. Gemeinsamer Ordner heroes
 ````
@@ -20,7 +29,9 @@ usermod -aG heroes cheerleader
 ```
 
 3. SGID - Bit setzen 
-# chmod g+ws,o=- /shared/mutants
+```
+chmod g+ws,o=- /shared/mutants
+```
 
 4. Wechsel in sylar und cheerleader
 # su - sylar
