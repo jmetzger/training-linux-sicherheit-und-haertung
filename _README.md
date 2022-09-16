@@ -1,7 +1,60 @@
-# Linux Security and Hardening 
+# Linux Sicherheit und Härtung
 
 
 ## Agenda
+  1. Wireshark / tcpdump / nmap
+     * [Examples tcpdump](#examples-tcpdump)
+     * [Example nmap](#example-nmap)
+     
+  1. Erweiterte Dateiattribute (xattr) 
+     * [lsattr/chattr](#lsattrchattr)
+   
+  1. LSM-Modules (aka SELinux or apparmor) 
+     * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
+   
+  1. SELinux 
+     * [Debian Installation](#debian-installation)
+     * [Important commands and files](#important-commands-and-files)
+     * [SELinux Walkthrough Rocky Linux](#selinux-walkthrough-rocky-linux)
+     * [SELinux Troubleshooting on Centos](#selinux-troubleshooting-on-centos)
+   
+  1. apparmor 
+     * [apparmor](#apparmor)
+     * [apparmor walkthrough ubuntu](#apparmor-walkthrough-ubuntu)
+     * [apparmor and docker/kubernetes](#apparmor-and-dockerkubernetes)
+        
+  1. Host Intrusion Detection 
+     * [Overview](#overview)
+     * [Installation ossec on Ubuntu](#installation-ossec-on-ubuntu)
+     * [Installation/Walkthrough ossec on Centos 8](#installationwalkthrough-ossec-on-centos-8)
+     * [AIDE on Ubuntu/Debian](#aide-on-ubuntudebian)
+     * [Tripwire](#tripwire)
+   
+  1. Network Intrusion Detection 
+     * [Overview](#overview)
+   
+  1. Vulnerability / Vulnerability Scans 
+     * [nikto](#nikto)
+     * [apache - etags](#apache---etags)
+     * [Lynis](#lynis)
+   
+  1. Malware / Viren - Scans 
+     * [maldet - lmd](#maldet---lmd)
+     * [clamav](#clamav)
+     
+  1. Firewall 
+     * [nftables](#nftables)
+     * [firewalld](#firewalld)
+     
+  1. IPSec 
+     * [IPSec](#ipsec)
+     
+  1. Documentation
+     * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
+     * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
+
+## Backlog  
+
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](#examples-tcpdump)
      * [Example nmap](#example-nmap)
@@ -31,13 +84,12 @@
   1. Disk Managemenet 
      * [Install partprobe/parted on Debian](#install-partprobeparted-on-debian)
      * [Verschlüsselung mit Cryptsetup](#verschlüsselung-mit-cryptsetup)
-     * [Self Encryption Hard Disks (SED) vs. LUKS](#self-encryption-hard-disks-sed-vs.-luks)
+     * [Self Encryption Hard Disks (SED) vs. LUKS](#self-encryption-hard-disks-sed-vs-luks)
 
   1. SELinux / appArmor  
      * [Install selinux on Debian](#install-selinux-on-debian)
      * [SELinux including Walkthrough](#selinux-including-walkthrough)
      * [SELinux - working with booleans](#selinux---working-with-booleans)
-     * [Managing SELinux Policies](#managing-selinux-policies)
      * [Troubleshoot with sealert on Centos/Redhat](#troubleshoot-with-sealert-on-centosredhat)
      * [SELinux Troubleshooting on Debian](#selinux-troubleshooting-on-debian)
      * [SELinux Troubleshooting on Centos](#selinux-troubleshooting-on-centos)
@@ -47,13 +99,9 @@
 
   1. Attacks 
      * [Slow loris Attack - apache](#slow-loris-attack---apache)
-
-  1. Firewall 
-     * [nftables](#nftables)
-     * [firewalld](#firewalld)
   
   1. Kernel Hardening 
-     * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](#modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled)
+     * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](#modules_disabledunprivileged_bpf_disabledkexec_load_disabled)
      * [Disable TCP timestamps](#disable-tcp-timestamps)
 
   1. Vulnerability Scans 
@@ -92,8 +140,7 @@
      * [How to begin with security/securing](#how-to-begin-with-securitysecuring)
 
   1. Documentation 
-      * [Telekom Compliance Guideline](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
-      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
+     
  
 
 ## Change language on Ubuntu 
@@ -278,6 +325,1879 @@ tcpdump -s 0 -v -n -l port http and not port ssh | egrep -i "POST /|GET /|Host:"
 ```
 ## including additional information 
 nmap -A main.training.local 
+```
+
+### Example 1a
+
+```
+nmap -A -F -T4 192.168.56.102
+```
+
+### Example 2
+
+```
+## ping target system 
+nmap -sP main
+```
+
+
+### Example 3 
+
+```
+Server 1:
+nmap -p 80 --script=http-enum.nse targetip 
+
+Server 2: 
+tcpdump -nn port 80 | grep "GET /" 
+```
+
+### Ref:
+
+  * http://schulung.t3isp.de/documents/linux-security.pdf
+
+## Erweiterte Dateiattribute (xattr) 
+
+### lsattr/chattr
+
+
+### Datei immutable machen 
+
+  * Kann nicht gelöscht oder verändert 
+  * geht auch für Verzeichnisse
+
+```
+cd /root
+touch meindatei 
+chattr +i meindatei
+## Diese Datei kann jetzt nicht gelöscht oder verändert
+## auch nicht unbenannt 
+lsattr meindatei
+
+## Heilen mit 
+## D.h. root kann das auch wieder rausnehme
+## Schutz vor mir selbst ;o) 
+chattr -i meindatei
+```
+
+```
+## Verzeichnisse
+cd /root
+mkdir meinverzeichnis
+chattr +i meinverzeichnis
+cd meinverzeichnis
+## wichtig Option -d nehmen 
+lsattr -d . 
+## Jetzt können keine neuen Dateien angelegt werden
+## oder gelöscht werden
+## aber bestehende Dateien können inhaltlich geändert werden
+```
+
+## LSM-Modules (aka SELinux or apparmor) 
+
+### Kernel Docs
+
+  * https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html
+
+## SELinux 
+
+### Debian Installation
+
+
+### Walkthrough 
+
+```
+apt-get install selinux-basics selinux-policy-default auditd
+selinux-activate
+reboot
+
+## for checking
+## Also refer to our other documents 
+## e.g. apache walkthrough
+setenforce 1 
+
+check-selinux-installation 
+echo $?
+```
+
+### Howto on Debian 
+
+  * https://wiki.debian.org/SELinux/Setup
+
+### Important commands and files
+
+
+### Commands 
+
+```
+sestatus 
+## Regeln nicht durchsetzen bis zum nächsten Boot
+## wenn das System auf Enforcing steht
+setenforce 0
+
+## Status abfragen
+getenforce 
+sestatus 
+
+## config - selinux aktivieren / deaktivieren
+/etc/selinux/config 
+
+
+```
+
+### Force relabeling of files  
+
+```
+touch /.autorelabel 
+## important - might take some time 
+reboot
+```
+
+### SELinux Walkthrough Rocky Linux
+
+
+### Change context and restore it 
+```
+## Requirements - selinux must be enabled
+## and auditd must run 
+## find out 
+getenforce 
+systemctl status auditd
+
+cd /var/www/html
+echo "hallo welt" > welt.html 
+## Dann im browser aufrufen
+## z.B. 192.168.56.103/welt.html 
+
+chcon -t var_t welt.html
+## includes context from welt.html 
+ls -laZ welt.html
+## when enforcing fehler beim aufruf im Browser 
+
+## You can find log entries like so
+cat /var/log/audit/audit.log
+## show all entries caused by executable httpd 
+ausearch -c httpd 
+
+## herstellen auf basis der policies 
+restorecon -vr /var/www/html 
+```
+
+### Analyze 
+
+```
+## Under which type/domain does httpd run 
+ps auxZ | grep httpd
+
+## What is the context of the file 
+ls -Z /var/www/html/welt.html 
+
+## So is http_t - domain allowed to access ?
+sesearch --allow --source httpd_t --target httpd_sys_content_t --class file
+sesearch -A -s httpd_t -t httpd_sys_content_t -C file 
+## Yes !
+## output
+allow httpd_t httpd_sys_content_t:file { lock ioctl read getattr open
+};
+allow httpd_t httpdcontent:file { create link open append rename write
+ioctl lock getattr unlink setattr read }; [ ( httpd_builtin_scripting
+&& httpd_unified && httpd_enable_cgi ) ]:True
+...
+## so let's check
+echo "<html><body>hello</body></html>" > /var/www/html/index.html
+chmod 775 /var/www/html/index.html
+## open in browser:
+## e.g.
+## http://<yourip>
+## you should get an output -> hello ;o)
+## Now change the type of the file
+## ONLY changes temporarily
+## NEXT restorecon breaks it.
+
+chcon --type var_t /var/www/html/index.html
+ls -Z /var/www/html/index.html
+## open in browser again
+## http://<yourip>
+## NOW -> you should have a permission denied
+## Why ? -> var_t is not one of the context the webserver domain
+(http_t) is not authorized to connect to
+## Doublecheck
+sesearch --allow --source httpd_t --target var_t --class file
+## -> no output here -> no access
+## Restore again
+restorecon -v /var/www/html/index.html
+## output
+## Relabeled /var/www/html/index.html from
+unconfined_u:object_r:var_t:s0 to
+unconfined_u:object_r:httpd_sys_content_t:s0
+ls -Z /var/www/html/index.html
+## output
+unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/html/index.html
+## open in browser again
+## http://<yourip>
+## Now testpage works again
+```
+
+
+
+
+### Docs 
+
+  * http://schulung.t3isp.de/documents/linux-security.pdf
+
+### SELinux Troubleshooting on Centos
+
+
+### General saying 
+
+```
+### Assumption: Golden Rule of Centos/Redhat 
+
+!!! If everything looks nice (permissions), but DOES NOT START 
+it MIGHT BE selinux <-- !!! 
+```
+### Walkthrough with debugging 
+
+#### Step 1:
+
+```
+## /etc/httpd/conf/httpd.conf
+## Ergänzen 
+## Listen 83 
+
+systemctl restart httpd 
+```
+
+
+### Step 2: Findout what got into the way, with smart tools
+
+```
+dnf whatprovides sealert 
+dnf install -y setroubleshoot-server 
+cd /var/log/audit
+
+## this take a little while - grab some coffee 
+sealert -a audit.log > report.txt
+```
+
+### Step 3: Debug and fix 
+
+```
+sealert -a /var/log/audit.log > report.txt
+## Extract advice from file 
+## find http_port_t
+semanage port -l | grep 80
+## an advice how to fix from report.txt
+semanage port -a -t http_port_t -p tcp 83
+semanage port -l | grep 83
+systemctl start httpd
+## now apache also listens on port 83
+lsof -i
+```
+
+  * [Alternative way using sealert](#troubleshoot-with-sealert-on-centosredhat) 
+
+
+## apparmor 
+
+### apparmor
+
+
+
+### How does it work ?
+
+``` In practice
+
+o apparmor is registered in the kernel (lsm-module)
+o the kernel queries AppArmor before each system call
+ ->to know whether the process is authorized to do the given
+operation.
+```
+
+### Install 
+
+```
+## tools installed
+dpkg -l | grep apparmor-utils 
+
+Set up utilities you need for management
+sudo apt install apparmor-utils
+
+## in addition install auditd
+sudo apt install auditd 
+
+```
+
+### Systemd 
+
+```
+## apparmor rules loaded ? 
+
+## Loads rules into the kernel 
+## from the profile 
+systemctl start apparmor 
+
+## Unloads the rules from the kernel 
+systemctl stop apparmor 
+
+```
+
+### Profiles and Logging
+
+```
+## Profiles are in 
+/etc/apparmor.d/
+
+## Default logging will be to 
+cat /etc/apparmor/logprof.conf  | grep logfiles
+```
+
+### Status 
+
+```
+Show the current status of apparmor
+sudo apparmor_status
+## or
+sudo aa-status
+```
+
+### Profiles and additional profiles 
+
+```
+Set up additional profiles
+
+Within the core installation
+there are only a minimal number of profiles
+
+So:
+
+apt install apparmor-profiles
+## Achtung, diese sind teilweise experimentell 
+apt install apparmor-profiles-extra 
+
+```
+
+### Enable/Disable a profile 
+
+```
+aa-disable 
+aa-enable 
+
+
+```
+
+### Wichtige Befehle:
+
+```
+aa-enabled	simple Abfrage, ob AppArmor aktiviert ist
+aa-status	Überblick über die geladenen AppArmor-Profile mit Angabe des Modus
+aa-unconfined	Ausgabe der Prozesse mit Netzwerkzugriff ohne Profil
+aa-audit	Profil in den Audit-Modus versetzen
+aa-complain	Profil in den Complain-Modus versetzen
+aa-enforce	Profil in den Enforce-Modus versetzen
+aa-autodep	Erstellung eines Basis-Profils im Complain-Modus
+aa-genprof	Erstellung eines Basis-Profils mit interaktiver Ergänzung von Regeln und abschließender Versetzung des Profils in den Enforce-Modus
+aa-logprof	interaktive Ergänzung von Regeln anhand der Einträge in /var/log/syslog
+aa-cleanprof	automatisches Aufräumen eines Profils
+```
+
+
+### Apparmor aktivieren (Kernel) - just in case (ältere Versionen) 
+
+```
+## Dies ist ab Debian 10 und Ubuntu x 
+## bereits der Fall
+Enable AppArmor
+If you are using Debian 10 "Buster" or newer, AppArmor is enabled by default so you can skip this step.
+
+The AppArmor Linux Security Modules (LSM) must be enabled from the linux kernel command line in the bootloader:
+
+
+$ sudo mkdir -p /etc/default/grub.d
+$ echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"' \
+  | sudo tee /etc/default/grub.d/apparmor.cfg
+$ sudo update-grub
+$ sudo reboot
+```
+
+
+
+### Reference 
+
+  * https://wiki.debian.org/AppArmor/HowToUse
+
+### apparmor walkthrough ubuntu
+
+
+### Step 1: Create script and execute it without protection
+
+```
+cd /usr/local/bin
+```
+
+```
+## vi example.sh 
+## see next block for content
+```
+
+```
+##!/bin/bash
+
+echo "This is an apparmor example."
+
+touch data/sample.txt
+echo "File created"
+
+rm data/sample.txt
+echo "File deleted"
+```
+
+```
+chmod u+x example.sh
+mkdir data
+example.sh
+```
+
+### Step 2: Protect it with apparmor 
+
+```
+Session 1: 
+aa-genprof example.sh 
+
+
+
+Session 2: (same server) 
+cd /usr/local/bin 
+example.sh 
+
+Session 1:
+## Press S for scan
+## Now the logs will get scanned 
+## Add each Entry with I (Inherit)  or A (Allow) 
+## When ready F finish 
+##### Let us enforce it (currently it is on complain) 
+aa-enforce usr.local.bin.example.sh
+
+Session 2:
+## Does it still work 
+example.sh 
+## Now add new commands 
+echo "echo somedata > righthere.txt" >> example.sh   
+## Execute again 
+example.sh 
+## permission denied
+
+Session 1:
+## analyze log and add changed things
+logprof 
+
+Session 2:
+## now try again.
+example.sh
+
+```
+
+```
+
+### apparmor and docker/kubernetes
+
+
+### Docker 
+
+  * https://docs.docker.com/engine/security/apparmor/
+
+### Kubernetes
+
+  * https://kubernetes.io/docs/tutorials/security/apparmor/
+
+## Host Intrusion Detection 
+
+### Overview
+
+
+  * AIDE (Advanced Intrusion Detection Environment)
+  * Tripwire  
+  * OSSEC (Open Source Security) / Wazuh 
+
+
+### Installation ossec on Ubuntu
+
+
+### Wazuh
+
+```
+## Fork / Weiterentwicklung
+https://wazuh.com/
+
+```
+
+### OSSEC -> Installation 
+
+```
+### Install on 2 servers 
+### server 1: ossec-hids-server
+### server 2: ossec-hids-agent 
+
+## https://www.ossec.net/downloads/#apt-automated-installation-on-ubuntu-and-debian
+## Installs repo-config but not correctly ! 
+wget -q -O - https://updates.atomicorp.com/installers/atomic | sudo bash
+
+## add [arch=amd64] to line 
+root@server1:/etc/apt/sources.list.d# cat atomic.list
+deb [arch=amd64] https://updates.atomicorp.com/channels/atomic/ubuntu focal main
+```
+
+```
+## Install ossec-hids-server 
+apt install ossec-hids-server 
+
+## adjust /var/ossec/etc/ossec.conf 
+<ossec_config>
+  <global>
+    <email_notification>yes</email_notification>
+    <email_to>root@localhost</email_to>
+    <smtp_server>127.0.0.1</smtp_server>
+    <email_from>ossec@localhost</email_from>
+  </global>
+  
+```
+
+```
+## Start 
+/var/ossec/bin/ossec-control start 
+```
+
+### Testing on server 1
+
+```
+ssh root@localhost 
+## enter wrong password 3 times 
+
+## alert is logged to 
+cd /var/ossec/logs/alerts/
+tail alerts.log
+2020 Nov 11 13:48:59 server2->/var/log/auth.log
+Rule: 5710 (level 5) -> 'Attempt to login using a non-existent user'
+Src IP: 127.0.0.1
+Nov 11 13:48:59 server2 sshd[56463]: Failed password for invalid user root from 127.0.0.1 port 44032 ssh2
+
+** Alert 1605098949.1127: - syslog,sshd,invalid_login,authentication_failed,
+2020 Nov 11 13:49:09 server2->/var/log/auth.log
+Rule: 5710 (level 5) -> 'Attempt to login using a non-existent user'
+Nov 11 13:49:07 server2 sshd[56463]: message repeated 2 times: [ Failed password for invalid user root from 127.0.0.1 port 44032 ssh2]
+```
+
+### Installation server 2 (agent) 
+
+```
+apt install ossec-hids-agent 
+
+## vi /var/ossec/etc/ossec.conf 
+## change to ip of server 2 
+<!-- OSSEC example config -->
+
+<ossec_config>
+  <client>
+    <server-ip>10.10.11.142</server-ip>
+  </client>
+
+```
+
+### Manage Agent (server 2) on server1 (ossec-server) 
+
+```
+ /var/ossec/bin/manage_agents
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (A)dd an agent (A).
+   (E)xtract key for an agent (E).
+   (L)ist already added agents (L).
+   (R)emove an agent (R).
+   (Q)uit.
+Choose your action: A,E,L,R or Q: A
+
+- Adding a new agent (use '\q' to return to the main menu).
+  Please provide the following:
+   * A name for the new agent: server1
+   * The IP Address of the new agent: 10.10.11.141
+   * An ID for the new agent[001]:
+Agent information:
+   ID:001
+   Name:server2
+   IP Address:10.10.11.141
+
+Confirm adding it?(y/n): y
+Agent added with ID 001.
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (A)dd an agent (A).
+   (E)xtract key for an agent (E).
+   (L)ist already added agents (L).
+   (R)emove an agent (R).
+   (Q)uit.
+Choose your action: A,E,L,R or Q: e
+
+Available agents:
+   ID: 001, Name: server2, IP: 10.10.11.141
+Provide the ID of the agent to extract the key (or '\q' to quit): 1
+
+Agent key information for '001' is:
+MDAxIHNlcnZlcjEgMTAuMTAuMTEuMTQxIDkyMjAyMGQ5NzNjODE4NDM3YmIxZmU5ZDBjMmFmYmMwY2JmMmE2Y2EzNjllMGU5Y2MxNmJkYTc4OTdhYTJmNzc=
+
+** Press ENTER to return to the main menu.
+
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (A)dd an agent (A).
+   (E)xtract key for an agent (E).
+   (L)ist already added agents (L).
+   (R)emove an agent (R).
+   (Q)uit.
+Choose your action: A,E,L,R or Q: q
+
+** You must restart OSSEC for your changes to take effect.
+
+manage_agents: Exiting.
+manage_agents: Exiting.
+root@server2:/var/ossec/logs/alerts#
+
+## Server neu starten 
+ /var/ossec/bin/ossec-control restart
+
+```
+
+### Import Key on agent - system (server 2) 
+
+```
+ /var/ossec/bin/manage_agents
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (I)mport key from the server (I).
+   (Q)uit.
+Choose your action: I or Q: I
+
+* Provide the Key generated by the server.
+* The best approach is to cut and paste it.
+*** OBS: Do not include spaces or new lines.
+
+Paste it here (or '\q' to quit): MDAxIHNlcnZlcjEgMTAuMTAuMTEuMTQxIDkyMjAyMGQ5NzNjODE4NDM3YmIxZmU5ZDBjMmFmYmMwY2JmMmE2Y2EzNjllMGU5Y2MxNmJkYTc4OTdhYTJmNzc=
+
+Agent information:
+   ID:001
+   Name:server2
+   IP Address:10.10.11.141
+
+Confirm adding it?(y/n): y
+2020/11/11 14:08:11 manage_agents: ERROR: Cannot unlink /queue/rids/sender: No such file or directory
+Added.
+** Press ENTER to return to the main menu.
+
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (I)mport key from the server (I).
+   (Q)uit.
+Choose your action: I or Q: q
+
+** You must restart OSSEC for your changes to take effect.
+
+manage_agents: Exiting.
+manage_agents: Exiting.
+root@server1:/var/ossec/etc#
+
+#### Restart agent 
+/var/ossec/bin/ossec-control restart 
+
+```
+
+#### produce problem on server 2 (agent) 
+
+```
+## enter wrong password 3 times 
+ssh root@localhost
+```
+
+#### validatte on server 1 (server)
+
+```
+you should get an email to root 
+please check 
+/var/ossec/logs/alert/alert.log 
+
+
+## if this is not working restart server2 and agent->server1
+server1: /var/ossec/bin/ossec-control restart
+server2: /var/ossec/bin/ossec-control restart
+
+## Please retry to ssh with wrong pw 3 x !!! 
+```
+
+#### Change scan config on server1 ossec.conf 
+
+```
+## like so --> first lines 
+ <syscheck>
+    <!-- Frequency that syscheck is executed -- default every 20 hours -->
+    <frequency>120</frequency>
+    <alert_new_files>yes</alert_new_files>
+
+
+    <!-- Directories to check  (perform all possible verifications) -->
+    <directories check_all="yes" report_changes="yes" realtime="yes">/etc,/usr/bin,/usr/sbin</directories>
+    <directories check_all="yes" report_changes="yes" realtime="yes">/bin,/sbin,/boot</directories>
+```
+
+```
+## Adjust local rules 
+root@server1:/var/ossec/rules# vi local_rules.xml
+  <rule id="554" level="7" overwrite="yes">
+     <category>ossec</category>
+     <decoded_as>syscheck_new_entry</decoded_as>
+     <description>File added to system</description>
+     <group>syscheck,</group>
+  </rule>
+
+
+</group> <!-- SYSLOG,LOCAL -->
+```
+
+#### Restart hids-server (server1) 
+
+```
+ /var/ossec/bin/ossec-control restart
+```
+
+#### Optional scan immediately 
+
+```
+##it is possible from the hids-server (server1 aka main.example)
+##to do an immediate scan on the agents (server2 aka secondary.example.com) 
+## by restarting agent
+
+/var/ossec/bin/agent_control -R 001
+```
+
+### Installation/Walkthrough ossec on Centos 8
+
+
+### Wazuh
+
+```
+## Fork / Weiterentwicklung
+https://wazuh.com/
+
+```
+
+### OSSEC -> Installation 
+
+```
+### Install on 2 servers 
+### server 1 (main): ossec-hids-server
+### server 2 (secondary): ossec-hids-agent 
+
+## https://www.ossec.net/downloads/#apt-automated-installation-on-ubuntu-and-debian
+## Installs repo-config but not correctly ! 
+wget -q -O atomic-file https://updates.atomicorp.com/installers/atomic
+sh atomic-file 
+
+```
+
+```
+## installation on main 
+dnf -y install ossec-hids ossec-hids-server 
+
+## adjust /var/ossec/etc/ossec.conf 
+<ossec_config>
+  <global>
+    <email_notification>yes</email_notification>
+    <email_to>root@localhost</email_to>
+    <smtp_server>127.0.0.1</smtp_server>
+    <email_from>ossec@localhost</email_from>
+  </global>
+  
+```
+
+```
+## Start 
+/var/ossec/bin/ossec-control start 
+
+```
+
+### Testing on server 1
+
+```
+ssh root@localhost 
+## enter wrong password 3 times 
+
+## alert is logged to 
+cd /var/ossec/logs/alerts/
+tail alerts.log
+2020 Nov 11 13:48:59 server2->/var/log/auth.log
+Rule: 5710 (level 5) -> 'Attempt to login using a non-existent user'
+Src IP: 127.0.0.1
+Nov 11 13:48:59 server2 sshd[56463]: Failed password for invalid user root from 127.0.0.1 port 44032 ssh2
+
+** Alert 1605098949.1127: - syslog,sshd,invalid_login,authentication_failed,
+2020 Nov 11 13:49:09 server2->/var/log/auth.log
+Rule: 5710 (level 5) -> 'Attempt to login using a non-existent user'
+Nov 11 13:49:07 server2 sshd[56463]: message repeated 2 times: [ Failed password for invalid user root from 127.0.0.1 port 44032 ssh2]
+```
+
+### Installation server 2 (agent) 
+
+```
+dnf install -y ossec-hids-agent 
+
+## vi /var/ossec/etc/ossec.conf 
+## change to ip of server 2 
+<!-- OSSEC example config -->
+
+<ossec_config>
+  <client>
+    <server-ip>192.168.33.10</server-ip>
+  </client>
+
+```
+
+### Manage Agent (server 2) on server1 (ossec-server) 
+
+```
+ /var/ossec/bin/manage_agents
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (A)dd an agent (A).
+   (E)xtract key for an agent (E).
+   (L)ist already added agents (L).
+   (R)emove an agent (R).
+   (Q)uit.
+Choose your action: A,E,L,R or Q: A
+
+- Adding a new agent (use '\q' to return to the main menu).
+  Please provide the following:
+   * A name for the new agent: server1
+   * The IP Address of the new agent: 10.10.11.141
+   * An ID for the new agent[001]:
+Agent information:
+   ID:001
+   Name:server2
+   IP Address:10.10.11.141
+
+Confirm adding it?(y/n): y
+Agent added with ID 001.
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (A)dd an agent (A).
+   (E)xtract key for an agent (E).
+   (L)ist already added agents (L).
+   (R)emove an agent (R).
+   (Q)uit.
+Choose your action: A,E,L,R or Q: e
+
+Available agents:
+   ID: 001, Name: server2, IP: 10.10.11.141
+Provide the ID of the agent to extract the key (or '\q' to quit): 1
+
+Agent key information for '001' is:
+MDAxIHNlcnZlcjEgMTAuMTAuMTEuMTQxIDkyMjAyMGQ5NzNjODE4NDM3YmIxZmU5ZDBjMmFmYmMwY2JmMmE2Y2EzNjllMGU5Y2MxNmJkYTc4OTdhYTJmNzc=
+
+** Press ENTER to return to the main menu.
+
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (A)dd an agent (A).
+   (E)xtract key for an agent (E).
+   (L)ist already added agents (L).
+   (R)emove an agent (R).
+   (Q)uit.
+Choose your action: A,E,L,R or Q: q
+
+** You must restart OSSEC for your changes to take effect.
+
+manage_agents: Exiting.
+manage_agents: Exiting.
+root@server2:/var/ossec/logs/alerts#
+
+## Server neu starten 
+ /var/ossec/bin/ossec-control restart
+
+```
+
+### Import Key on agent - system (server 2) 
+
+```
+ /var/ossec/bin/manage_agents
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (I)mport key from the server (I).
+   (Q)uit.
+Choose your action: I or Q: I
+
+* Provide the Key generated by the server.
+* The best approach is to cut and paste it.
+*** OBS: Do not include spaces or new lines.
+
+Paste it here (or '\q' to quit): MDAxIHNlcnZlcjEgMTAuMTAuMTEuMTQxIDkyMjAyMGQ5NzNjODE4NDM3YmIxZmU5ZDBjMmFmYmMwY2JmMmE2Y2EzNjllMGU5Y2MxNmJkYTc4OTdhYTJmNzc=
+
+Agent information:
+   ID:001
+   Name:server2
+   IP Address:10.10.11.141
+
+Confirm adding it?(y/n): y
+2020/11/11 14:08:11 manage_agents: ERROR: Cannot unlink /queue/rids/sender: No such file or directory
+Added.
+** Press ENTER to return to the main menu.
+
+
+
+****************************************
+* OSSEC HIDS v3.6.0 Agent manager.     *
+* The following options are available: *
+****************************************
+   (I)mport key from the server (I).
+   (Q)uit.
+Choose your action: I or Q: q
+
+** You must restart OSSEC for your changes to take effect.
+
+manage_agents: Exiting.
+manage_agents: Exiting.
+root@server1:/var/ossec/etc#
+
+#### Restart agent 
+/var/ossec/bin/ossec-control restart 
+
+```
+
+#### produce problem on server 2 (agent) 
+
+```
+## enter wrong password 3 times 
+ssh root@localhost
+```
+
+#### validatte on server 1 (server)
+
+```
+you should get an email to root 
+please check 
+/var/ossec/logs/alert/alert.log 
+
+
+## if this is not working restart server2 and agent->server1
+server1: /var/ossec/bin/ossec-control restart
+server2: /var/ossec/bin/ossec-control restart
+
+## Please retry to ssh with wrong pw 3 x !!! 
+```
+
+#### Change scan config on server1 ossec.conf 
+
+```
+## like so --> first lines 
+ <syscheck>
+    <!-- Frequency that syscheck is executed -- default every 20 hours -->
+    <frequency>120</frequency>
+    <alert_new_files>yes</alert_new_files>
+
+
+    <!-- Directories to check  (perform all possible verifications) -->
+    <directories check_all="yes" report_changes="yes" realtime="yes">/etc,/usr/bin,/usr/sbin</directories>
+    <directories check_all="yes" report_changes="yes" realtime="yes">/bin,/sbin,/boot</directories>
+```
+
+```
+## Adjust local rules 
+root@server1:/var/ossec/rules# vi local_rules.xml
+  <rule id="554" level="7" overwrite="yes">
+     <category>ossec</category>
+     <decoded_as>syscheck_new_entry</decoded_as>
+     <description>File added to system</description>
+     <group>syscheck,</group>
+  </rule>
+
+
+</group> <!-- SYSLOG,LOCAL -->
+```
+
+#### Restart hids-server (server1) 
+
+```
+ /var/ossec/bin/ossec-control restart
+```
+
+#### Optional scan immediately 
+
+```
+##it is possible from the hids-server (server1 aka main.example)
+##to do an immediate scan on the agents (server2 aka secondary.example.com) 
+## by restarting agent
+
+/var/ossec/bin/agent_control -R 001
+```
+
+### AIDE on Ubuntu/Debian
+
+
+### Install
+
+```
+apt install aide
+## adjust config 
+## /etc/aide.conf /etc/aide.conf.d <- rules 
+aideinit 
+
+## No necessary on Debian / Ubuntu 
+## aideinit does this 
+## mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+```
+
+### Backup 
+
+```
+tar czvf initial-aide.tgz /etc/aide/aide.conf /usr/bin/aide /var/lib/aide/aide.db.new
+```
+
+### Simulate modification 
+
+```
+echo "11.11.11.11 bad.host.com bad" >> /etc/hosts
+```
+
+### Do the check 
+
+```
+## In Ubuntu like so 
+aide.wrapper --check
+
+## In Debian like so
+aide --check --config=/etc/aide/aide.conf
+```
+### Check is done on a daily basis 
+
+  * /etc/cron.daily/aide 
+
+### Tripwire
+
+```
+apt install -y tripwire 
+
+
+```
+
+```
+## Optional selber händisch verschlüsseln
+## Creates encrypted twpol - file
+sudo twadmin --create-polfile /etc/tripwire/twpol.txt
+## create database
+sudo tripwire --init
+Last update: 2019/07/31
+08:23 trainingmaterial-linux-security-3days http://localhost/dokuwiki/doku.php?id=trainingmaterial-linux-security-3days
+http://localhost/dokuwiki/ Printed on 2019/07/31 08:25
+Tripwire - check (document)
+We want to document what gets scanned
+```
+
+```
+## Datenbank initialisieren einmalig 
+tripwire --init 
+
+## We want to document what gets scanned
+tripwire --check | grep Filename > test_results'
+##If we view this file, we should see entries that look like this:
+less /etc/tripwire/test_results
+## ...
+Filename: /etc/rc.boot
+Filename: /root/mail
+Filename: /root/Mail
+Filename: /root/.xsession-errors
+Tripwire - adjust twpol.txt
+```
+
+
+```
+## replace /proc by /proc/devices
+## was:
+##/proc -> $(Device) ;
+## now
+/proc/devices -> $(Device) ;
+## remove all /root/* entries that are not present
+## e.g.
+## /root/.sawfish
+## uncomment /var/lock and /var/run
+##/var/lock -> $(SEC_CONFIG) ;
+##/var/run -> $(SEC_CONFIG) ; # daemon PIDs
+Tripwire - recreate pol file + re-init db
+## polfile
+sudo twadmin -m P /etc/tripwire/twpol.txt
+## re-init database
+sudo tripwire --init
+Tripwire - rerun check
+sudo tripwire --check
+Tripwire - remove sensitive information
+sudo rm /etc/tripwire/test_results
+sudo rm /etc/tripwire/twpol.txt
+## recreate it
+sudo twadmin --print-polfile > /etc/tripwire/twpol.txt
+2019/07/31 08:25 13/56
+Training materials / Schulungsunterlagen - http://localhost/dokuwiki/
+sudo rm /etc/tripwire/twpol.txt
+
+```
+
+## Network Intrusion Detection 
+
+### Overview
+
+
+  * Snort (Ökosystem) 
+  * Suricata (gleiche Signaturen) - OpenSource Signaturen 
+
+
+## Vulnerability / Vulnerability Scans 
+
+### nikto
+
+
+### Walkthrough (Debian / Ubuntu)  
+
+```
+## Teststellung
+## main: 
+apt install -y apache2
+apt install -y php 
+## vi /var/www/html
+echo "<?php phpinfo(); ?>" > /var/www/html/info.php 
+```
+
+```
+## Debian 10/Ubuntu 2x.04  
+## secondary:
+apt install nikto 
+nikto -h http://main
+```
+
+### Walkthrough II (Debian / Ubuntu) 
+
+```
+## We detected, that Apache shows Version and Ubuntu -> Apache/2.4.xx (Ubuntu) 
+## that's not what we want - let us fix this:
+
+## main - Create new file 
+##vi /etc/apache2/conf-available/z-security.conf 
+##ServerTokens Prod 
+a2enconf z-security 
+systemctl reload apache 
+
+## secondary 
+nikto -h http://main
+## or simply do a curl to check the headers
+curl -I main 
+```
+
+
+
+### Walkthrough (Centos 8/Redhat 8)
+
+```
+## root do 
+dnf install -y perl git 
+cd /root  
+git clone https://github.com/sullo/nikto
+cd nikto/program 
+```
+
+
+### apache - etags
+
+
+### How they work and why they are no vulnerability 
+
+  * https://www.pentestpartners.com/security-blog/vulnerabilities-that-arent-etag-headers/
+
+
+### Lynis
+
+
+### Walkthrough 
+
+```
+apt update 
+apt install -y lynis 
+lynis audit system 
+
+## After that you analyse the report.
+## View or compile the results like so:
+
+## Scanning process wil also be documented on /var/log/lynis.log 
+grep -E "^warning|^suggestion" /var/log/lynis-report.dat
+
+```
+
+
+## Malware / Viren - Scans 
+
+### maldet - lmd
+
+
+```
+cd /usr/src
+wget https://www.rfxn.com/downloads/maldetect-current.tar.gz
+mkdir maldetect 
+mv maldetect-current.tar.gz maldetect 
+cd maldetect 
+tar xvf maldetect-current.tar.gz 
+
+```
+
+```
+cd /usr/src/maldetect/maldetect-1.6.4 
+./install.sh 
+
+## version anzeigen
+maldet 
+## update der Signaturen
+maldet -u 
+## Update der Software
+maldet -d 
+
+## Evtl config anpassen wenn gewünscht.
+## Standardmäßig erfolgt 1x nächtlich ein Scan 
+## /usr/local/maldetect/conf.maldet 
+
+wget -P /tmp https://secure.eicar.org/eicar_com.zip 
+cd /tmp
+cp -a eicar* /home/linux 
+
+maldet -a /home/linux 
+## reportliste 
+maldet -e 
+```
+
+```
+## Als Service betreiben 
+## vi /usr/local/maldetect/monitor_paths
+/etc
+/home 
+
+## /usr/local/maldetect/conf.maldet 
+## default_monitor_mode auf /usr/local... setzen 
+## default_monitor_mode="users"
+default_monitor_mode="/usr/local/maldetect/monitor_paths"
+
+## 
+apt install inotify-tools 
+
+systemctl start maldet 
+
+## Logs anschauen ob monitoring auf Pfade erfolgt 
+
+## 2. Session auf machen als user 'linux'
+## und datei downloaden. 
+wget https://secure.eicar.org/eicar_com.zip 
+
+## 1. Session als root. logs beobachten
+/usr/local/maldetect/logs/event_log 
+
+
+
+```
+
+
+
+### clamav
+
+
+### Komponenten 
+
+```
+clamav - client 
+clamav-daemon - daemon
+clamav-freshclam - service -> Dienst der die Virensignaturen aktualisiert 
+```
+
+### Wichtige clamscan Kommandos 
+
+```
+clamscan - Optionen
+Option	Beschreibung
+-i oder --infected	Gibt nur infizierte Dateien aus (und nicht alle Dateien die gescannt werden).
+--remove	Entfernt infizierte Dateien. Mit Vorsicht benutzen!
+--move=VERZEICHNIS	Verschiebt alle infizierten Dateien in das Verzeichnis VERZEICHNIS.
+-r oder --recursive	Scannt Unterverzeichnisse rekursiv.
+--no-archive	Alle Archiv-Dateien werden nicht gescannt.
+-h oder --help	Zeigt alle Optionen von clamscan an.
+```
+
+### Virendatenbank 
+
+  * Virendatenbank wird in /var/lib/freshclam gespeichert. 
+  * Aktualisierung durch den clamav-freshclam - Dienst oder manuell: freshclam 
+
+### Aktualisierung durch Dienst 
+
+```
+## Konfiguration unter des Dienstes (clamav-freshclam) unter:
+/etc/clamav/freshclam.conf 
+
+## Dies kann auch so erfolgen
+dpkg-reconfigure clamav-freshclam
+
+## Frequenz 
+Festlegen wie oft runtergeladen wird -> voreingestellt ist 24 mal am Tag.
+```
+
+### Virendatenbank manuell aktualisieren.
+
+```
+## Dienst darf dafür nicht laufen, weil er ein LOCK hält 
+systemctl stop clamav-freshclam
+freshclam
+systemctl start clamav-freshclam 
+```
+
+### Installation / Walkthrough 
+
+```
+apt install -y clamav clamav-daemon
+## Achtung: Der Daemon läuft erst wenn die Virensignatur 1x runtergeladen worden sind
+systemctl status clamav-daemon
+systemctl status clamav-freshclam 
+
+```
+
+### Privaten Mirror einrichten 
+
+```
+## Auf dediziertem Server
+##!/bin/bash 
+apt update
+apt install -y python3 pip apache2 
+pip3 install cvdupdate 
+cvd config set --dbdir=/var/www/html
+## better set this up as cron 
+cvd update 
+```
+
+```
+## In freshclam verwenden 
+## /etc/clamav/freshclam.conf 
+PrivateMirror=http://46.101.158.176
+systemctl restart clamav-freshclam 
+
+## Oder dpkg-reconfigure clamav-freshclam 
+
+```
+
+
+
+### Testen 
+
+```
+wget -P /tmp https://secure.eicar.org/eicar_com.zip
+## clamscan -ir /tmp
+## better: so you can see what is going on:
+clamscan --debug -vir /tmp
+
+## cpu schonender - nice - nice 15 -> niedrigste Priorität  
+## nice -n 15 clamscan && clamscan -ir /tmp
+```
+
+### clamscan return - codes 
+
+```
+0 : No virus found.
+1 : Virus(es) found.
+2 : Some error(s) occurred.
+```
+
+### on access scanning (clamonacc) 
+
+  * https://gist.github.com/ChadDevOps/dc5428e8d816344f68b03c99359731f9
+
+```
+## konfig in 
+man clamd.conf 
+vi /etc/clamav/clamd.conf 
+
+## Wichtig: Service erstellen 
+systemctl edit --full --force clamonacc.service
+```
+
+## Firewall 
+
+### nftables
+
+
+### Prerequisites 
+
+```
+Disable firewalld and ufw if we you want to use nftables (by itself) 
+
+systemctl stop firewalld
+systemctl disable firewalld
+```
+
+### Schaubild 
+
+  * https://www.teldat.com/blog/wp-content/uploads/2020/11/figure_05.png
+
+### Hierarchie-Ebenen 
+
+#### Ebene 1: Ruleset 
+
+```
+## quasi das Gehäuse 
+nft list ruleset 
+
+## Leer ? 
+## Per default ist noch nichts hinterlegt. 
+
+## Config wie in iptables INPUT, OUTPUT, FORWARD 
+## System hat einen Vorschlag 
+## Dieser findet sich in
+## Das ist auch gleichzeitig die Konfigurationsdatei 
+## /etc/nftables.conf 
+## Beim Starten werden diese Regeln geladen. 
+## Und zwar mit folgendem Dienst 
+systemctl status nftables 
+systemctl start nftables
+systemctl status nftables
+nft list ruleset
+```
+
+#### Ebene 2: Table 
+
+#### Ebene 3: Chain 
+
+
+#### Ebene 4: Rule 
+
+
+### Gegenüberstellung iptables und nft (Befehle) 
+
+```   
+iptables -L  -> nft list table ip filter
+iptables -L INPUT -> nft list chain ip filter INPUT
+
+iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
+```
+
+### Beispiel 1:
+
+ 
+```
+flush ruleset
+
+table inet firewall {
+                                                                                 
+    chain inbound_ipv4 {
+        # accepting ping (icmp-echo-request) for diagnostic purposes.
+        # However, it also lets probes discover this host is alive.
+        # This sample accepts them within a certain rate limit:
+        #
+        # icmp type echo-request limit rate 5/second accept      
+    }
+
+    chain inbound_ipv6 {                                                         
+        # accept neighbour discovery otherwise connectivity breaks
+        #
+        icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+                                                                                 
+        # accepting ping (icmpv6-echo-request) for diagnostic purposes.
+        # However, it also lets probes discover this host is alive.
+        # This sample accepts them within a certain rate limit:
+        #
+        # icmpv6 type echo-request limit rate 5/second accept
+    }
+
+    chain inbound {                                                              
+
+        # By default, drop all traffic unless it meets a filter
+        # criteria specified by the rules that follow below.
+        type filter hook input priority 0; policy drop;
+
+        # Allow traffic from established and related packets, drop invalid
+        ct state vmap { established : accept, related : accept, invalid : drop } 
+
+        # Allow loopback traffic.
+        iifname lo accept
+
+        # Jump to chain according to layer 3 protocol using a verdict map
+        meta protocol vmap { ip : jump inbound_ipv4, ip6 : jump inbound_ipv6 }
+
+        # Allow SSH on port TCP/22 and allow HTTP(S) TCP/80 and TCP/443
+        # for IPv4 and IPv6.
+        tcp dport { 22, 80, 443} accept
+
+        # Uncomment to enable logging of denied inbound traffic
+        # log prefix "[nftables] Inbound Denied: " counter drop
+    }                                                                            
+                                                                                 
+    chain forward {                                                              
+        # Drop everything (assumes this device is not a router)                  
+        type filter hook forward priority 0; policy drop;                        
+    }                                                                            
+                                                                                 
+    # no need to define output chain, default policy is accept if undefined.
+}
+```
+
+
+
+### Documentation 
+
+  * https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes
+
+### firewalld
+
+
+### Install firewalld and restrict ufw 
+
+```
+## Schritt 1: ufw deaktivieren 
+systemctl stop ufw
+systemctl disable ufw 
+ufw disable # zur Sicherheit 
+ufw status
+## -> inactive # this has to be the case 
+
+## Schritt 2: firewalld
+apt update
+apt install -y firewalld
+
+## Schritt 3: firewalld 
+apt install firewalld 
+systemctl start firewalld 
+systemctl enable firewalld 
+systemctl status firewalld 
+systemctl status ufw 
+
+```
+
+
+### Is firewalld running ?
+```
+## is it set to enabled ?
+systemctl status firewalld 
+firewall-cmd --state
+```
+
+### Command to control firewalld 
+  
+  * firewall-cmd 
+
+
+
+### Zones documentation 
+
+man firewalld.zones 
+
+### Zones available 
+
+```
+firewall-cmd --get-zones 
+block dmz drop external home internal public trusted work
+```
+
+### Active Zones 
+
+```
+firewall-cmd --get-active-zones
+## in our case empty 
+```
+
+### Add Interface to Zone = Active Zone 
+
+```
+## Variante 1
+firewall-cmd --zone=public --add-interface=enp0s8 --permanent 
+firewall-cmd --reload 
+
+## Variante 2
+firewall-cmd --zone=public --add-interface=enp0s8
+firewall-cmd --get-active-zones 
+## Nach dem Testen 
+firewall-cmd --runtime-to-permanent 
+firewall-cmd --list-all 
+firewall-cmd --list-all --permanent 
+
+firewall-cmd --get-active-zones 
+public
+  interfaces: enp0s8
+
+```
+
+### Show information about all zones that are used 
+```
+## Anzeigen der runtime 
+firewall-cmd --list-all 
+## Anzeigen der permanenten Konfiguration 
+firewall-cmd --list-all --permanent 
+
+firewall-cmd --list-all-zones 
+```
+
+
+### Default Zone 
+
+```
+## if not specifically mentioned when using firewall-cmd
+## .. add things to this zone 
+firewall-cmd --get-default-zone
+public
+```
+
+### Show services / Info
+```
+firewall-cmd --get-services 
+firewall-cmd --info-service=http
+```
+
+### Adding/Removing a service 
+
+```
+## Version 1 - more practical 
+## set in runtime 
+firewall-cmd --zone=public --add-service=http
+firewall-cmd --runtime-to-permanent 
+
+## Version 2 - less practical
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload 
+```
+
+```
+### Service wieder entfernen
+firewall-cmd --permanent --zone=public --remove-service=ssh
+firewall-cmd --reload 
+```
+
+### Best way to add a new rule 
+```
+## Walkthrough / Ubuntu 
+## in /etc/apache2/ports.conf 
+## Hinzufügen 
+## Listen 81 
+echo "Listen 81" >> /etc/apache2/ports.conf 
+systemctl restart apache2 
+
+## Best Practice version 
+firewall-cmd --add-port=81/tcp 
+## after testing 
+firewall-cmd --runtime-to-permanent 
+
+```
+
+### Enable / Disabled icmp 
+```
+firewall-cmd --get-icmptypes
+## none present yet 
+firewall-cmd --zone=public --add-icmp-block-inversion --permanent
+firewall-cmd --reload
+```
+
+### Working with rich rules 
+```
+## Documentation 
+## man firewalld.richlanguage
+
+## throttle connectons 
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10/32 service name=http log level=notice prefix="firewalld rich rule INFO:   " limit value="100/h" accept' 
+firewall-cmd --reload # 
+firewall-cmd --zone=public --list-all
+
+## port forwarding 
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --list-all
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10 forward-port port=42343 protocol=tcp to-port=22'
+firewall-cmd --reload 
+firewall-cmd --zone=public --list-all
+firewall-cmd --remove-service=ssh --zone=public
+
+## 
+
+
+## list only the rich rules 
+firewall-cmd --zone=public --list-rich-rules
+
+## persist all runtime rules 
+firewall-cmd --runtime-to-permanent
+
+```
+
+
+### References 
+
+  * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
+  * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
+
+## IPSec 
+
+### IPSec
+
+
+  * https://lists.strongswan.org/pipermail/users/2015-January/007380.html
+  * https://www.digitalocean.com/community/tutorials/how-to-set-up-an-ikev2-vpn-server-with-strongswan-on-ubuntu-20-04-de
+
+## Documentation
+
+### Telekom Compliance Guideline
+
+  * https://github.com/jmetzger/TelekomSecurity.Compliance.Framework
+
+### Linux Security
+
+  * http://schulung.t3isp.de/documents/linux-security.pdf
+
+## Wireshark / tcpdump / nmap
+
+### Examples tcpdump
+
+
+### What interfaces are available for listening ? 
+
+```
+tcpdump -D 
+## Eventually doublecheck with 
+ip a
+
+```
+
+### -n / -nn (Disable hostname / port resolving) 
+
+```
+## I would always recommend to do so, because it saves performance 
+
+## Do not do hostname lookups 
+tcpdump -i ens3 -n
+
+## Do not do hostname and port lookups 
+tcpdump -i ens3 -nn 
+```
+
+### Exclude specific ports 
+
+```
+tcpdump ! -p stp -i eth0 
+## more user friendly 
+tcpdump -i eth0 not stp and not icmp
+```
+
+### Include ascii output 
+
+```
+## s0 show unlimited content 
+## -A ASCII 
+tcpdump -A -s0 port 80
+
+```
+
+### Only from and/or to a specific host 
+
+```
+## to or from host
+tcpdump -i eth0 host 10.10.1.1
+
+## To a specific host 
+tcpdump -i eth0 dst 10.10.1.20
+```
+
+### Write to a pcap file 
+
+```
+tcpdump -i eth0 -w output.pcap 
+
+```
+
+### Only show GET requests 
+
+```
+## this show only all tcp packages 
+tcpdump -i eth0 tcp 
+
+## now let us filter specific ones -> 0x474554 -> is equivalent for GET as hex - numbers 
+## https://www.torsten-horn.de/techdocs/ascii.htm
+## tcp header has 20 bytes and maximum of 60 bytes, allowing for up to 40 bytes of options in the header.
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1]((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
+
+## Same goes for post - operations 
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1]((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
+
+```
+
+
+
+```
+## Deeply explained here
+https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp121-0xf0-24
+
+```
+
+### Extra http get/post urls 
+
+```
+## show linewise 
+tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
+
+## show linewise only using port http
+tcpdump -s 0 -v -n -l port http and not port ssh | egrep -i "POST /|GET /|Host:"
+
+```
+
+
+### Refs: 
+
+  * https://hackertarget.com/tcpdump-examples/
+
+### Example nmap
+
+
+### Example 1 
+
+```
+## including additional information 
+nmap -A main.training.local 
+```
+
+### Example 1a
+
+```
+nmap -A -F -T4 192.168.56.102
 ```
 
 ### Example 2
@@ -937,6 +2857,57 @@ journalctl _PID=1
 
 ### Remote logging with rsyslog
 
+
+### Change on server 1 (main) 
+
+```
+cd /etc/
+## changed
+##vi rsyslog.conf 
+## uncommented these 4 lines 
+## Provides UDP syslog reception
+## for parameters see http://www.rsyslog.com/doc/imudp.html
+module(load="imudp") # needs to be done just once
+input(type="imudp" port="514")
+
+## Provides TCP syslog reception
+## for parameters see http://www.rsyslog.com/doc/imtcp.html
+module(load="imtcp") # needs to be done just once
+input(type="imtcp" port="514")
+
+## restart rsyslog - daemon
+systemctl restart rsyslog.service 
+```
+
+### Change on server 2 (secondary) 
+
+```
+## added hostname in /etc/hosts 
+## in the case main has 192.168.33.10 
+echo "192.168.33.10 main" >> /etc/hosts 
+
+## Added to line at then end of /etc/rsyslog.conf 
+## log to udp (@) AND tcp (@@)
+## In production you only need one of those 
+*.*    @main
+*.*    @@main
+
+## Restart service 
+systemctl restart rsyslog.service 
+
+```
+
+### Finally testing 
+
+```
+## on secondary 
+logger -p local0.info "Testmessage from this beautiful team" 
+
+## on main
+## we should have an output 
+cat /var/log/messages | grep -i testmessage 
+```
+
 ### Remote logging with rsyslog and tls
 
 
@@ -1445,6 +3416,9 @@ systemctl status auditd
 
 cd /var/www/html
 echo "hallo welt" > welt.html 
+## Dann im browser aufrufen
+## z.B. 192.168.56.103/welt.html 
+
 chcon -t var_t welt.html
 ## includes context from welt.html 
 ls -laZ welt.html
@@ -1579,8 +3553,6 @@ getsebool nis_enabled
 ## -C option in sesearch seems deprecated in Centos 
 ```
 
-### Managing SELinux Policies
-
 ### Troubleshoot with sealert on Centos/Redhat
 
 
@@ -1636,25 +3608,30 @@ setsebool -P ssh_sysadm_login 0
 ### SELinux Troubleshooting on Centos
 
 
-### Troubleshooting a service 
+### General saying 
 
 ```
 ### Assumption: Golden Rule of Centos/Redhat 
 
-!!! If everything looks nice (permissions), but NOT START 
+!!! If everything looks nice (permissions), but DOES NOT START 
 it MIGHT BE selinux <-- !!! 
+```
+### Walkthrough with debugging 
 
-### Step 1: Does service start in permissive mode of selinux  
+#### Step 1:
 
-sestatus
-setenforce 0 
-## example 
-systemctl start systemd-journal-upload 
-systemctl status systemd-journal-upload 
-## -> Works so, now we know, SELINUX is the problem. 
+```
+## /etc/httpd/conf/httpd.conf
+## Ergänzen 
+## Listen 83 
 
-### Step 2: Findout what go into the way, with smart tools
+systemctl restart httpd 
+```
 
+
+### Step 2: Findout what got into the way, with smart tools
+
+```
 dnf whatprovides sealert 
 dnf install -y setroubleshoot-server 
 cd /var/log/audit
@@ -1662,65 +3639,24 @@ cd /var/log/audit
 ## this take a little while - grab some coffee 
 sealert -a audit.log > report.txt
 ```
+
+### Step 3: Debug and fix 
+
+```
+sealert -a /var/log/audit.log > report.txt
+## Extract advice from file 
+## find http_port_t
+semanage port -l | grep 80
+## an advice how to fix from report.txt
+semanage port -a -t http_port_t -p tcp 83
+semanage port -l | grep 83
+systemctl start httpd
+## now apache also listens on port 83
+lsof -i
+```
+
   * [Alternative way using sealert](#troubleshoot-with-sealert-on-centosredhat) 
 
-```
-## now look into the report.txt.
-## in most there are 2-3 solutions for you problem 
-
-### Step 3 - possibility 1: Adjust ports/files with semanage command 
-## Example 
-semanage port -a -t http_port 
-semanage port -l | grep http_port 
-
-### Step 3 - possibility 2: A boolean exists 
-getsebool -a | grep <boolean_as_mentioned_in_report_txt>
-## set boolean permanently (-P) 
-## example -> 1 = on or true 
-setsebool -P use_virtualbox 1 
-
-### Step 3 - possibility 3: create a module 
-## find entries for specific commands 
-ausearch -c 'systemd_journal' --raw 
-## now create amodule 
-ausearch -c 'systemd_journal' --raw | audit2allow -M systemd_journal_fixer 
-## now if you want have a look into the module 
-cat systemd_journal_fixer.te 
-
-### Step 3 - possibility 3: Install module
-semodule -i systemd_journal_fixer.pp 
-
-```
-
-### What is best: setsebool, semanage, create module
-
-  * Best things first 
-    1. setsebool (only, if it only opens a small subset of allow-rules) 
-    1. semanage 
-    1. create module (last resort) 
-  * Verify what rules are triggered when using setsebool (might be a lot like in nis_enabled) 
-  * Refer to [Using booleans](#selinux---working-with-booleans)
-
-
-### General 
-```
-## Find out which problems you had 
-cd /var/log/audit 
-sealert -a audit.log > report.log
-
-## Alternative - look into messages and find uid 
-vi messages
-sealert -l de929621-a863-4f2f-ac74-4453138c8c08
-
-## With both you answers how to proceed 
-## in case of a port missing 
-## e.g. 
-## which port type belongs to 80 
-semanage port -l | grep 80 
-## add you port to that list 
-semanage port -a -t http_port_t -p tcp 85
-
-```
 
 ## Docker / Podman with Seccomp 
 
@@ -1777,375 +3713,6 @@ chmod: /etc/services: Operation not permitted
 ### References / Solutions 
 
  * https://www.acunetix.com/blog/articles/slow-http-dos-attacks-mitigate-apache-http-server/
-
-## Firewall 
-
-### nftables
-
-
-### Generally ;o) 
-```
-## In IPtables, -> several chains and tables that are loaded by default.
-iptables -L
-
-In nftables, there are no default chains or tables.
-```
-
-### Ubuntu 20.04LTS -> 20.10 
-```
-Starting from Ubuntu 20.10 it will be the default system -> nftables 
-```
-
-### nftables in Debian / Centos 8
-
-```
-nftables are use by default in Debian 10,11 
-(by using iptables -> which are translate to nft) 
-```
-
-
-### Walkthrough / migration to nftables 
-
-#### take care of current rules 
-```
-iptables-save > fwrules.txt
-cat fwrules.txt
-iptables-restore-translate -f fwrules.txt
-iptables-restore-translate -f fwrules.txt > ruleset.nft
-```
-
-## now installing nftables 
-```
-apt install nftables
-## important -> iptables will still work then 
-## apt install iptables-nftables-compat # not needed for ubuntu 20.04 
-systemctl enable --now nftables.service
-```
-
-
-## now load the rules to nft 
-```
-nft -f ruleset.nft
-nft list ruleset
-```
-
-### Examples nft 
-```
-
-##review current configuration:
-root@host [~]# nft list ruleset
-
-##Add a new table, with family "inet" and table "filter":
-root@host [~]# nft add table inet filter
-
-##Add a new chain, to accept all inbound traffic:
-root@host [~]# nft add chain inet filter input \{ type filter hook input priority 10 \; policy drop \; \}
-
-##Add a new rule, to accept several TCP ports:
-root@host [~]# nft add rule inet filter input tcp dport \{ ssh, telnet, https, http \} accept
-
-##To show rule handles:
-root@host [~]# nft --handle --numeric list chain family table chain
-## show handles and numbers 
-nft --handle --numeric list ruleset
-
-
-##To delete a rule:
-root@host [~]# nft delete rule inet filter input handle 3
-
-##To save the current configuration:
-root@host [~]# nft list ruleset > /etc/nftables.conf
-
-```
-
-### Deleting rules / all rules 
-
-```
-## handle is an internal number that identifies a certain rule.
-
-nft flush rule filter output
-nft flush table filter
-
-```
-
-
-### Create a firewall config 
-
-```
-flush ruleset
-
-## List all IPs and IP ranges of your traffic filtering proxy source.
-define SAFE_TRAFFIC_IPS = {
-    x.x.x.x/xx,
-    x.x.x.x/xx,
-    x.x.x.x,
-    x.x.x.x
-}
-
-table inet firewall {
-
-    chain inbound {
-
-    	# By default, drop all traffic unless it meets a filter
-    	# criteria specified by the rules that follow below.
-        type filter hook input priority 0; policy drop;
-
-        # Allow traffic from established and related packets.
-        ct state established,related accept
-
-        # Drop invalid packets.
-        ct state invalid drop
-
-        # Allow loopback traffic.
-        iifname lo accept
-
-        # Allow all ICMP and IGMP traffic, but enforce a rate limit
-        # to help prevent some types of flood attacks.
-        ip protocol icmp limit rate 4/second accept
-        ip6 nexthdr ipv6-icmp limit rate 4/second accept
-        ip protocol igmp limit rate 4/second accept
-
-        # Allow SSH on port 22.
-        tcp dport 22 accept
-
-        # Allow HTTP(S).
-        # -- From anywhere
-        tcp dport { http, https } accept
-        udp dport { http, https } accept
-        # -- From approved IP ranges only
-        # tcp dport { http, https } ip saddr $SAFE_TRAFFIC_IPS accept
-        # udp dport { http, https } ip saddr $SAFE_TRAFFIC_IPS accept
-
-        # Uncomment to allow incoming traffic on other ports.
-        # -- Allow Jekyll dev traffic on port 4000.
-        # tcp dport 4000 accept
-        # -- Allow Hugo dev traffic on port 1313.
-        # tcp dport 1313 accept
-
-        # Uncomment to enable logging of denied inbound traffic
-        # log prefix "[nftables] Inbound Denied: " flags all counter drop
-
-    }
-
-    chain forward {
-
-        # Drop everything (assumes this device is not a router)
-        type filter hook forward priority 0; policy drop;
-
-        # Uncomment to enable logging of denied forwards
-        # log prefix "[nftables] Forward Denied: " flags all counter drop
-
-    }
-
-    chain outbound {
-
-        # Allow all outbound traffic
-        type filter hook output priority 0; policy accept;
-
-    }
-
-}
-```
-
-
-#### Ref: 
-
-  * https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_server
-  * https://firewalld.org/documentation/man-pages/firewalld.conf.html
-
-
-### Some commands ;o
-
-```
-## add chain 
-## lower priority first
-nft add chain inet example_table example_chain { type filter hook input priority 10 \; policy drop \; }
-
-### append at the end 
-nft add rule inet my_table my_filter_chain tcp dport ssh accept
-
-### add at the beginning
-nft insert rule inet my_table my_filter_chain tcp dport http accept
-
-```
-
-### revert back to iptables 
-```
-‘firewallbackend‘ entry in /etc/firewalld/firewalld.conf back to ‘iptables‘,
-```
-
-
-### References 
-
-  * https://www.liquidweb.com/kb/how-to-install-nftables-in-ubuntu/
-  * https://wiki.nftables.org/wiki-nftables/index.php/Configuring_chains#Base_chain_priority
-
-
-### firewalld
-
-
-### Install firewalld 
-
-
-
-### Is firewalld running ?
-```
-## is it set to enabled ?
-systemctl status firewalld 
-firewall-cmd --state
-```
-
-### Command to control firewalld 
-  
-  * firewall-cmd 
-
-
-### Show information about all zones that are used 
-```
-firewall-cmd --list-all
-```
-
-### Best way to add a new rule 
-```
-## Step1: do it persistent -> written to disk 
-firewall-cmd --add-port=82/tcp --persistant 
-
-## Step 2: + reload firewall 
-firewall-cmd --reload 
-```
-
-### Zones documentation 
-
-man firewalld.zones 
-
-### Zones available 
-
-```
-firewall-cmd --get-zones 
-block dmz drop external home internal public trusted work
-```
-
-### Active Zones 
-
-```
-firewall-cmd --get-active-zones
-## in our case empty 
-```
-
-### Show information about all zones that are used 
-```
-firewall-cmd --list-all 
-firewall-cmd --list-all-zones 
-```
-
-
-### Add Interface to Zone ~ Active Zone 
-
-```
-firewall-cmd --zone=public --add-interface=enp0s3 --permanent 
-firewall-cmd --reload 
-firewall-cmd --get-active-zones 
-public
-  interfaces: enp0s3
-
-```
-### Default Zone 
-
-```
-## if not specifically mentioned when using firewall-cmd
-## .. add things to this zone 
-firewall-cmd --get-default-zone
-public
-
-```
-
-### Show services / show service details (Which ports?)
-```
-firewall-cmd --get-services 
-firewall-cmd --info-service=http 
-```
-### Adding/Removing a service 
-
-```
-firewall-cmd --permanent --zone=public --add-service=ssh
-firewall-cmd --reload 
-firewall-cmd --permanent --zone=public --remove-service=ssh
-firewall-cmd --reload 
-```
-
-### Add/Remove ports 
-```
-firewall-cmd --add-port=82/tcp --zone=public --permanent
-
-```
-
-### Allow only specific sources 
-
-```
-firewall-cmd --add-source=192.168.33.11
-```
-
-### Enable / Disabled icm 
-```
-firewall-cmd --get-icmptypes
-## none present yet 
-firewall-cmd --zone=public --add-icmp-block-inversion --permanent
-firewall-cmd --reload
-```
-
-### Working with rich rules 
-```
-## Documentation 
-## man firewalld.richlanguage
-
-## throttle connectons 
-firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10/32 service name=http log level=notice prefix="firewalld rich rule INFO:   " limit value="100/h" accept' 
-firewall-cmd --reload # 
-firewall-cmd --zone=public --list-all
-
-## port forwarding 
-firewall-cmd --get-active-zones
-firewall-cmd --zone=public --list-all
-firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10 forward-port port=42343 protocol=tcp to-port=22'
-firewall-cmd --reload 
-firewall-cmd --zone=public --list-all
-firewall-cmd --remove-service=ssh --zone=public
-
-## 
-
-
-## list only the rich rules 
-firewall-cmd --zone=public --list-rich-rules
-
-## persist all runtime rules 
-firewall-cmd --runtime-to-permanent
-
-
-
-
-```
-
-### Install firewalld and restrict ufw (Ubuntu) 
-
-```
-apt install firewalld 
-systemctl status firewalld 
-systemctl status ufw 
-
-## ufw service is still running, but :
-ufw status
--> disabled # this has to be the case 
-
-## 
-systemctl disable --now ufw.service 
-```
-
-
-
-### References 
-
-  * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
-  * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
 
 ## Kernel Hardening 
 
@@ -2323,10 +3890,40 @@ apt install -y texlive-fonts-recommended
 ### Walkthrough (Debian / Ubuntu)  
 
 ```
-## Debian 10 
+## Teststellung
+## main: 
+apt install -y apache2
+apt install -y php 
+## vi /var/www/html
+echo "<?php phpinfo(); ?>" > /var/www/html/info.php 
+```
+
+```
+## Debian 10/Ubuntu 2x.04  
+## secondary:
 apt install nikto 
 nikto -h http://main
 ```
+
+### Walkthrough II (Debian / Ubuntu) 
+
+```
+## We detected, that Apache shows Version and Ubuntu -> Apache/2.4.xx (Ubuntu) 
+## that's not what we want - let us fix this:
+
+## main - Create new file 
+##vi /etc/apache2/conf-available/z-security.conf 
+##ServerTokens Prod 
+a2enconf z-security 
+systemctl reload apache 
+
+## secondary 
+nikto -h http://main
+## or simply do a curl to check the headers
+curl -I main 
+```
+
+
 
 ### Walkthrough (Centos 8/Redhat 8)
 
