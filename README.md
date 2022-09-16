@@ -64,7 +64,7 @@
   
   1. Logging 
      * [Overview Logging Systems](logging.md) 
-     * [Remote logging with rsyslog](rsyslog-remote-logging.md)
+     * [Remote logging with rsyslog](remote-rsyslog-logging.md)
      * [Remote logging with rsyslog and tls](rsyslog-remote-logging-ssl.md)
      * [Systemd Remote Logging](systemd-remote-logging.md)
   
