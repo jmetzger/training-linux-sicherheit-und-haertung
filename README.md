@@ -21,6 +21,7 @@
   1. apparmor 
      * [apparmor](apparmor.md) 
      * [apparmor walkthrough ubuntu](apparmor-walkthrough-ubuntu.md)
+     * [apparmor and docker/kubernetes](apparmor-docker-kubernetes.md)
         
   1. Host Intrusion Detection 
      * [Overview](hids-overview.md) 
