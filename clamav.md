@@ -92,7 +92,7 @@ wget -P /tmp https://secure.eicar.org/eicar_com.zip
 clamscan --debug -vir /tmp
 
 # cpu schonender - nice - nice 15 -> niedrigste Priorität  
-nice -n 15 clamscan && clamscan -ir /tmp
+# nice -n 15 clamscan && clamscan -ir /tmp
 ```
 
 ## clamscan return - codes 
