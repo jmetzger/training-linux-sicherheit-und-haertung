@@ -75,14 +75,18 @@ exit
 
 7. Privates file von cheerleader /shared/mutants/private
    Zugriff von sylar verhindern
-   
-# su - cheerleader
-$ echo "privat" >> /shared/mutants/private
-$ setfacl -m u:sylar:- /shared/mutants/private
-$ getfacl /shared/mutants/private
-$ exit
-# su - sylar
-$ cat /shared/mutants/private
-cat: /shared/mutants/private: Permission denied
-$ exit
+
+```
+su - cheerleader
+
+echo "privat" >> /shared/mutants/private
+setfacl -m u:sylar:- /shared/mutants/private
+getfacl /shared/mutants/private
+exit
+
+su - sylar
+
+cat /shared/mutants/private
+# cat: /shared/mutants/private: Permission denied
+exit
 ```
