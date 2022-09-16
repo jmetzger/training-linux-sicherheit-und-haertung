@@ -36,6 +36,7 @@
   1. Vulnerability / Vulnerability Scans 
      * [nikto](nikto.md) 
      * [apache - etags](apache-etags.md) 
+     * [Lynis](lynis.md)
    
   1. Malware / Viren - Scans 
      * [maldet - lmd](maldet.md)
