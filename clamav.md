@@ -32,6 +32,9 @@ Option	Beschreibung
 # Konfiguration unter des Dienstes (clamav-freshclam) unter:
 /etc/clamav/freshclam.conf 
 
+# Dies kann auch so erfolgen
+dpkg-reconfigure clamav-freshclam
+
 # Frequenz 
 Festlegen wie oft runtergeladen wird -> voreingestellt ist 24 mal am Tag.
 ```
