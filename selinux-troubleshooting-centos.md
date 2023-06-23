@@ -17,7 +17,7 @@ it MIGHT BE selinux <-- !!!
 # Ergänzen 
 # Listen 83 
 
-# Started nicht neu ....
+# Startet nicht neu ....
 systemctl restart httpd
 
 ```
