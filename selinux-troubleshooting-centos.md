@@ -47,6 +47,12 @@ semanage port -l | grep 83
 systemctl start httpd
 # now apache also listens on port 83
 lsof -i
+# also add port in firewall if running
+firewall-cmd --state
+# add to runtime 
+firewall-cmd --add-port=83/tcp
+# make permanent 
+firewall-cmd --runtime-to-permanent 
 ```
 
   * [Alternative way using sealert](selinux-sealert.md) 
