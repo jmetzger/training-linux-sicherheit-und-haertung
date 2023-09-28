@@ -23,7 +23,7 @@ systemctl restart httpd
 ```
 
 
-## Step 2: Findout what got into the way, with smart tools
+### Step 2: Findout what got into the way, with smart tools
 
 ```
 dnf whatprovides sealert 
@@ -34,7 +34,7 @@ cd /var/log/audit
 sealert -a audit.log > report.txt
 ```
 
-## Step 3: Debug and fix 
+### Step 3: Debug and fix 
 
 ```
 sealert -a /var/log/audit.log > report.txt
