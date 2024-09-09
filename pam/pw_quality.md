@@ -11,8 +11,8 @@ cat /etc/pam.d/common-password | grep "pwquality"
 
 
 ```
-# mindestens 10 Zeichen (+1 wenn mindestens ein credit gesetzt ist
-minlen = 11
+# mindestens 10 Zeichen (+1 wenn mindestens ein credit gesetzt ist -> plus-wert // hier nicht der fall)
+minlen = 10
 # mindestens 2 große Zeichen (upper)
 ucredit = -2
 # mindestens 2 Sonderzeichen 
