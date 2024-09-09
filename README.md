@@ -6,9 +6,10 @@
      * [sudo - not to !](sudo/sudo-not-to.md)
      * [sudo exercise](sudo/sudo-exercise.md)
 
-  1. users
+  1. users / pam
      * [Lock/Unlock](users/lock-unlock.md)
      * [pam mechanisms](pam/required-sufficient-reqisite.md)
+     * [pwquality](pam/pw_quality.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
