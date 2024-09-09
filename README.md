@@ -8,6 +8,7 @@
 
   1. users
      * [Lock/Unlock](users/lock-unlock.md)
+     * [pam mechanisms](pam/required-sufficient-reqisite.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
