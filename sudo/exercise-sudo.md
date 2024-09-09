@@ -12,7 +12,7 @@ sudo dann testen
 - useradd (lowlevel - Befehl) 
 ```
 
-# Übung 1b:
+## Übung 1b:
 
 ```    
 Einen neuen Benutzer erstellen training2, der
