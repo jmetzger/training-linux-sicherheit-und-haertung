@@ -6,6 +6,9 @@
      * [sudo - not to !](sudo/sudo-not-to.md)
      * [sudo exercise](sudo/sudo-exercise.md)
 
+  1. users
+     * [Lock/Unlock](users/lock-unlock.md)
+
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
      * [Example nmap](nmap.md) 
