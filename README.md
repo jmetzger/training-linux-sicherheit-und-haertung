@@ -2,6 +2,9 @@
 
 ## Agenda
 
+  1. sudo 
+    * [sudo - not to !](sudo/sudo-not-to.md)
+
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
      * [Example nmap](nmap.md) 
