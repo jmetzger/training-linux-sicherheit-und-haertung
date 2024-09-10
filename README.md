@@ -32,6 +32,7 @@
      * [SELinux Walkthrough Rocky Linux](selinux.md) 
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
      * [setsebool / booleans in selinux to allow features](selinux-boolean.md)
+     * [Dienste wie apache (httpd) auf permissive setzen](selinux-permissive-domain.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
