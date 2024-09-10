@@ -3,6 +3,7 @@
 ## Find out, which are available 
 
 ```
+# show all 
 getsebool -a | grep nis 
 # shows all booleans with short description 
 semanage boolean -l 
