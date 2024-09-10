@@ -82,17 +82,11 @@ firewall-cmd --zone=public --add-service=http
 firewall-cmd --add-service=http
 
 firewall-cmd --list-all
-firewall-cmd --list-all --permanent 
-```
+firewall-cmd --list-all --permanent
 
-
-## Adding/Removing a service 
-
-```
-firewall-cmd --permanent --zone=public --add-service=ssh
-firewall-cmd --reload 
-firewall-cmd --permanent --zone=public --remove-service=ssh
-firewall-cmd --reload 
+firewall-cmd --runtime-to-permanent
+# Here it should show up 
+cat /etc/firewalld/zones/public.xml 
 ```
 
 ## Walkthrough apache / adding Port (Centos 8 / Redhat 8 with enabled SELinux (by default))
