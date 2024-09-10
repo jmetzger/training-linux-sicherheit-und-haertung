@@ -30,6 +30,14 @@ restorecon -vr /var/www/html
 ## Analyze 
 
 ```
+# sesearch is needed,
+# install if not present
+dnf whatprovides sesearch
+dnf install setools-console
+```
+
+
+```
 # Under which type/domain does httpd run 
 ps auxZ | grep httpd
 
