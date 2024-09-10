@@ -2,9 +2,10 @@
 
 ## Agenda
 
-  1. sudo 
+  1. sudo /run0
      * [sudo - not to !](sudo/sudo-not-to.md)
      * [sudo exercise](sudo/sudo-exercise.md)
+     * [run0 as alternative in systemd from version 256](/run0/overview.md)
 
   1. users / pam / chage
      * [Lock/Unlock](users/lock-unlock.md)
