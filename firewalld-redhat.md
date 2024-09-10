@@ -105,7 +105,7 @@ firewall-cmd --add-port=82/tcp --zone=public --permanent
 
 ```
 
-## Enable / Disabled icm 
+## Enable / Disabled icmp
 ```
 firewall-cmd --get-icmptypes
 # none present yet 
