@@ -15,7 +15,7 @@ it MIGHT BE selinux <-- !!!
 ```
 # /etc/httpd/conf/httpd.conf
 # Ergänzen 
-# Listen 83 
+Listen 83 
 
 # Startet nicht neu ....
 systemctl restart httpd
