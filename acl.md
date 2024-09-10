@@ -19,7 +19,7 @@ mkdir -p /shared/mutants
 chgrp heroes /shared/mutants
 ```
 
-2. 3 Benutzer erstelle (sue gehört nicht der Gruppe an)
+2. 3 Benutzer erstelle ("sue" gehört nicht der Gruppe heroes an)
 ```
 useradd sylar
 useradd cheerleader
@@ -42,7 +42,7 @@ exit
 
 ``` 
 su - cheerleader
-echo "\nNix gut cheerleader war hier." >> /shared/mutants/victims
+echo "\nCheerleader war hier." >> /shared/mutants/victims
 exit
 ```
 
