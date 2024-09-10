@@ -77,9 +77,12 @@ firewall-cmd --info-service=ssh
 
 ```
 # lange Form für Laufzeit 
-firewall-cmd --zone=public --add-service=ssh
+firewall-cmd --zone=public --add-service=http
 # kurze Form / nimmt default target -> zone: public 
-firewall-cmd --add-service=ssh
+firewall-cmd --add-service=http
+
+firewall-cmd --list-all
+firewall-cmd --list-all --permanent 
 ```
 
 
