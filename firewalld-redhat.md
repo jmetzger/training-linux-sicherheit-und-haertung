@@ -65,9 +65,12 @@ public
 
 ```
 
-## Show services 
+## Show services / Infos services 
 ```
-firewall-cmd --get-services 
+firewall-cmd --get-services
+# Infos, what can it do 
+firewall-cmd --info-service=ssh
+
 ```
 ## Adding/Removing a service 
 
