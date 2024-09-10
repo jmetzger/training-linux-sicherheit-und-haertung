@@ -47,3 +47,5 @@ meinping: => missing cap_net_raw+p capability or setuid?
 sudo setcap CAP_NET_RAW=ep /usr/bin/meinping
 meinping www.google.de
 ```
+
+## man capabilities 
