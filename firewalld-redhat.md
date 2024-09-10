@@ -72,6 +72,17 @@ firewall-cmd --get-services
 firewall-cmd --info-service=ssh
 
 ```
+
+## Adding/Removing a service 
+
+```
+# lange Form für Laufzeit 
+firewall-cmd --zone=public --add-service=ssh
+# kurze Form / nimmt default target -> zone: public 
+firewall-cmd --add-service=ssh
+```
+
+
 ## Adding/Removing a service 
 
 ```
