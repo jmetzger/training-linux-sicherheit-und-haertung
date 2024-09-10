@@ -24,6 +24,9 @@
      * [immutable/ appendable chattr lsattr](fs/chattr.md)
      * [acl's](/acl.md)
      * [Capabilites and Exercise](capabilities/for-files.md)
+    
+  1. Kernel
+     * [Disable kernel modules loading](kernel/modules_disabled.md)
        
   1. Firewall 
      * [nftables](nftables-ubuntu-22-04.md)
