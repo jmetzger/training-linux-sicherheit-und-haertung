@@ -10,7 +10,8 @@
      * [Lock/Unlock](users/lock-unlock.md)
      * [pam mechanisms](pam/required-sufficient-reqisite.md)
      * [pwquality](pam/pw_quality.md)
-     * [Passwortablauf durchsetzen](chage/example.md)
+     * [Passwortablauf durchsetzen(chage)](chage/example.md)
+     * [Defaults statt chage in /etc/login.defs](shadow/defaults.md)
     
   1. filesystem
      * [immutable/ appendable chattr lsattr](fs/chattr.md)
