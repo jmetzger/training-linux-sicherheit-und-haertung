@@ -1,4 +1,4 @@
-# Schutzkategorien 
+# Schutzkategorien / Schutzbereiche 
 
 ```
 o Physischer Zugriff
