@@ -17,6 +17,7 @@
   1. filesystem
      * [immutable/ appendable chattr lsattr](fs/chattr.md)
      * [acl's](/acl.md)
+     * [Capabilites and Exercise](capabilities/for-files.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
