@@ -37,7 +37,7 @@ sealert -a audit.log > report.txt
 ### Step 3: Debug and fix 
 
 ```
-# sealert -a /var/log/audit.log > report.txt
+# sealert -a /var/log/audit/audit.log > report.txt
 # Extract advice from file 
 # find http_port_t
 semanage port -l | grep 80
