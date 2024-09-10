@@ -8,6 +8,10 @@ apt install acl
 
 ## Walkthrough 
 
+```
+starting as root
+```
+
 
 ```
 1. Gemeinsamer Ordner heroes
