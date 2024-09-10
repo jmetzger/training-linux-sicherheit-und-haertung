@@ -31,6 +31,7 @@
      * [Important commands and files](selinux-commands.md)
      * [SELinux Walkthrough Rocky Linux](selinux.md) 
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
+     * [setsebool / booleans in selinux to allow features](selinux-boolean.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
