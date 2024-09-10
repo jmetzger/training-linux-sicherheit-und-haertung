@@ -22,16 +22,8 @@
   1. Firewall 
      * [nftables](nftables-ubuntu-22-04.md)
      * [firewalld auf Rocky/RHEL/Centos](firewalld-redhat.md)
-     * [firewalld auf Debian/Ubuntu](firewalld.md)  
+     * [firewalld auf Debian/Ubuntu](firewalld.md)
 
-
-  1. Wireshark / tcpdump / nmap
-     * [Examples tcpdump](tcpdump-examples.md) 
-     * [Example nmap](nmap.md) 
-     
-  1. Erweiterte Dateiattribute (xattr) 
-     * [lsattr/chattr](lsattr-chattr.md)
-   
   1. LSM-Modules (aka SELinux or apparmor) 
      * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
    
@@ -39,6 +31,13 @@
      * [Important commands and files](selinux-commands.md)
      * [SELinux Walkthrough Rocky Linux](selinux.md) 
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
+
+  1. Wireshark / tcpdump / nmap
+     * [Examples tcpdump](tcpdump-examples.md) 
+     * [Example nmap](nmap.md) 
+     
+  1. Erweiterte Dateiattribute (xattr) 
+     * [lsattr/chattr](lsattr-chattr.md)
    
   1. apparmor 
      * [apparmor](apparmor.md) 
