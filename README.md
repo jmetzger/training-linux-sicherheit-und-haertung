@@ -36,7 +36,6 @@
      * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
    
   1. SELinux 
-     * [Debian Installation](selinux-debian.md)
      * [Important commands and files](selinux-commands.md)
      * [SELinux Walkthrough Rocky Linux](selinux.md) 
      * [SELinux Troubleshooting on Centos](selinux-troubleshooting-centos.md)
@@ -73,6 +72,9 @@
      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
 
 ## Backlog  
+
+  1. SELinux 
+     * [Debian Installation](selinux-debian.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
