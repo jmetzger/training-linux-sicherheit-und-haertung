@@ -23,7 +23,7 @@ systemctl restart httpd
 ```
 
 
-### Step 2: Findout what got into the way, with smart tools
+### Step 2: Find problems with sealert 
 
 ```
 dnf whatprovides sealert 
@@ -37,7 +37,7 @@ sealert -a audit.log > report.txt
 ### Step 3: Debug and fix 
 
 ```
-sealert -a /var/log/audit.log > report.txt
+# sealert -a /var/log/audit.log > report.txt
 # Extract advice from file 
 # find http_port_t
 semanage port -l | grep 80
