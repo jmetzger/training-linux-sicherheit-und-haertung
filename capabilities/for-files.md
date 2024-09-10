@@ -26,3 +26,24 @@ get cap /bin/ping
 ### Inheritive 
 
   * Wird an die Kind - Prozesse, die geforkt vererbt.
+
+## Example ping 
+
+```
+# as unprivileged user
+cd /usr/bin
+sudo cp ping meinping
+meinping www.google.de
+```
+
+```
+meinping www.google.de
+meinping: socktype: SOCK_RAW
+meinping: socket: Vorgang nicht zulässig
+meinping: => missing cap_net_raw+p capability or setuid?
+```
+
+```
+sudo setcap CAP_NET_RAW=ep /usr/bin/meinping
+meinping www.google.de
+```
