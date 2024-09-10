@@ -2,6 +2,12 @@
 
 ## Agenda
 
+  1. Basis / Grundlagen
+     * [Angreifer](attackers.md)
+     * [Basis-Prinzipien von Sicherheit](basic-principles-security.md)
+     * [Schutzbereiche](schutz-kategorien.md)
+     * [Kill-Chain](https://github.com/jmetzger/training-linux-sicherheit-und-haertung/blob/main/kill-chain.md)
+
   1. sudo /run0
      * [sudo - not to !](sudo/sudo-not-to.md)
      * [sudo exercise](sudo/sudo-exercise.md)
