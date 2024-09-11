@@ -23,7 +23,8 @@
      * [Passwortablauf durchsetzen(chage)](chage/example.md)
      * [Defaults statt chage in /etc/login.defs](shadow/defaults.md)
 
-  1. PAM Security 
+  1. password / PAM Security
+     * [Passwort Encryption Method](/security/password/encryption_method.md) 
      * [Pam Security](/security/pam/overview.md)
     
   1. filesystem
