@@ -13,6 +13,11 @@ sudo sed -i s/"\$rltype"/".4"/g /etc/yum.repos.d/rocky-*.repo
 # Kudos go to D. 
 ```
 
+## Bessere Beispiel (als vom Trainer weiter untern) 
+
+  * Problem scheint beim unteren Beispiel die Bash zu sein, die unconfined läuft
+  * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_selinux/writing-a-custom-selinux-policy_using-selinux#creating-and-enforcing-an-selinux-policy-for-a-custom-application_writing-a-custom-selinux-policy
+
 ## Voraussetzung für die Übung 
 
 ```
