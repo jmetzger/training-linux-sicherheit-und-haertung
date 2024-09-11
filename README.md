@@ -49,6 +49,9 @@
     
   1. Systemd
      * [Harden Systemd services with analyze security](systemd/analyze-security-example.md)
+    
+  1. rootkits
+    * [Scan for rootkits with rkhunter](rootkits/scan/rkhunter.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
