@@ -26,12 +26,23 @@ cmd.exe
 ipconfig /all 
 ```
 
+
+
 ```
 # machine 2: 192.168.56.103
+# Lauschen auf icmp 
+tcpdump -i enp0s8 icmp 
+
+# windows
+ping 192.168.56.103 
+
+# machine 2: 192.168.56.103 
 # allow only from this mac -> Windows machine
 # rewrite - to ":" 
 firewall-cmd --zone=drop --add-rich-rule='rule source mac=08:00:27:ae:1a:7d allow'
 firewall-cmd --zone=drop --change-interface=enp0s8
+
+firewall-cmd --list-all-zones
 ```
 
 ```
