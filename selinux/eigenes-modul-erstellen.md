@@ -21,7 +21,7 @@ dnf install -y curl nc rpm-build
 ```
 sudo su -
 cd /usr/local/bin
-vi runner<deinkuerzel>
+vi runner<deinkuerzel>.sh
 ```
 
 ```
