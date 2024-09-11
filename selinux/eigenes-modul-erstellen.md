@@ -41,6 +41,17 @@ curl http://www.google.de > /dev/null
 exec nc -l -p 8888
 ```
 
+```
+chmod u+x runner<deinkuerzel>.sh
+```
+
+## 2. Session 
+
+```
+# unconfined 
+ps auxZ | grep nc
+```
+
 
 ## Documentation 
 
