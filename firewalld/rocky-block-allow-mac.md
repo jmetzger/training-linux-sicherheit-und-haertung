@@ -48,6 +48,6 @@ ping 192.168.56.103
 
 ```
 
-# Reset after exercise
+## Reset after exercise
 firewall-cmd --zone=public --change-interface=enp0s8
 ```
