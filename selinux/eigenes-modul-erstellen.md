@@ -5,6 +5,14 @@
   * Dies funktioniert nur mit RHEL 9 und nicht mit Rocky 9
   * Rocky 9 produziert Fehler beim laden von rpm-Paketen aus dem Repo beim Ausführen der sepolicy - Befehlen
 
+## Fix für Rocky 9 
+
+```
+"quick-and-dirty-fix" für Rocky:
+sudo sed -i s/"\$rltype"/".4"/g /etc/yum.repos.d/rocky-*.repo
+# Kudos go to D. 
+```
+
 ## Voraussetzung für die Übung 
 
 ```
