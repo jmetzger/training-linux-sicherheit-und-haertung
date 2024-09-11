@@ -71,7 +71,7 @@ example.sh
 
 Session 1:
 # analyze log and add changed things
-logprof 
+aa-logprof 
 
 Session 2:
 # now try again.
