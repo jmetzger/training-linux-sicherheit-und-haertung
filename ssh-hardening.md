@@ -32,7 +32,7 @@ AllowGroups sshonly
 ## ssh audit 
 
 ```
-dnf install python3
+dnf install -y python3 python3-pip
 pip3 install ssh-audit
 ssh-audit ap1.t3isp.de 
 ```
