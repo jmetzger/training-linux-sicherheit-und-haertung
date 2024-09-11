@@ -26,6 +26,9 @@
   1. password / PAM Security
      * [Passwort Encryption Method](/security/password/encryption_method.md) 
      * [Pam Security](/security/pam/overview.md)
+
+  1. Logging
+     * [set rules immutable in auditd](auditd/set-rules-immutable.md)
     
   1. filesystem
      * [immutable/ appendable chattr lsattr](fs/chattr.md)
