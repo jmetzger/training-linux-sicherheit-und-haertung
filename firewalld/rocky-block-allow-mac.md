@@ -1,6 +1,6 @@
 # Block / Allow specific mac (Exercise on Rocky)
 
-## Allow specific mac 
+## Drop specific mac 
 
 ```
 # machine 2 : 192.168.56.103
