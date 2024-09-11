@@ -37,9 +37,29 @@ pip3 install ssh-audit
 ssh-audit ap1.t3isp.de 
 ```
 
-## Hardening guide ssh-audit 
+## Hardening guide ssh-audit (RHEL 8)
 
   * https://www.ssh-audit.com/hardening_guides.html#rhel8
+
+## Hardening guide ssh-audit (Ubuntu 22.04) 
+
+  * https://www.ssh-audit.com/hardening_guides.html#ubuntu_24_04_lts
+
+```
+# Abweichend würden wir das mit ufw umsetzen (Punkt 6) 
+# werden die Regeln geladen beim starten 
+systemctl status ufw 
+
+# läuft ufw
+ufw status
+
+# Throttling für ssh
+# Setzen 
+sudo ufw limit ssh
+ufw enable 
+```
+
+
 
 ## generic place for crypto policies .
 
