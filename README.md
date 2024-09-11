@@ -9,7 +9,7 @@
      * [Kill-Chain](https://github.com/jmetzger/training-linux-sicherheit-und-haertung/blob/main/kill-chain.md)
 
   1. Checkliste Security
-    * [Telekom Compliance](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
+     * [Telekom Compliance](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
 
   1. sudo /run0
      * [sudo - not to !](sudo/sudo-not-to.md)
