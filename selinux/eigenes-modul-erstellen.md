@@ -10,11 +10,10 @@
 ```
 dnf update
 # dnf whatprovider sepolicy 
-
+dnf install -y policycoreutils-devel
 
 # Paket die im Test-Script verwendet werden 
-dnf install -y curl nc 
-
+dnf install -y curl nc rpm-build 
 ```
 
 ## Testscript erstellen 
@@ -41,3 +40,8 @@ curl http://www.google.de > /dev/null
 
 exec nc -l -p 8888
 ```
+
+
+## Documentation 
+
+  * https://medium.com/@chatila/new-droplet-from-custom-image-red-hat-enterprise-linux-rhel-server-fe7b5dc12c8e
