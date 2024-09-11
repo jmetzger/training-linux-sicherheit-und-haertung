@@ -21,7 +21,7 @@
      * [Defaults statt chage in /etc/login.defs](shadow/defaults.md)
 
   1. PAM Security 
-     * [Pam Security](overview.md)
+     * [Pam Security](/security/pam/overview.md)
     
   1. filesystem
      * [immutable/ appendable chattr lsattr](fs/chattr.md)
