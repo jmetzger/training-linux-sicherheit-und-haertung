@@ -34,6 +34,7 @@
     
   1. Kernel
      * [Disable kernel modules loading](kernel/modules_disabled.md)
+     * [Disable Coredump](/kernel/coredumps.md)
        
   1. Firewall 
      * [nftables](nftables-ubuntu-22-04.md)
