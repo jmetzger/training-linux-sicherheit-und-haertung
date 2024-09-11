@@ -58,7 +58,7 @@ ps auxZ | grep nc
 cd
 mkdir project-runner<kuerzel>
 cd project-runner<kuerzel>
-sepolicy generate --name runnerjme --application /usr/local/bin/runnerjme.sh
+sepolicy generate --name runnerjme --application /usr/local/bin/runner<kuerzel>.sh
 ```
 
 ```
