@@ -110,6 +110,10 @@ ls -laZ /usr/local/bin/runnerjme.sh
   * man sepolicy
   * man sepolicy-generate
 
+## Documentation (gentoo) 
+
+  * https://wiki.gentoo.org/wiki/SELinux/Tutorials/What_is_this_unconfined_thingie_and_tell_me_about_attributes
+
 ## Documentation (Droplet)
 
   * https://medium.com/@chatila/new-droplet-from-custom-image-red-hat-enterprise-linux-rhel-server-fe7b5dc12c8e
