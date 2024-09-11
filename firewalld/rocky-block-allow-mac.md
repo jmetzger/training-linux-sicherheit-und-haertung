@@ -3,6 +3,7 @@
 ## Drop specific mac 
 
 ```
+# Default Zone: public 
 # machine 2 : 192.168.56.103
 # MAC from machine1 
 firewall-cmd --add-rich-rule='rule source mac=08:00:27:ae:1a:7d drop'
