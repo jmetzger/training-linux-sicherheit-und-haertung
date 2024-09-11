@@ -1,5 +1,16 @@
 # apparmor - walkthrough (Ubuntu 20.04/22.04) 
 
+## Step 0: set lang to english
+
+```
+sudo dpkg-reconfigure locales
+-> en.US
+-> Step 2 also
+
+su - 
+```
+
+
 ## Step 1: Create script and execute it without protection
 
 ```
