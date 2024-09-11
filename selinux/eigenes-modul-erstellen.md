@@ -52,6 +52,26 @@ chmod u+x runner<deinkuerzel>.sh
 ps auxZ | grep nc
 ```
 
+## Erstellung 
+
+```
+cd /usr/local/bin
+sepolicy generate --name runnerjme ^Capplication /usr/local/bin/runnerjme.sh
+```
+
+```
+## Er erstellt die ganzen Files
+
+/usr/local/bin/runnerjme.te # Type Enforcement file
+/usr/local/bin/runnerjme.if # Interface file
+/usr/local/bin/runnerjme.fc # File Contexts file
+/usr/local/bin/runnerjme_selinux.spec # Spec file
+/usr/local/bin/runnerjme.sh # Setup Script
+
+
+```
+
+
 ## Documentation 
   
   * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
