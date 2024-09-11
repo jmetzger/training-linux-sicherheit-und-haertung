@@ -55,8 +55,10 @@ ps auxZ | grep nc
 ## Erstellung 
 
 ```
-cd /usr/local/bin
-sepolicy generate --name runnerjme ^Capplication /usr/local/bin/runnerjme.sh
+cd
+mkdir project-runner<kuerzel>
+cd project-runner<kuerzel>
+sepolicy generate --name runnerjme --application /usr/local/bin/runnerjme.sh
 ```
 
 ```
