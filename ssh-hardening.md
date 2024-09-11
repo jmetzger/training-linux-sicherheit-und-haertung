@@ -23,7 +23,7 @@ X11UseLocalhost yes
 #PermitTTY yes
 ```
 
-## Only specific users are allowd 
+## Only specific users are allowed 
 
 ```
 # only users in this group are allowed to login 
