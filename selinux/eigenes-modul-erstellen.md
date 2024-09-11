@@ -59,6 +59,9 @@ cd
 mkdir project-runner<kuerzel>
 cd project-runner<kuerzel>
 sepolicy generate --name runnerjme --application /usr/local/bin/runner<kuerzel>.sh
+# Alternative
+sepolicy generate --init /usr/local/bin/runner-<kuerzel>.sh 
+
 ```
 
 ```
@@ -69,14 +72,20 @@ sepolicy generate --name runnerjme --application /usr/local/bin/runner<kuerzel>.
 /usr/local/bin/runnerjme.fc # File Contexts file
 /usr/local/bin/runnerjme_selinux.spec # Spec file
 /usr/local/bin/runnerjme.sh # Setup Script
-
-
 ```
 
+```
+# im Verzeichnis
+./runnerjme.sh
+# Erstellt: pp (fertiges policy file, src-rpm, noach/rpm)
+# Erstellt manpage
+# restorecon auf Basis der erstellten Context(i) 
+```
 
 ## Documentation 
   
   * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
+  * https://access.redhat.com/articles/6999267
   * man sepolicy
   * man sepolicy-generate
 
