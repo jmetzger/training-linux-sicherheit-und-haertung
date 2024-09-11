@@ -90,6 +90,19 @@ sepolicy generate --init /usr/local/bin/runner-<kuerzel>.sh
 # restorecon auf Basis der erstellten Context(i) 
 ```
 
+## im script verzeichnis 
+
+```
+ls -laZ /usr/local/bin/runnerjme.sh
+# system_u:object_r:runnerjme_exec_t:s0 
+
+# als Domain - Transition
+
+
+```
+
+
+
 ## Documentation 
   
   * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
