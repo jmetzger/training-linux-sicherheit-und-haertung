@@ -55,8 +55,9 @@ ps auxZ | grep nc
 ## Documentation 
   
   * https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_selinux/writing-a-custom-selinux-policy_using-selinux
+  * man sepolicy
+  * man sepolicy-generate
 
-
-## Documentation 
+## Documentation (Droplet)
 
   * https://medium.com/@chatila/new-droplet-from-custom-image-red-hat-enterprise-linux-rhel-server-fe7b5dc12c8e
