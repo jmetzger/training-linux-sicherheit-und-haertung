@@ -111,15 +111,86 @@ clamscan --debug -vir /tmp
 2 : Some error(s) occurred.
 ```
 
-## on access scanning (clamonacc) 
+## Variante 1: on access scanning (clamonacc) 
 
   * https://gist.github.com/ChadDevOps/dc5428e8d816344f68b03c99359731f9
 
-```
-# konfig in 
-man clamd.conf 
-vi /etc/clamav/clamd.conf 
+### Schritt 1: config ändern 
 
-# Wichtig: Service erstellen 
-systemctl edit --full --force clamonacc.service
 ```
+vi /etc/clamav/clamd.conf 
+```
+
+```
+# Anhängen
+BytecodeTimeout 60000
+OnAccessMaxFileSize 5M
+OnAccessMountPath /home
+OnAccessIncludePath /home
+OnAccessExcludeUname root
+OnAccessPrevention true
+OnAccessExtraScanning false
+VirusEvent /etc/clamav/detected.sh
+OnAccessExcludeRootUID yes
+OnAccessRetryAttempts 3
+```
+
+## Schritt 2: Unit ändern 
+
+```
+systemctl edit --full clamav-clamonacc.service
+```
+
+```
+# --fdpass einfügen
+# >
+# See: https://medium.com/@aaronbrighton/installation-configuration-of-clamav-a>
+
+[Unit]
+Description=ClamAV On-Access Scanner
+Documentation=man:clamonacc(8) man:clamd.conf(5) https://docs.clamav.net/
+Requires=clamav-daemon.service
+After=clamav-daemon.service syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/bin/bash -c "while [ ! -S /run/clamav/clamd.ctl ]; do sleep 1; do>
+ExecStart=/usr/sbin/clamonacc --fdpass -F --log=/var/log/clamav/clamonacc.log ->
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+systemctl restart clamav-clamonacc.service
+```
+
+
+
+## Variante 2:  on access scannning without changing service 
+
+```
+vi /etc/clamav/clamd.conf
+```
+
+```
+BytecodeTimeout 60000
+OnAccessMaxFileSize 5M
+OnAccessMountPath /home
+OnAccessIncludePath /home
+OnAccessExcludeUname root
+OnAccessPrevention true
+OnAccessExtraScanning false
+VirusEvent /etc/clamav/detected.sh
+OnAccessExcludeRootUID yes
+OnAccessRetryAttempts 3
+OnAccessExcludeUID 0
+```
+
+```
+systemctl restart clamav-clamonacc.service
+```
+
+
+
