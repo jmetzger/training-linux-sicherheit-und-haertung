@@ -84,19 +84,29 @@ systemd-analyze security helloworld
 
 
 
-## Step 4: RestrictNamespaces=uts ipc pid user cgroup  
+## Step 4: RestrictNamespaces=true
 
-  * Prozess darf nicht auf dieses Namespaces zugreifen
-  * net braucht er wg. 8080 - Binding 
+  * Prozess darf keine Namespaces erstellen
+  * 
 
 ```
---> 8.8.
+# nur Erstellung dieser sind erlaubt
+# RestrictNamespaces=uts ipc pid user cgroup
+```
+
+```
+# Keine Erstellung von namespaces durch den Prozess mehr erlaubt
+RestrictNamespaces=true
+```
+
+```
+--> 8.3.
 Sinkt von UNSAFE auf EXPOSED
 ```
 
 ## Step 5: ProtectKernelTunables=yes && ProtectKernelModules=yes && ProtectControlGroups=yes
 
-  * ProtectKernelTunables
+  * ProtectKernelTunables=yes
 
 ```
 > READONLY -> /proc/sys/«, »/sys«, »/proc/sysrq-trigger/«, »/proc/latency_stats/«, »/proc/acpi/«, »/proc/timer_stats/«, »/proc/fs/« »/proc/irq/« zugreifen kann, für den Prozess read-only 
