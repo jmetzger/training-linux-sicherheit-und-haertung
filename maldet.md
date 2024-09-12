@@ -53,7 +53,7 @@ systemctl start maldet
 
 # Logs anschauen ob monitoring auf Pfade erfolgt 
 
-# 2. Session auf machen als user 'linux'
+# 2. Session auf machen als user 'kurs'
 # und datei downloaden. 
 wget https://secure.eicar.org/eicar_com.zip 
 
