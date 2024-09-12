@@ -63,10 +63,10 @@
     
   1. rootkits
      * [Scan for rootkits with rkhunter](rootkits/scan/rkhunter.md)
-
-  1. Wireshark / tcpdump / nmap
-     * [Examples tcpdump](tcpdump-examples.md) 
-     * [Example nmap](nmap.md) 
+    
+  1. Malware / Viren - Scans 
+     * [maldet - lmd](maldet.md)
+     * [clamav](clamav.md)
      
   1. Erweiterte Dateiattribute (xattr) 
      * [lsattr/chattr](lsattr-chattr.md)
@@ -75,6 +75,10 @@
      * [apparmor](apparmor.md) 
      * [apparmor walkthrough ubuntu](apparmor-walkthrough-ubuntu.md)
      * [apparmor and docker/kubernetes](apparmor-docker-kubernetes.md)
+
+  1. Wireshark / tcpdump / nmap
+     * [Examples tcpdump](tcpdump-examples.md) 
+     * [Example nmap](nmap.md) 
         
   1. Host Intrusion Detection 
      * [Overview](hids-overview.md) 
@@ -90,11 +94,7 @@
      * [nikto](nikto.md) 
      * [apache - etags](apache-etags.md) 
      * [Lynis](lynis.md)
-   
-  1. Malware / Viren - Scans 
-     * [maldet - lmd](maldet.md)
-     * [clamav](clamav.md)
-     
+        
   1. IPSec 
      * [IPSec](ipsec.md)
      
