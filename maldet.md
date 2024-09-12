@@ -11,7 +11,7 @@ tar xvf maldetect-current.tar.gz
 ```
 
 ```
-cd /usr/src/maldetect/maldetect-1.6.4 
+cd /usr/src/maldetect/maldetect-1.6.5
 ./install.sh 
 
 # version anzeigen
