@@ -78,7 +78,9 @@ systemctl restart helloworld
 systemd-analyze security helloworld 
 ```
 
-## Step 3: PrivateTmp=yes && 
+## Step 3: PrivateTmp=yes
+
+  * Eigenes Tmp-Verzeichnis für den Service 
 
 
 
