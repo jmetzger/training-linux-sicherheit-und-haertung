@@ -64,4 +64,9 @@ wget https://secure.eicar.org/eicar_com.zip
 
 ```
 
+## Monitoring Log inotify 
+
+```
+inotify monitoring log: /usr/local/maldetect/logs/inotify_log
+```
 
