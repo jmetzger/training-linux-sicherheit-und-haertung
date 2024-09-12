@@ -9,7 +9,7 @@ systemd-analyze security
 systemd-analyze security ssh 
 ```
 
-## Walkthrough (Ubuntu9 
+## Walkthrough (Ubuntu)
 
 ### Prerequisites 
 
