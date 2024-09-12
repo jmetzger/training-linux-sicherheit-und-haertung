@@ -27,7 +27,8 @@ maldet -d
 
 wget -P /tmp https://secure.eicar.org/eicar_com.zip 
 cd /tmp
-cp -a eicar* /home/linux 
+cp -a eicar* /home/kurs
+chown kurs:kurs /home/kurs/eicar*
 
 maldet -a /home/linux 
 # reportliste 
