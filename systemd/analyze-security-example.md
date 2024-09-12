@@ -78,7 +78,7 @@ systemctl restart helloworld
 systemd-analyze security helloworld 
 ```
 
-## Step 3: PrivateTemp=yes && 
+## Step 3: PrivateTmp=yes && 
 
 
 
