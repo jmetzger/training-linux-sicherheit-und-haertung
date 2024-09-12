@@ -30,7 +30,7 @@ cd /tmp
 cp -a eicar* /home/kurs
 chown kurs:kurs /home/kurs/eicar*
 
-maldet -a /home/linux 
+maldet -a /home/kurs
 # reportliste 
 maldet -e 
 ```
