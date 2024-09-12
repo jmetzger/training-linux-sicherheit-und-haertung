@@ -70,13 +70,30 @@ systemctl edit --full helloworld
 
 ```
 # add: Privilegien können nicht erhöht werden 
-NoNewPrivileges
+NoNewPrivileges=true
 ```
 
 ```
 systemctl restart helloworld
 systemd-analyze security helloworld 
 ```
+
+## Step 3: PrivateTemp=yes && 
+
+
+
+## Step 4: RestrictNamespaces=uts ipc pid user cgroup  
+
+  * Prozess darf nicht auf dieses Namespaces zugreifen
+  * net braucht er wg. 8080 - Binding 
+
+```
+--> 8.8.
+Sinkt von UNSAFE auf EXPOSED
+```
+
+## Step 5: 
+
 
 ## Reference 
 
