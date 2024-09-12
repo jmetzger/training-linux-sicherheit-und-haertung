@@ -39,6 +39,13 @@ dpkg-reconfigure clamav-freshclam
 Festlegen wie oft runtergeladen wird -> voreingestellt ist 24 mal am Tag.
 ```
 
+## Dienste enablen 
+
+```
+systemctl enable clamav-freshclam
+```
+
+
 ## Virendatenbank manuell aktualisieren.
 
 ```
@@ -48,13 +55,14 @@ freshclam
 systemctl start clamav-freshclam 
 ```
 
-## Installation / Walkthrough 
+## Installation / Walkthrough (clamav-daemon)
 
 ```
 apt install -y clamav clamav-daemon
 # Achtung: Der Daemon läuft erst wenn die Virensignatur 1x runtergeladen worden sind
 systemctl status clamav-daemon
-systemctl status clamav-freshclam 
+systemctl status clamav-freshclam
+systemctl enable
 
 ```
 
