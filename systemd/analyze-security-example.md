@@ -122,23 +122,26 @@ Sinkt von UNSAFE auf EXPOSED
 
 ```
 Zugriff auf die ControlGroups verboten
--> sowas braucht nur ContainerVerwaltungssoftware 
+-> sowas braucht nur ContainerVerwaltungssoftware
+# konkret:
+Verhindert Schreibzugriff auf alle Einstellungen der Kernel-Control-Groups (unter /sys/fs/cgroup). 
 ```
 
 ```
-# Ergebnis: 8.1.
+# Ergebnis: 7.6. 
 ```
 
 ## Step 6: Capabilities 
 
 ```
+
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_DAC_READ_SEARCH 
 # Ausgeschlossen wird dadurch »CAP_SYS_ADMIN«, »CAP_DAC_OVERRIDE« »CAP_SYS_PTRACE«
 # Bringt viele Punkte
 ```
 
 ```
-# Ergebnis: 6.1 -> MEDIUM 
+# Ergebnis: 5.5 -> MEDIUM 
 ```
 
 ## Sehr schöne Liste an Möglichkeiten 
