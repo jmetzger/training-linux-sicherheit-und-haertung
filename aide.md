@@ -28,11 +28,8 @@ echo "11.11.11.11 bad.host.com bad" >> /etc/hosts
 ## Do the check 
 
 ```
-# In Ubuntu like so 
-aide.wrapper --check
-
 # In Debian like so
-aide --check --config=/etc/aide/aide.conf
+aide --check --config=/etc/aide/aide.conf > /var/log/report-scan.log 
 ```
 ## Check is done on a daily basis 
 
