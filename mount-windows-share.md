@@ -69,6 +69,15 @@ root@kurs-VirtualBox:/mnt# cat /proc/mounts | grep cifs
 //10.10.22.143/test2 /mnt/test cifs rw,relatime,vers=3.1.1,cache=strict,username=ITS-Admin,uid=0,noforceuid,gid=0,noforcegid,addr=10.10.22.143,file_mode=0755,dir_mode=0755,seal,soft,nounix,serverino,mapposix,rsize=4194304,wsize=4194304,bsize=1048576,retrans=1,echo_interval=60,actimeo=1,closetimeo=1 0 0
 ```
 
+```
+Share mit Verschlüsselung erstellen
+New-SmbShare –Name test3 -Path C:\test3 –EncryptData $true
+```
+
+```
+# Linux
+mount --verbose -o seal,username=ITS-Admin,password='P@ssw0rd'  -t cifs //10.10.22.143/test3 test
+```
 
 ## Reference 
 
