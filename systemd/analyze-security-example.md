@@ -58,13 +58,25 @@ WantedBy=multi-user.target
 
 ```
 systemctl start helloworld
-systemd-analyze security helloworld 
+systemd-analyze security helloworld
+# -> 9.6. 
 ```
 
+## Step 2: NoNewPrivileges 
 
+```
+systemctl edit --full helloworld
+```
 
+```
+# add: Privilegien können nicht erhöht werden 
+NoNewPrivileges
+```
 
-
+```
+systemctl restart helloworld
+systemd-analyze security helloworld 
+```
 
 ## Reference 
 
