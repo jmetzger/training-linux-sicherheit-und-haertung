@@ -47,6 +47,8 @@
 
   1. LSM-Modules (aka SELinux or apparmor) 
      * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
+     * [apparmor Überblick](/apparmor.md)
+     * [apparmor eigenes Profil erstellen](/apparmor-walkthrough-ubuntu.md)
    
   1. SELinux 
      * [Important commands and files](selinux-commands.md)
