@@ -113,6 +113,27 @@ Zugriff auf die ControlGroups verboten
 -> sowas braucht nur ContainerVerwaltungssoftware 
 ```
 
+```
+# Ergebnis: 8.1.
+```
+
+## Step 6: Capabilities 
+
+```
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_DAC_READ_SEARCH 
+# Ausgeschlossen wird dadurch »CAP_SYS_ADMIN«, »CAP_DAC_OVERRIDE« »CAP_SYS_PTRACE«
+# Bringt viele Punkte
+```
+
+```
+# Ergebnis: 6.1 -> MEDIUM 
+```
+
+## Sehr schöne Liste an Möglichkeiten 
+
+   * https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
+
 ## Reference 
 
    * https://www.linux-magazin.de/ausgaben/2021/11/systemd-analyze/
+  
