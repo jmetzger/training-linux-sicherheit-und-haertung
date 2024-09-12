@@ -92,8 +92,26 @@ systemd-analyze security helloworld
 Sinkt von UNSAFE auf EXPOSED
 ```
 
-## Step 5: 
+## Step 5: ProtectKernelTunables=yes && ProtectKernelModules=yes && ProtectControlGroups=yes
 
+  * ProtectKernelTunables
+
+```
+> READONLY -> /proc/sys/«, »/sys«, »/proc/sysrq-trigger/«, »/proc/latency_stats/«, »/proc/acpi/«, »/proc/timer_stats/«, »/proc/fs/« »/proc/irq/« zugreifen kann, für den Prozess read-only 
+```
+
+  * ProtectKernelModules = yes
+
+```
+# Laden und Entladen verboten
+```
+
+  * ProtectControlGroups = yes
+
+```
+Zugriff auf die ControlGroups verboten
+-> sowas braucht nur ContainerVerwaltungssoftware 
+```
 
 ## Reference 
 
