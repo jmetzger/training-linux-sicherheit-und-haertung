@@ -23,7 +23,7 @@ Option	Beschreibung
 
 ## Virendatenbank 
 
-  * Virendatenbank wird in /var/lib/freshclam gespeichert. 
+  * Virendatenbank wird in /var/lib/clamav gespeichert. 
   * Aktualisierung durch den clamav-freshclam - Dienst oder manuell: freshclam 
 
 ## Aktualisierung durch Dienst 
