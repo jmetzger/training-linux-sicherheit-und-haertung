@@ -60,9 +60,9 @@ systemctl start clamav-freshclam
 ```
 apt install -y clamav clamav-daemon
 # Achtung: Der Daemon läuft erst wenn die Virensignatur 1x runtergeladen worden sind
+ä daemon ist bereits enabled bei nach Installation 
 systemctl status clamav-daemon
 systemctl status clamav-freshclam
-systemctl enable
 
 ```
 
