@@ -66,4 +66,11 @@ apt install -y tpm2-tools
 # List all pcr's
 tpm2-pcrread 
 ```
+
 ```
+# See fixed properties
+tpm2_getcap properties-fixed 
+# get variable properties 
+tpm2_getcap properties-variable
+```
+
