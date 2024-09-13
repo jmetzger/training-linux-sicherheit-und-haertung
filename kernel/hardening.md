@@ -12,18 +12,13 @@ cd kernel-hardening-checker
 ```
 
 ```
-sudo sysctl -a > sysctl.file
-kernel-hardening-checker -c /boot/config-6.8.0-44-generic -l /proc/cmdline -s sysctl.file
- 
-
-
+sudo sysctl -a > sysctl.file && ./bin/kernel-hardening-checker -c /boot/config-6.8.0-44-generic -l /proc/cmdline -s sysctl.file
 ```
 
 
-## Map 
+## Kernel Defence Map 
 
-
-
+  * https://github.com/a13xp0p0v/linux-kernel-defence-map
 
 ## Guidelines 
 
