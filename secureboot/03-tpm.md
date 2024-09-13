@@ -33,19 +33,16 @@ Eine Entschlüsselung gelingt nur, wenn der gleiche Hash-Wert wieder ermittelt w
 
 ### Eigener Zufallsgenerator 
 
-## PCR's (Platform C. Registers)
+## PCR's (Platform Configuration Registers)
 
   * PCR sind register, die während der Laufzeit befüllt werden
   * Werden während der Laufzeit anhand von Messungen befehlt, die verschiedenen Register
   * 24 Register (jedes kann noch verschiedene Algorithm anbiet
-  * Daten werden nur rausgegeben (Es können keys w
+  * Daten werden nur rausgegeben, wenn der hash der gleiche ist wie beim Sealen (PCR Slots sind flüchtig und werden bei jedem Boot neu beschrieben -> Volatile) - einige nicht alle 
 
 ```
 tpm2_pcrread 
 ```
-
-
-
 
 ## Commands 
 
