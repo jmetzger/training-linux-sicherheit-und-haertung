@@ -77,6 +77,17 @@
      * [apparmor walkthrough ubuntu](apparmor-walkthrough-ubuntu.md)
      * [apparmor and docker/kubernetes](apparmor-docker-kubernetes.md)
 
+  1. SecureBoot / TPM / luks /clevis 
+     * [Überblick](/secureboot/00-overview-secure-boot-measured-boot.md)
+     * [MOK](/secureboot/01-mok-mokutil.md)
+     * [UEFI](/secureboot/01-uefi-secureboot.md)
+     * [UKI](/secureboot/02-uki.md)
+     * [TPM](/secureboot/03-tpm.md)
+     * [Install SecureBoot Ubuntu](/secureboot/04-secureboot-ubuntu24-04.md)
+     * [Arch Secure Boot](/secureboot/05-secureboot-luks-tpm-arch.md)
+     * [Encrypte DataPartition](/secureboot/06-encrypt-data-with-luks-tpm.md)
+     * [Raus](/secureboot/99-trusted-boot-aushebeln.md)
+
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
      * [Example nmap](nmap.md) 
