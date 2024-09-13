@@ -27,7 +27,7 @@ iptables -L --line-numbers
 iptables -D INPUT 3 
 
 # Now insert in line 2 / as new line 2 
-iptables -I INPUT 2 -p tcp --dport 22  -j LOG
+iptables -I INPUT 2 -p tcp --dport 22  -j LOG --log-prefix "Jochen Meldung:"
 iptables -L --line-numbers
 
 
