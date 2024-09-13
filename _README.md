@@ -2,26 +2,95 @@
 
 
 ## Agenda
-  1. Wireshark / tcpdump / nmap
-     * [Examples tcpdump](#examples-tcpdump)
-     * [Example nmap](#example-nmap)
-     
-  1. Erweiterte Dateiattribute (xattr) 
-     * [lsattr/chattr](#lsattrchattr)
-   
+  1. Basis / Grundlagen
+     * [Angreifer](#angreifer)
+     * [Basis-Prinzipien von Sicherheit](#basis-prinzipien-von-sicherheit)
+     * [Schutzbereiche](#schutzbereiche)
+     * [Kill-Chain](https://github.com/jmetzger/training-linux-sicherheit-und-haertung/blob/main/kill-chain.md)
+
+  1. Checkliste Security
+     * [Telekom Compliance](https://github.com/jmetzger/TelekomSecurity.Compliance.Framework)
+
+  1. sudo /run0
+     * [sudo - not to !](#sudo---not-to-!)
+     * [sudo exercise](#sudo-exercise)
+     * [run0 as alternative in systemd from version 256](#run0-as-alternative-in-systemd-from-version-256)
+
+  1. users / pam / chage
+     * [Lock/Unlock](#lockunlock)
+     * [pam mechanisms](#pam-mechanisms)
+     * [pwquality](#pwquality)
+     * [Passwortablauf durchsetzen(chage)](#passwortablauf-durchsetzenchage)
+     * [Defaults statt chage in /etc/login.defs](#defaults-statt-chage-in-etclogindefs)
+
+  1. password / PAM Security
+     * [Passwort Encryption Method](#passwort-encryption-method)
+     * [Pam Security](#pam-security)
+
+  1. Logging
+     * [set rules immutable in auditd](#set-rules-immutable-in-auditd)
+    
+  1. filesystem
+     * [immutable/ appendable chattr lsattr](#immutable-appendable-chattr-lsattr)
+     * [acl's](#acl's)
+     * [Capabilites and Exercise](#capabilites-and-exercise)
+    
+  1. Kernel
+     * [Disable kernel modules loading](#disable-kernel-modules-loading)
+     * [Disable Coredump](#disable-coredump)
+     * [Hardening](#hardening)
+       
+  1. Firewall 
+     * [nftables](#nftables)
+     * [firewalld auf Rocky/RHEL/Centos](#firewalld-auf-rockyrhelcentos)
+     * [firewalld auf Debian/Ubuntu](#firewalld-auf-debianubuntu)
+     * [Neztwerkkarte über MAC erlauben/verbieten](#neztwerkkarte-über-mac-erlaubenverbieten)
+
   1. LSM-Modules (aka SELinux or apparmor) 
      * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
+     * [apparmor Überblick](#apparmor-überblick)
+     * [apparmor eigenes Profil erstellen](#apparmor-eigenes-profil-erstellen)
    
   1. SELinux 
-     * [Debian Installation](#debian-installation)
      * [Important commands and files](#important-commands-and-files)
      * [SELinux Walkthrough Rocky Linux](#selinux-walkthrough-rocky-linux)
      * [SELinux Troubleshooting on Centos](#selinux-troubleshooting-on-centos)
+     * [setsebool / booleans in selinux to allow features](#setsebool--booleans-in-selinux-to-allow-features)
+     * [Dienste wie apache (httpd) auf permissive setzen](#dienste-wie-apache-httpd-auf-permissive-setzen)
+    
+  1. Systemd
+     * [Harden Systemd services with analyze security](#harden-systemd-services-with-analyze-security)
+     * [Condition do not start without selinux present](#condition-do-not-start-without-selinux-present)
+    
+  1. rootkits
+     * [Scan for rootkits with rkhunter](#scan-for-rootkits-with-rkhunter)
+    
+  1. Malware / Viren - Scans 
+     * [maldet - lmd](#maldet---lmd)
+     * [clamav](#clamav)
+     
+  1. Erweiterte Dateiattribute (xattr) 
+     * [lsattr/chattr](#lsattrchattr)
    
   1. apparmor 
      * [apparmor](#apparmor)
      * [apparmor walkthrough ubuntu](#apparmor-walkthrough-ubuntu)
      * [apparmor and docker/kubernetes](#apparmor-and-dockerkubernetes)
+
+  1. SecureBoot / TPM / luks /clevis 
+     * [Überblick](#überblick)
+     * [MOK](#mok)
+     * [UEFI](#uefi)
+     * [UKI](#uki)
+     * [TPM](#tpm)
+     * [Install SecureBoot Ubuntu](#install-secureboot-ubuntu)
+     * [Arch Secure Boot](#arch-secure-boot)
+     * [Encrypte DataPartition](#encrypte-datapartition)
+     * [Raus](#raus)
+
+  1. Wireshark / tcpdump / nmap
+     * [Examples tcpdump](#examples-tcpdump)
+     * [Example nmap](#example-nmap)
         
   1. Host Intrusion Detection 
      * [Overview](#overview)
@@ -37,15 +106,7 @@
      * [nikto](#nikto)
      * [apache - etags](#apache---etags)
      * [Lynis](#lynis)
-   
-  1. Malware / Viren - Scans 
-     * [maldet - lmd](#maldet---lmd)
-     * [clamav](#clamav)
-     
-  1. Firewall 
-     * [nftables](#nftables)
-     * [firewalld](#firewalld)
-     
+        
   1. IPSec 
      * [IPSec](#ipsec)
      
@@ -54,6 +115,9 @@
      * [Linux Security](http://schulung.t3isp.de/documents/linux-security.pdf)
 
 ## Backlog  
+
+  1. SELinux 
+     * [Debian Installation](#debian-installation)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](#examples-tcpdump)
@@ -217,179 +281,1187 @@ logger -p kern.debug "Testmessage"
 
 <div class="page-break"></div>
 
-## Wireshark / tcpdump / nmap
+## Basis / Grundlagen
 
-### Examples tcpdump
+### Angreifer
 
 
-### What interfaces are available for listening ? 
 
-```
-tcpdump -D 
-## Eventually doublecheck with 
-ip a
+### Attackers 
 
-```
+  * White Hat 
+  * Black Hat 
+  * Script Kiddies
+  * Hacktivist 
+  * Nation States
+  * Organized Crimes 
+  * Bots 
 
-### -n / -nn (Disable hostname / port resolving) 
+### Active 
 
-```
-## I would always recommend to do so, because it saves performance 
+  * Denial-of-service 
+  * Spoofing 
+  * Port Scanning 
+  * Network 
 
-## Do not do hostname lookups 
-tcpdump -i ens3 -n
+### Passive 
+ 
+  * Wiretapping
+    * Ethernet 
+    * WiFi 
+    * USB 
+    * Mobile 
+ 
 
-## Do not do hostname and port lookups 
-tcpdump -i ens3 -nn 
-```
+### Basis-Prinzipien von Sicherheit
 
-### Exclude specific ports 
 
-```
-tcpdump ! -p stp -i eth0 
-## more user friendly 
-tcpdump -i eth0 not stp and not icmp
-```
+  * (Assessment)
+  * Prevention 
+    * Hardening 
+  * Detection  
+    * Logs 
+    * fail2ban (ban specific ip automatically) 
+    * Intrustion Detection System 
+  * (Reaction) 
 
-### Include ascii output 
-
-```
-## s0 show unlimited content 
-## -A ASCII 
-tcpdump -A -s0 port 80
-
-```
-
-### Only from and/or to a specific host 
-
-```
-## to or from host
-tcpdump -i eth0 host 10.10.1.1
-
-## To a specific host 
-tcpdump -i eth0 dst 10.10.1.20
-```
-
-### Write to a pcap file 
-
-```
-tcpdump -i eth0 -w output.pcap 
-
-```
-
-### Only show GET requests 
-
-```
-## this show only all tcp packages 
-tcpdump -i eth0 tcp 
-
-## now let us filter specific ones -> 0x474554 -> is equivalent for GET as hex - numbers 
-## https://www.torsten-horn.de/techdocs/ascii.htm
-## tcp header has 20 bytes and maximum of 60 bytes, allowing for up to 40 bytes of options in the header.
-tcpdump -s 0 -A -vv 'tcp[((tcp[12:1]((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
-
-## Same goes for post - operations 
-tcpdump -s 0 -A -vv 'tcp[((tcp[12:1]((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
-
-```
-
+### Schutzbereiche
 
 
 ```
-## Deeply explained here
-https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp121-0xf0-24
+o Physischer Zugriff
+o Logging
+  - Veränderung durch Angreifer ->A Schreibschutz / appendable (nur anhängen) 
+  - Logs woanders hinschicken (systemd -> zum remote-server, syslog)
+o Auditing and Detection 
+  o IDS-System 
+    o HIDS 
+      AIDE, Tripwire, OSSEC 
+    o NIDS 
+      Snort
+      Suricata
+      mod_security 
+o Application Security 
+  o Local Applications 
+    - Patch/Update Often 
+    - Subscribe to Errate (bug/patch notifications)
+    - Automated Software/System Patching 
+  o Resource Access Control 
+    o Principle of least privilege 
+      - sudo 
+      - run0 
+      Access Controls 
+      - SSH Configuration 
+      - ACL 
+o Kernel Vulnerabilities 
+
+   .> Root Kits 
+      Escalate privileges to root 
+      Load Kernel modules to hide the rootkit 
+      Remove all traces of the rootkit 
+
+    Solution: Remove possibility to load modules 
+
+    -> kernel.modules_disabled = 1 
+    Can only be set to 0 
+
+o Authentication 
+o Local System Security
+o Network Security 
+o Network Services Security
+o Denial of Service 
+o Remote Access 
+  o SSH 
+o Firewalling and Packet Filtering
 
 ```
 
-### Extra http get/post urls 
+### Kill-Chain
+
+  * https://github.com/jmetzger/training-linux-sicherheit-und-haertung/blob/main/kill-chain.md
+
+## Checkliste Security
+
+### Telekom Compliance
+
+  * https://github.com/jmetzger/TelekomSecurity.Compliance.Framework
+
+## sudo /run0
+
+### sudo - not to !
+
 
 ```
-## show linewise 
-tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
-
-## show linewise only using port http
-tcpdump -s 0 -v -n -l port http and not port ssh | egrep -i "POST /|GET /|Host:"
-
+## Achtung keine Negierung setzen
+bill        ALL = ALL, !SU, !SHELLS
 ```
 
-
-### Refs: 
-
-  * https://hackertarget.com/tcpdump-examples/
-
-### Example nmap
-
-
-### Example 1 
+### Why not ? 
 
 ```
-## including additional information 
-nmap -A main.training.local 
+ It is generally not effective to "subtract" commands from ALL using the
+   ’!’ operator.  A user can trivially circumvent this by copying the
+   desired command to a different name and then executing that.  For
+   example:
+
+       bill        ALL = ALL, !SU, !SHELLS
+
+   Doesn’t really prevent bill from running the commands listed in SU or
+   SHELLS since he can simply copy those commands to a different name, or
+   use a shell escape from an editor or other program.  Therefore, these
+   kind of restrictions should be considered advisory at best (and
+   reinforced by policy).
 ```
 
-### Example 1a
+### sudo exercise
 
+
+### Übung 1a:
+    
 ```
-nmap -A -F -T4 192.168.56.102
-```
+Neuer Benutzer "training" erstellen und der weiteren Gruppe sudo zuordnen
+Standard: Heimatverzeichnis training usw. 
+Testen (entweder neu einloggen oder in terminal su - training 
+sudo dann testen 
 
-### Example 2
-
-```
-## ping target system 
-nmap -sP main
-```
-
-
-### Example 3 
-
-```
-Server 1:
-nmap -p 80 --script=http-enum.nse targetip 
-
-Server 2: 
-tcpdump -nn port 80 | grep "GET /" 
-```
-
-### Ref:
-
-  * http://schulung.t3isp.de/documents/linux-security.pdf
-
-## Erweiterte Dateiattribute (xattr) 
-
-### lsattr/chattr
-
-
-### Datei immutable machen 
-
-  * Kann nicht gelöscht oder verändert 
-  * geht auch für Verzeichnisse
-
-```
-cd /root
-touch meindatei 
-chattr +i meindatei
-## Diese Datei kann jetzt nicht gelöscht oder verändert
-## auch nicht unbenannt 
-lsattr meindatei
-
-## Heilen mit 
-## D.h. root kann das auch wieder rausnehme
-## Schutz vor mir selbst ;o) 
-chattr -i meindatei
+- adduser  (interaktiv) 
+- useradd (lowlevel - Befehl) 
 ```
 
 ```
-## Verzeichnisse
-cd /root
-mkdir meinverzeichnis
-chattr +i meinverzeichnis
-cd meinverzeichnis
-## wichtig Option -d nehmen 
-lsattr -d . 
-## Jetzt können keine neuen Dateien angelegt werden
-## oder gelöscht werden
-## aber bestehende Dateien können inhaltlich geändert werden
+adduser training
+## der weiteren Gruppoe hinzufügen
+usermod -aG sudo training
+
+## testen mit dem neuen Benutzer 
+su - training
+## sudo testen
+sudo su -
+## passwort eingeben
+```
+
+### Übung 1b:
+
+```    
+Einen neuen Benutzer erstellen training2, der
+nur den ssh-daemon neu starten darf 
+(nicht mehr)
+```
+
+````
+## als root
+adduser training2 
+echo "training2 ALL=(ALL:ALL) /bin/systemctl restart ssh" > /etc/sudoers.d/training2
+chmod 440 /etc/sudoers.d/training2
+### testen
+su - training2
+### hier keine status ausgabe, weil keine Berechtigung 
+sudo systemctl restart ssh
+exit // Ausgabe
+## als root, hat es geklappt
+journalctl -eu ssh
+```
+ 
+
+### run0 as alternative in systemd from version 256
+
+
+### not implemented in Rocky 9 and Ubuntu 22.04.
+
+  * because starts with systemd version 256
+  * systemctl --version show version
+  * ubuntu 24.04 -> version 255
+  * Rocky 9 -> version 252
+
+### Disadvantage
+
+  * Advanced config is a bit clumsy
+
+### Advantage
+
+  * More secure (runs under systemd-run under systemd-run0) - probably possible to implement 2-factor-authentication 
+  * Create temporary service every in runs in own linux namespace
+  * Does not fork processes like sudo, also better performance and security 
+
+```
+ls -la /usr/bin/sudo
+## used SUID - bit (unprivileged can call it and it runs under root)
+-rwsr-xr-x 1 root root 277936 Apr  8 16:50 /usr/bin/sudo
+```
+
+
+### Does it make sense 
+
+  * If it is in Distro by default
+  * If bug is fixed that you have enter passwort everytime for each run (not like in sudo)
+
+### References 
+
+  * https://linux-audit.com/systemd/run0-introduction-and-usage/
+
+## users / pam / chage
+
+### Lock/Unlock
+
+
+  * Sperrt Benutzung von Passwort 
+
+```
+usermod -L training2 
+## macht ein ! vor das Passwort in /etc/shadow 
+```
+
+```
+usermod -U training2 
+## entfernt ! 
+```
+
+### pam mechanisms
+
+
+```
+required
+failure of such a PAM will ultimately lead to the PAM-API returning failure but only after the remaining stacked modules (for this service and type) have been invoked
+
+requisite
+like required, however, in the case that such a module returns a failure, control is directly returned to the application.
+
+sufficient
+success of such a module is enough to satisfy the authentication requirements of the stack of modules (if a prior required module has failed the success of this one is ignored). A failure of this module is not deemed as fatal to satisfying the application that this type has succeeded. If the module succeeds the PAM framework returns success to the application immediately without trying any other modules.
+```
+
+### Explanation
+
+```
+If an item marked sufficient succeeds, the PAM library stops processing that stack. This happens whether there were previous required items or not. At this point, PAM returns the current state: success if no previous required item failed, otherwise denied.
+
+Similarly, if an item marked requisite fails, the PAM library stops processing and returns a failure. At that point, it's irrelevant whether a previous required item failed.
+
+In other words, required doesn't necessarily cause the whole stack to be processed. It only means to keep going.
+```
+
+  * https://unix.stackexchange.com/questions/106131/pam-required-and-sufficient-control-flag
+
+### pwquality
+
+
+### Set in /etc/security/pwquality.conf 
+
+   * module pwquality musst be used in pam
+
+```
+## Ubuntu
+cat /etc/pam.d/common-password | grep "pwquality" 
+```
+
+
+```
+## mindestens 10 Zeichen (+1 wenn mindestens ein credit gesetzt ist -> plus-wert // hier nicht der fall)
+minlen = 10
+## mindestens 2 große Zeichen (upper)
+ucredit = -2
+## mindestens 2 Sonderzeichen 
+ocredit = -2
+## Default 
+enforcing = 1
+## führt es auch auch für normale Nutzern nicht durch, wenn Bedingungen nicht erfüllt sind 
+enforce_for_root
+```
+
+### Passwortablauf durchsetzen(chage)
+
+
+### Example 
+
+```
+-d -> letzten Passwortänderung setzen
+-E -> Account läuft nicht ab
+-m -> minimale Änderung zwischen Passwortänderungen
+-M -> Änderung nach maximal 2 Tagen
+-W -> Warnung Tage vor nötiger Passwortänderung
+```
+
+```
+chage -m 1 -M 2 -W 2 -d 2024-09-08 -E -1 training2
+```
+
+```
+root@kurs-VirtualBox:/etc/security# chage -l  training2
+Letzte Passwortänderung                                 : Sep 08, 2024
+Passwort läuft ab                                       : Sep 10, 2024
+Passwort inaktiv                                        : nie
+Benutzerzugang läuft ab                                 : nie
+Minimale Anzahl der Tage zwischen Passwortänderungen    : 1
+Maximale Anzahl der Tage zwischen Passwortänderungen    : 2
+Anzahl Tage, an denen vor Passwortablauf gewarnt wird   : 2
+```
+
+
+### Defaults statt chage in /etc/login.defs
+
+
+  * Ablaufzeit Passwort etc.
+
+```
+cat /etc/login.defs | grep -in PASS
+```
+
+## password / PAM Security
+
+### Passwort Encryption Method
+
+
+### Identified in shadow - file 
+
+```
+## Example
+$6$xb......
+```
+
+```
+$6$ identifies encryption algorithm for password
+```
+
+### How to set it 
+
+```
+/etc/login.defs
+ENCRYPT_METHOD SHA512
+```
+
+### Reference 
+
+  * https://manpages.debian.org/unstable/libcrypt-dev/crypt.5.en.html
+
+### Pam Security
+
+## Logging
+
+### set rules immutable in auditd
+
+
+```
+## Während der Laufzeit auf immutable setzen
+auditctl -e 2
+```
+
+```
+## Now change it again
+## normal mode 
+## not working 
+auditctl -e 1
+## Operation not permitted 
+```
+
+```
+## Try to set new rule
+auditctl -a  always,exit -F dir=/home -F perm=war -k file_del
+```
+
+```
+## The audit system is in immutable mode, no rule changes allowed
+```
+
+## filesystem
+
+### immutable/ appendable chattr lsattr
+
+
+### Appenable 
+
+```
+touch topsecret
+echo "test" >> topsecret
+cat topsecret
+```
+
+```
+## now only appenable 
+chattr +a topsecret
+## not working
+echo "test neu" > topsecret
+## works 
+echo "test neu" >> topsecret
+## works 
+cat topsecret
+```
+
+```
+lsattr topsecret
+```
+
+```
+## set immutable 
+chattr +i topsecret
+lsattr topsecret
+## not appendable 
+echo "test neu" >> topsecret
+## not writable 
+echo "test neu" > topsecret
+## not removable 
+rm topsecret
+## not renameable 
+mv topsecret topsecretneu
+```
+
+### acl's
+
+
+### Installation of tools 
+
+```
+apt install acl 
+```
+
+### Walkthrough 
+
+```
+starting as root
+```
+
+
+```
+1. Gemeinsamer Ordner heroes
+````
+
+```
+groupadd -r heroes
+mkdir -p /shared/mutants
+chgrp heroes /shared/mutants
+```
+
+2. 3 Benutzer erstelle ("sue" gehört nicht der Gruppe heroes an)
+```
+useradd sylar
+useradd cheerleader
+useradd sue
+usermod -aG heroes sylar
+usermod -aG heroes cheerleader
+```
+
+3. SGID - Bit setzen 
+```
+chmod g+ws,o=- /shared/mutants
+```
+
+4. Wechsel in sylar und cheerleader
+```
+su - sylar
+echo "Sylar was here" >> /shared/mutants/victims
+exit
+```
+
+``` 
+su - cheerleader
+echo "\nCheerleader war hier." >> /shared/mutants/victims
+exit
+```
+
+5. Hat Sue Zugriff ? Verify that user sue has no access to the directory /shared/mutants and its files.
+```
+su - sue
+cat /shared/mutants/victims
+exit
+```
+
+6. Zugriff für Sue (files erstellen, lesen und modifizieren in /shared/mutants .
+2 acls: 1x für default (neue files), 1x für zugriff 
+
+```
+setfacl -m d:u:sue:rwx /shared/mutants
+setfacl -m u:sue:rwx /shared/mutants
+setfacl -m u:sue:rw /shared/mutants/victims
+getfacl /shared/mutants 
+getfacl /shared/mutants/victims
+```
+
+```
+## nun mit sue testen
+su - sue
+echo "kann ich jetzt ?" >> /shared/mutants/victims 
+touch sue-gruppe
+mkdir /shared/mutants/sue-gruppe-ver
+exit 
+```
+
+7. Privates file von cheerleader /shared/mutants/private
+   Zugriff von sylar verhindern
+
+```
+su - cheerleader
+
+echo "privat" >> /shared/mutants/private
+setfacl -m u:sylar:- /shared/mutants/private
+getfacl /shared/mutants/private
+exit
+
+su - sylar
+
+cat /shared/mutants/private
+## cat: /shared/mutants/private: Permission denied
+exit
+```
+
+### Capabilites and Exercise
+
+
+### Which file capability do exist ?
+
+  * Effective
+  * Inheritable
+  * Permitted
+
+#### Effective 
+
+  * Das ist das was ein Process dann verwendet ab dem Start des Programms (files), z.B pin
+
+```
+get cap /bin/ping
+## hier das e 
+## /bin/ping cap_net_raw=ep
+
+
+```
+
+#### Permitted 
+
+  * Nicht standardmäßig beim Starten des Prozesses aktiviert
+  * Der Prozess hat aber das Rechte dies Capability durch einen System-Call zu aktivieren (d.h. sinnvoll für Entwickler eines Programms)
+
+#### Inheritive 
+
+  * Wird an die Kind - Prozesse, die geforkt vererbt.
+
+### Example ping 
+
+```
+## as unprivileged user
+cd /usr/bin
+sudo cp ping meinping
+meinping www.google.de
+```
+
+```
+meinping www.google.de
+meinping: socktype: SOCK_RAW
+meinping: socket: Vorgang nicht zulässig
+meinping: => missing cap_net_raw+p capability or setuid?
+```
+
+```
+sudo setcap CAP_NET_RAW=ep /usr/bin/meinping
+meinping www.google.de
+```
+
+### man capabilities 
+
+## Kernel
+
+### Disable kernel modules loading
+
+
+### When ? 
+
+  * Can be set after all modules are loaded
+  * e.g. embedded systems
+
+### Walkthrough 
+
+```
+sudo su -
+modprobe i2c_dev
+## entladen 
+modprobe -vr i2c_dev
+sysctl kernel.modules_disabled=1
+```
+
+```
+## now try to load module 
+##not working 
+modprobe i2c_dev
+```
+
+```
+## change kernel modules_disabled
+## does not work 
+sysctl kernel.modules_disabled=1
+```
+
+```
+## reboot, after that it works again
+reboot 
+```
+
+```
+sudo su -
+modprobe -vr i2c_dev
+lsmod | grep i2c
+```
+
+### Disable Coredump
+
+
+  * https://man7.org/linux/man-pages/man8/systemd-coredump.8.html
+
+```
+### does this disable coredump 
+Disabled by Storage=None
+```
+
+### Hardening
+
+
+### Checker 
+
+```
+https://github.com/a13xp0p0v/kernel-hardening-checker?tab=readme-ov-file
+
+## Installation
+cd /usr/src
+git clone https://github.com/a13xp0p0v/kernel-hardening-checker?tab=readme-ov-file
+cd kernel-hardening-checker
+```
+
+```
+sudo sysctl -a > sysctl.file && ./bin/kernel-hardening-checker -c /boot/config-6.8.0-44-generic -l /proc/cmdline -s sysctl.file
+```
+
+
+### Kernel Defence Map 
+
+  * https://github.com/a13xp0p0v/linux-kernel-defence-map
+
+### Guidelines 
+
+  * https://gist.github.com/dante-robinson/3a2178e43009c8267ac02387633ff8ca
+
+## Firewall 
+
+### nftables
+
+
+### Prerequisites 
+
+```
+Disable firewalld and ufw if we you want to use nftables (by itself) 
+
+systemctl stop firewalld
+systemctl disable firewalld
+```
+
+### Schaubild 
+
+  * https://www.teldat.com/blog/wp-content/uploads/2020/11/figure_05.png
+
+### Hierarchie-Ebenen 
+
+#### Ebene 1: Ruleset 
+
+```
+## quasi das Gehäuse 
+nft list ruleset 
+
+## Leer ? 
+## Per default ist noch nichts hinterlegt. 
+
+## Config wie in iptables INPUT, OUTPUT, FORWARD 
+## System hat einen Vorschlag 
+## Dieser findet sich in
+## Das ist auch gleichzeitig die Konfigurationsdatei 
+## /etc/nftables.conf 
+## Beim Starten werden diese Regeln geladen. 
+## Und zwar mit folgendem Dienst 
+systemctl status nftables 
+systemctl start nftables
+systemctl status nftables
+nft list ruleset
+```
+
+#### Ebene 2: Table 
+
+#### Ebene 3: Chain 
+
+
+#### Ebene 4: Rule 
+
+
+### Gegenüberstellung iptables und nft (Befehle) 
+
+```   
+iptables -L  -> nft list table ip filter
+iptables -L INPUT -> nft list chain ip filter INPUT
+
+iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
+```
+
+### Beispiel 1:
+
+ 
+```
+flush ruleset
+
+table inet firewall {
+                                                                                 
+    chain inbound_ipv4 {
+        # accepting ping (icmp-echo-request) for diagnostic purposes.
+        # However, it also lets probes discover this host is alive.
+        # This sample accepts them within a certain rate limit:
+        #
+        # icmp type echo-request limit rate 5/second accept      
+    }
+
+    chain inbound_ipv6 {                                                         
+        # accept neighbour discovery otherwise connectivity breaks
+        #
+        icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+                                                                                 
+        # accepting ping (icmpv6-echo-request) for diagnostic purposes.
+        # However, it also lets probes discover this host is alive.
+        # This sample accepts them within a certain rate limit:
+        #
+        # icmpv6 type echo-request limit rate 5/second accept
+    }
+
+    chain inbound {                                                              
+
+        # By default, drop all traffic unless it meets a filter
+        # criteria specified by the rules that follow below.
+        type filter hook input priority 0; policy drop;
+
+        # Allow traffic from established and related packets, drop invalid
+        ct state vmap { established : accept, related : accept, invalid : drop } 
+
+        # Allow loopback traffic.
+        iifname lo accept
+
+        # Jump to chain according to layer 3 protocol using a verdict map
+        meta protocol vmap { ip : jump inbound_ipv4, ip6 : jump inbound_ipv6 }
+
+        # Allow SSH on port TCP/22 and allow HTTP(S) TCP/80 and TCP/443
+        # for IPv4 and IPv6.
+        tcp dport { 22, 80, 443} accept
+
+        # Uncomment to enable logging of denied inbound traffic
+        # log prefix "[nftables] Inbound Denied: " counter drop
+    }                                                                            
+                                                                                 
+    chain forward {                                                              
+        # Drop everything (assumes this device is not a router)                  
+        type filter hook forward priority 0; policy drop;                        
+    }                                                                            
+                                                                                 
+    # no need to define output chain, default policy is accept if undefined.
+}
+```
+
+
+
+### Documentation 
+
+  * https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes
+
+### firewalld auf Rocky/RHEL/Centos
+
+
+### Is firewalld running ?
+```
+## is it set to enabled ?
+systemctl status firewalld 
+firewall-cmd --state
+```
+
+### Command to control firewalld 
+  
+  * firewall-cmd 
+
+### Best way to add a new rule 
+```
+## Step1: do it persistent -> written to disk 
+firewall-cmd --add-port=82/tcp --persistant 
+
+## Step 2: + reload firewall 
+firewall-cmd --reload 
+```
+
+### Zones documentation 
+
+man firewalld.zones 
+
+### Zones available 
+
+```
+firewall-cmd --get-zones 
+block dmz drop external home internal public trusted work
+```
+
+### Active Zones 
+
+```
+firewall-cmd --get-active-zones
+## in our case empty 
+```
+
+### Show information about all zones that are used 
+```
+firewall-cmd --list-all 
+firewall-cmd --list-all-zones 
+```
+
+
+### Add Interface to Zone ~ Active Zone 
+
+```
+firewall-cmd --zone=public --add-interface=enp0s3 --permanent 
+firewall-cmd --reload 
+firewall-cmd --get-active-zones 
+public
+  interfaces: enp0s3
+
+```
+### Default Zone 
+
+```
+## if not specifically mentioned when using firewall-cmd
+## .. add things to this zone 
+firewall-cmd --get-default-zone
+public
+
+```
+
+### Show services / Infos services 
+```
+firewall-cmd --get-services
+## Infos, what can it do 
+firewall-cmd --info-service=ssh
+
+```
+
+### Adding/Removing a service 
+
+```
+## lange Form für Laufzeit 
+firewall-cmd --zone=public --add-service=http
+## kurze Form / nimmt default target -> zone: public 
+firewall-cmd --add-service=http
+
+firewall-cmd --list-all
+firewall-cmd --list-all --permanent
+
+firewall-cmd --runtime-to-permanent
+## Here it should show up 
+cat /etc/firewalld/zones/public.xml 
+```
+
+### Walkthrough apache / adding Port (Centos 8 / Redhat 8 with enabled SELinux (by default))
+
+```
+
+## /etc/httpd/conf/httpd.conf 
+## add port Listen 82 
+## Try to restart - not working port cannot be bound 
+sealert -a /var/log/audit/audit.log 
+## we will get this info to allow this port 
+semanage port -a -t http_port_t -p tcp 82
+## start apache 
+systemctl start httpd
+firewall-cmd --add-port=82/tcp --zone=public --permanent
+
+```
+
+### Enable / Disabled icmp
+```
+firewall-cmd --get-icmptypes
+## none present yet 
+firewall-cmd --zone=public --add-icmp-block-inversion --permanent
+firewall-cmd --reload
+```
+
+### Working with rich rules 
+```
+## Documentation 
+## man firewalld.richlanguage
+
+## throttle connectons 
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10/32 service name=http log level=notice prefix="firewalld rich rule INFO:   " limit value="100/h" accept' 
+firewall-cmd --reload # 
+firewall-cmd --zone=public --list-all
+
+## port forwarding 
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --list-all
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10 forward-port port=42343 protocol=tcp to-port=22'
+firewall-cmd --reload 
+firewall-cmd --zone=public --list-all
+firewall-cmd --remove-service=ssh --zone=public
+
+## 
+
+
+## list only the rich rules 
+firewall-cmd --zone=public --list-rich-rules
+
+## persist all runtime rules 
+firewall-cmd --runtime-to-permanent
+
+
+
+
+```
+
+
+### References 
+
+  * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
+  * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
+
+### firewalld auf Debian/Ubuntu
+
+
+### Install firewalld and restrict ufw 
+
+```
+## Schritt 1: ufw deaktivieren 
+systemctl stop ufw
+systemctl disable ufw 
+ufw disable # zur Sicherheit 
+ufw status
+## -> inactive # this has to be the case 
+
+## Schritt 2: firewalld
+apt update
+apt install -y firewalld
+
+## Schritt 3: firewalld 
+apt install firewalld 
+systemctl start firewalld 
+systemctl enable firewalld 
+systemctl status firewalld 
+systemctl status ufw 
+
+```
+
+
+### Is firewalld running ?
+```
+## is it set to enabled ?
+systemctl status firewalld 
+firewall-cmd --state
+```
+
+### Command to control firewalld 
+  
+  * firewall-cmd 
+
+
+
+### Zones documentation 
+
+man firewalld.zones 
+
+### Zones available 
+
+```
+firewall-cmd --get-zones 
+block dmz drop external home internal public trusted work
+```
+
+### Active Zones 
+
+```
+firewall-cmd --get-active-zones
+## in our case empty 
+```
+
+### Add Interface to Zone = Active Zone 
+
+```
+## Variante 1
+firewall-cmd --zone=public --add-interface=enp0s8 --permanent 
+firewall-cmd --reload 
+
+## Variante 2
+firewall-cmd --zone=public --add-interface=enp0s8
+firewall-cmd --get-active-zones 
+## Nach dem Testen 
+firewall-cmd --runtime-to-permanent 
+firewall-cmd --list-all 
+firewall-cmd --list-all --permanent 
+
+firewall-cmd --get-active-zones 
+public
+  interfaces: enp0s8
+
+```
+
+### Show information about all zones that are used 
+```
+## Anzeigen der runtime 
+firewall-cmd --list-all 
+## Anzeigen der permanenten Konfiguration 
+firewall-cmd --list-all --permanent 
+
+firewall-cmd --list-all-zones 
+```
+
+
+### Default Zone 
+
+```
+## if not specifically mentioned when using firewall-cmd
+## .. add things to this zone 
+firewall-cmd --get-default-zone
+public
+```
+
+### Show services / Info
+```
+firewall-cmd --get-services 
+firewall-cmd --info-service=http
+```
+
+### Adding/Removing a service 
+
+```
+## Version 1 - more practical 
+## set in runtime 
+firewall-cmd --zone=public --add-service=http
+firewall-cmd --runtime-to-permanent 
+
+## Version 2 - less practical
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload 
+```
+
+```
+### Service wieder entfernen
+firewall-cmd --permanent --zone=public --remove-service=ssh
+firewall-cmd --reload 
+```
+
+### Best way to add a new rule 
+```
+## Walkthrough / Ubuntu 
+## in /etc/apache2/ports.conf 
+## Hinzufügen 
+## Listen 81 
+echo "Listen 81" >> /etc/apache2/ports.conf 
+systemctl restart apache2 
+
+## Best Practice version 
+firewall-cmd --add-port=81/tcp 
+## after testing 
+firewall-cmd --runtime-to-permanent 
+
+```
+
+### Enable / Disabled icmp 
+```
+firewall-cmd --get-icmptypes
+## none present yet 
+firewall-cmd --zone=public --add-icmp-block-inversion --permanent
+firewall-cmd --reload
+```
+
+### Working with rich rules 
+```
+## Documentation 
+## man firewalld.richlanguage
+
+## throttle connectons 
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10/32 service name=http log level=notice prefix="firewalld rich rule INFO:   " limit value="100/h" accept' 
+firewall-cmd --reload # 
+firewall-cmd --zone=public --list-all
+
+## port forwarding 
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --list-all
+firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10 forward-port port=42343 protocol=tcp to-port=22'
+firewall-cmd --reload 
+firewall-cmd --zone=public --list-all
+firewall-cmd --remove-service=ssh --zone=public
+
+## 
+
+
+## list only the rich rules 
+firewall-cmd --zone=public --list-rich-rules
+
+## persist all runtime rules 
+firewall-cmd --runtime-to-permanent
+
+```
+
+
+### References 
+
+  * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
+  * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
+
+### Neztwerkkarte über MAC erlauben/verbieten
+
+
+### Drop specific mac 
+
+```
+## Default Zone: public 
+## machine 2 : 192.168.56.103
+## MAC from machine1 
+firewall-cmd --add-rich-rule='rule source mac=08:00:27:ae:1a:7d drop'
+```
+
+```
+## Test from machine 192.168.56.102
+ping 192.168.56.103
+```  
+
+### Only allow specific mac / disallow other 
+
+```
+## windows get mac of machine
+cmd.exe
+```
+
+```
+## windows -> get mac from 192.168.56.1 - interface 
+ipconfig /all 
+```
+
+
+
+```
+## machine 2: 192.168.56.103
+## Lauschen auf icmp 
+tcpdump -i enp0s8 icmp 
+
+## windows
+ping 192.168.56.103 
+
+## machine 2: 192.168.56.103 
+## allow only from this mac -> Windows machine
+## rewrite - to ":" 
+firewall-cmd --zone=drop --add-rich-rule='rule source mac=08:00:27:ae:1a:7d accept'
+firewall-cmd --zone=drop --change-interface=enp0s8
+
+firewall-cmd --list-all-zones
+firewall-cmd --list-rich-rules 
+```
+
+```
+## now try to ping from windows
+## cmd.exe
+## works 
+ping 192.168.56.103 
+
+```
+
+```
+## now try to ping from ubuntu 
+ping 192.168.56.103 
+
+```
+
+### Reset after exercise
+firewall-cmd --zone=public --change-interface=enp0s8
 ```
 
 ## LSM-Modules (aka SELinux or apparmor) 
@@ -398,30 +1470,217 @@ lsattr -d .
 
   * https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html
 
+### apparmor Überblick
+
+
+
+### How does it work ?
+
+``` In practice
+
+o apparmor is registered in the kernel (lsm-module)
+o the kernel queries AppArmor before each system call
+ ->to know whether the process is authorized to do the given
+operation.
+```
+
+### Install 
+
+```
+## tools installed
+dpkg -l | grep apparmor-utils 
+
+Set up utilities you need for management
+sudo apt install apparmor-utils
+
+## in addition install auditd
+sudo apt install auditd 
+
+```
+
+### Systemd 
+
+```
+## apparmor rules loaded ? 
+
+## Loads rules into the kernel 
+## from the profile 
+systemctl start apparmor 
+
+## Unloads the rules from the kernel 
+systemctl stop apparmor 
+
+```
+
+### Profiles and Logging
+
+```
+## Profiles are in 
+/etc/apparmor.d/
+
+## Default logging will be to 
+cat /etc/apparmor/logprof.conf  | grep logfiles
+```
+
+### Status 
+
+```
+Show the current status of apparmor
+sudo apparmor_status
+## or
+sudo aa-status
+```
+
+### Profiles and additional profiles 
+
+```
+Set up additional profiles
+
+Within the core installation
+there are only a minimal number of profiles
+
+So:
+
+apt install apparmor-profiles
+## Achtung, diese sind teilweise experimentell 
+apt install apparmor-profiles-extra 
+
+```
+
+### Enable/Disable a profile 
+
+```
+aa-disable 
+aa-enable 
+
+
+```
+
+### Wichtige Befehle:
+
+```
+aa-enabled	simple Abfrage, ob AppArmor aktiviert ist
+aa-status	Überblick über die geladenen AppArmor-Profile mit Angabe des Modus
+aa-unconfined	Ausgabe der Prozesse mit Netzwerkzugriff ohne Profil
+aa-audit	Profil in den Audit-Modus versetzen
+aa-complain	Profil in den Complain-Modus versetzen
+aa-enforce	Profil in den Enforce-Modus versetzen
+aa-autodep	Erstellung eines Basis-Profils im Complain-Modus
+aa-genprof	Erstellung eines Basis-Profils mit interaktiver Ergänzung von Regeln und abschließender Versetzung des Profils in den Enforce-Modus
+aa-logprof	interaktive Ergänzung von Regeln anhand der Einträge in /var/log/syslog
+aa-cleanprof	automatisches Aufräumen eines Profils
+```
+
+
+### Apparmor aktivieren (Kernel) - just in case (ältere Versionen) 
+
+```
+## Dies ist ab Debian 10 und Ubuntu x 
+## bereits der Fall
+Enable AppArmor
+If you are using Debian 10 "Buster" or newer, AppArmor is enabled by default so you can skip this step.
+
+The AppArmor Linux Security Modules (LSM) must be enabled from the linux kernel command line in the bootloader:
+
+
+$ sudo mkdir -p /etc/default/grub.d
+$ echo 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"' \
+  | sudo tee /etc/default/grub.d/apparmor.cfg
+$ sudo update-grub
+$ sudo reboot
+```
+
+
+
+### Reference 
+
+  * https://wiki.debian.org/AppArmor/HowToUse
+
+### apparmor eigenes Profil erstellen
+
+
+### Step 0: set lang to english
+
+```
+sudo dpkg-reconfigure locales
+-> en.US
+-> Step 2 also
+
+su - 
+```
+
+
+### Step 1: Create script and execute it without protection
+
+```
+cd /usr/local/bin
+```
+
+```
+## vi example.sh 
+## see next block for content
+```
+
+```
+##!/bin/bash
+
+echo "This is an apparmor example."
+
+touch data/sample.txt
+echo "File created"
+
+rm data/sample.txt
+echo "File deleted"
+```
+
+```
+chmod u+x example.sh
+mkdir data
+example.sh
+```
+
+### Step 2: Protect it with apparmor 
+
+```
+Session 1: 
+aa-genprof example.sh 
+
+
+
+Session 2: (same server) 
+cd /usr/local/bin 
+example.sh 
+
+Session 1:
+## Press S for scan
+## Now the logs will get scanned 
+## Add each Entry with I (Inherit)  or A (Allow) 
+## When ready F finish 
+##### Let us enforce it (currently it is on complain) 
+aa-enforce usr.local.bin.example.sh
+
+Session 2:
+## Does it still work 
+example.sh 
+## Now add new commands 
+echo "echo somedata > righthere.txt" >> example.sh   
+## Execute again 
+example.sh 
+## permission denied
+
+Session 1:
+## analyze log and add changed things
+aa-logprof 
+
+Session 2:
+## now try again.
+example.sh
+
+```
+
+```
+
 ## SELinux 
-
-### Debian Installation
-
-
-### Walkthrough 
-
-```
-apt-get install selinux-basics selinux-policy-default auditd
-selinux-activate
-reboot
-
-## for checking
-## Also refer to our other documents 
-## e.g. apache walkthrough
-setenforce 1 
-
-check-selinux-installation 
-echo $?
-```
-
-### Howto on Debian 
-
-  * https://wiki.debian.org/SELinux/Setup
 
 ### Important commands and files
 
@@ -483,6 +1742,14 @@ restorecon -vr /var/www/html
 ```
 
 ### Analyze 
+
+```
+## sesearch is needed,
+## install if not present
+dnf whatprovides sesearch
+dnf install setools-console
+```
+
 
 ```
 ## Under which type/domain does httpd run 
@@ -562,13 +1829,15 @@ it MIGHT BE selinux <-- !!!
 ```
 ## /etc/httpd/conf/httpd.conf
 ## Ergänzen 
-## Listen 83 
+Listen 83 
 
-systemctl restart httpd 
+## Startet nicht neu ....
+systemctl restart httpd
+
 ```
 
 
-### Step 2: Findout what got into the way, with smart tools
+#### Step 2: Find problems with sealert 
 
 ```
 dnf whatprovides sealert 
@@ -579,10 +1848,10 @@ cd /var/log/audit
 sealert -a audit.log > report.txt
 ```
 
-### Step 3: Debug and fix 
+#### Step 3: Debug and fix 
 
 ```
-sealert -a /var/log/audit.log > report.txt
+## sealert -a /var/log/audit/audit.log > report.txt
 ## Extract advice from file 
 ## find http_port_t
 semanage port -l | grep 80
@@ -592,10 +1861,643 @@ semanage port -l | grep 83
 systemctl start httpd
 ## now apache also listens on port 83
 lsof -i
+## also add port in firewall if running
+firewall-cmd --state
+## add to runtime 
+firewall-cmd --add-port=83/tcp
+## make permanent 
+firewall-cmd --runtime-to-permanent 
 ```
 
   * [Alternative way using sealert](#troubleshoot-with-sealert-on-centosredhat) 
 
+
+### setsebool / booleans in selinux to allow features
+
+
+### Find out, which are available 
+
+```
+## show all 
+getsebool -a | grep nis 
+## shows all booleans with short description 
+semanage boolean -l 
+```
+
+### Prepare using sesearch
+
+```
+dnf whatprovides search
+dnf install -y setools-console
+```
+
+### Find out, which rules are triggered by boolean 
+
+```
+## -A shows allow rules 
+sesearch -b nis_enabled -A
+
+## If there are a lot, considers using, e.g. semanage for opening specific ports 
+## like mentioned after using 
+## sealert -a /var/log/audit/audit.log 
+
+```
+
+### Are there booleans for my specific use case 
+
+```
+sesearch -s init_t -t unreserved_port_t -A
+##
+```
+
+### Activating a boolean (selinux) 
+
+```
+## only till next report 
+setsebool nis_enabled 1 
+
+## persistent 
+setsebool -P nis_enabled 1 
+
+## is it activated 
+getsebool nis_enabled 
+```
+
+### Reference 
+
+  * https://wiki.gentoo.org/wiki/SELinux/Tutorials/Using_SELinux_booleans
+
+```
+## -C option in sesearch seems deprecated in Centos 
+```
+
+### Dienste wie apache (httpd) auf permissive setzen
+
+
+### Walkthrough 
+
+#### Identify domain/type in Rocky/RHEL 
+
+```
+dnf install httpd
+systemctl start httpd
+firewall-cmd --add-service=http
+```
+
+```
+cd /var/www/html
+echo "hallo welt" >> welt.html
+chcon -t var_t welt.html 
+```
+
+```
+Im Browser öffnen -> permission denied
+```
+
+```
+ps auxZ | grep httpd 
+```
+
+```
+semanage permissive -a httpd_t
+```
+
+```
+Im browser testen -> geht jetzt 
+```
+
+```
+semodule -l | grep permissive
+```
+
+```
+permissive_httpd_t 1.0 
+permissivedomains 1.0.0
+```
+
+```
+## wieder scharf schalten 
+semanage permissive -d httpd_t
+```
+
+### Reference 
+
+  * https://selinuxproject.org/page/PermissiveDomainRecipe
+
+## Systemd
+
+### Harden Systemd services with analyze security
+
+
+### Kommandos 
+
+```
+## Score für alle Dienste anzeigen 
+systemd-analyze security
+## Show possible settings to adjust for service ssh 
+systemd-analyze security ssh 
+```
+
+### Walkthrough (Ubuntu)
+
+#### Prerequisites 
+
+```
+apt install python3
+```
+
+#### Step 1: Create HTML Page / Service 
+
+```
+sudo su -
+mkdir /home/kurs/public
+cd /home/kurs/public
+vi index.html 
+```
+
+```
+<!doctype html>
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <title>Welcome guys ! </title>
+  </head>
+  <body>
+    <p><h1>What's up </h1></p>
+  </body>
+</html>
+```
+
+```
+systemctl edit --full --force helloworld.service 
+```
+
+```
+[Unit]
+Description=Simple Http Server
+Documentation=https://docs.python.org/3/library/http.server.html
+[Service]
+Type=simple
+WorkingDirectory=/home/kurs/public
+ExecStart=/usr/bin/python3 -m http.server 8080
+ExecStop=/bin/kill -9 $MAINPID
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+systemctl start helloworld
+systemd-analyze security helloworld
+## -> 9.6. 
+```
+
+### Step 2: NoNewPrivileges 
+
+```
+systemctl edit --full helloworld
+```
+
+```
+## add: Privilegien können nicht erhöht werden 
+NoNewPrivileges=true
+```
+
+```
+systemctl restart helloworld
+systemd-analyze security helloworld 
+```
+
+### Step 3: PrivateTmp=yes
+
+  * Eigenes Tmp-Verzeichnis für den Service 
+
+
+
+### Step 4: RestrictNamespaces=true
+
+  * Prozess darf keine Namespaces erstellen
+  * 
+
+```
+## nur Erstellung dieser sind erlaubt
+## RestrictNamespaces=uts ipc pid user cgroup
+```
+
+```
+## Keine Erstellung von namespaces durch den Prozess mehr erlaubt
+RestrictNamespaces=true
+```
+
+```
+--> 8.3.
+Sinkt von UNSAFE auf EXPOSED
+```
+
+### Step 5: ProtectKernelTunables=yes && ProtectKernelModules=yes && ProtectControlGroups=yes
+
+  * ProtectKernelTunables=yes
+
+```
+> READONLY -> /proc/sys/«, »/sys«, »/proc/sysrq-trigger/«, »/proc/latency_stats/«, »/proc/acpi/«, »/proc/timer_stats/«, »/proc/fs/« »/proc/irq/« zugreifen kann, für den Prozess read-only 
+```
+
+  * ProtectKernelModules = yes
+
+```
+## Laden und Entladen verboten
+```
+
+  * ProtectControlGroups = yes
+
+```
+Zugriff auf die ControlGroups verboten
+-> sowas braucht nur ContainerVerwaltungssoftware
+## konkret:
+Verhindert Schreibzugriff auf alle Einstellungen der Kernel-Control-Groups (unter /sys/fs/cgroup). 
+```
+
+```
+## Ergebnis: 7.6. 
+```
+
+### Step 6: Capabilities 
+
+```
+
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_DAC_READ_SEARCH 
+## Ausgeschlossen wird dadurch »CAP_SYS_ADMIN«, »CAP_DAC_OVERRIDE« »CAP_SYS_PTRACE«
+## Bringt viele Punkte
+```
+
+```
+## Ergebnis: 5.5 -> MEDIUM 
+```
+
+### Sehr schöne Liste an Möglichkeiten 
+
+   * https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
+
+### Reference 
+
+   * https://www.linux-magazin.de/ausgaben/2021/11/systemd-analyze/
+  
+
+### Condition do not start without selinux present
+
+
+```
+## only start when selinux is present otherwice skipping
+## Has to be in Unit Section
+[Unit]
+ConditionSecurity=selinux
+
+```
+
+## rootkits
+
+### Scan for rootkits with rkhunter
+
+
+### versioncheck and update definitions 
+
+#### Set rkhunter.conf accordingly 
+
+```
+/etc/rkhunter.conf
+```
+
+```
+## Set like so to make updates possile 
+UPDATE_MIRRORS=1
+MIRRORS_MODE=0
+WEB_CMD=""
+```
+
+### Versioncheck Software / Update definitions 
+
+```
+rkhunter --versioncheck
+rkhunter --update
+```
+
+### Scan 
+
+```
+rkhunter -c
+## Logs in
+/var/log/rkhunter.log 
+```
+
+## Malware / Viren - Scans 
+
+### maldet - lmd
+
+
+```
+cd /usr/src
+wget https://www.rfxn.com/downloads/maldetect-current.tar.gz
+mkdir maldetect 
+mv maldetect-current.tar.gz maldetect 
+cd maldetect 
+tar xvf maldetect-current.tar.gz 
+
+```
+
+```
+cd /usr/src/maldetect/maldetect-1.6.5
+./install.sh 
+
+## version anzeigen
+maldet 
+## update der Signaturen
+maldet -u 
+## Update der Software
+maldet -d 
+
+## Evtl config anpassen wenn gewünscht.
+## Standardmäßig erfolgt 1x nächtlich ein Scan 
+## /usr/local/maldetect/conf.maldet 
+
+wget -P /tmp https://secure.eicar.org/eicar_com.zip 
+cd /tmp
+cp -a eicar* /home/kurs
+chown kurs:kurs /home/kurs/eicar*
+
+maldet -a /home/kurs
+## reportliste 
+maldet -e 
+```
+
+```
+## Als Service betreiben 
+## vi /usr/local/maldetect/monitor_paths
+/etc
+/home 
+
+## /usr/local/maldetect/conf.maldet 
+## default_monitor_mode auf /usr/local... setzen 
+## default_monitor_mode="users"
+default_monitor_mode="/usr/local/maldetect/monitor_paths"
+
+## 
+apt install inotify-tools 
+
+systemctl start maldet 
+
+## Logs anschauen ob monitoring auf Pfade erfolgt 
+
+## 2. Session auf machen als user 'kurs'
+## und datei downloaden. 
+wget https://secure.eicar.org/eicar_com.zip 
+
+## 1. Session als root. logs beobachten
+/usr/local/maldetect/logs/event_log 
+
+
+
+```
+
+### Monitoring Log inotify 
+
+```
+inotify monitoring log: /usr/local/maldetect/logs/inotify_log
+```
+
+
+### clamav
+
+
+### Komponenten 
+
+```
+clamav - client 
+clamav-daemon - daemon
+clamav-freshclam - service -> Dienst der die Virensignaturen aktualisiert 
+```
+
+### Wichtige clamscan Kommandos 
+
+```
+clamscan - Optionen
+Option	Beschreibung
+-i oder --infected	Gibt nur infizierte Dateien aus (und nicht alle Dateien die gescannt werden).
+--remove	Entfernt infizierte Dateien. Mit Vorsicht benutzen!
+--move=VERZEICHNIS	Verschiebt alle infizierten Dateien in das Verzeichnis VERZEICHNIS.
+-r oder --recursive	Scannt Unterverzeichnisse rekursiv.
+--no-archive	Alle Archiv-Dateien werden nicht gescannt.
+-h oder --help	Zeigt alle Optionen von clamscan an.
+```
+
+### Virendatenbank 
+
+  * Virendatenbank wird in /var/lib/clamav gespeichert. 
+  * Aktualisierung durch den clamav-freshclam - Dienst oder manuell: freshclam 
+
+### Aktualisierung durch Dienst 
+
+```
+## Konfiguration unter des Dienstes (clamav-freshclam) unter:
+/etc/clamav/freshclam.conf 
+
+## Dies kann auch so erfolgen
+dpkg-reconfigure clamav-freshclam
+
+## Frequenz 
+Festlegen wie oft runtergeladen wird -> voreingestellt ist 24 mal am Tag.
+```
+
+### Dienste enablen 
+
+```
+systemctl enable clamav-freshclam
+```
+
+
+### Virendatenbank manuell aktualisieren.
+
+```
+## Dienst darf dafür nicht laufen, weil er ein LOCK hält 
+systemctl stop clamav-freshclam
+freshclam
+systemctl start clamav-freshclam 
+```
+
+### Installation / Walkthrough (clamav-daemon)
+
+```
+apt install -y clamav clamav-daemon
+## Achtung: Der Daemon läuft erst wenn die Virensignatur 1x runtergeladen worden sind
+ä daemon ist bereits enabled bei nach Installation 
+systemctl status clamav-daemon
+systemctl status clamav-freshclam
+
+```
+
+### Privaten Mirror einrichten 
+
+```
+## Auf dediziertem Server
+##!/bin/bash 
+apt update
+apt install -y python3 pip apache2 
+pip3 install cvdupdate 
+cvd config set --dbdir=/var/www/html
+## better set this up as cron 
+cvd update 
+```
+
+```
+## In freshclam verwenden 
+## /etc/clamav/freshclam.conf 
+PrivateMirror=http://46.101.158.176
+systemctl restart clamav-freshclam 
+
+## Oder dpkg-reconfigure clamav-freshclam 
+
+```
+
+
+
+### Testen 
+
+```
+wget -P /tmp https://secure.eicar.org/eicar_com.zip
+## clamscan -ir /tmp
+## better: so you can see what is going on:
+clamscan --debug -vir /tmp
+
+## cpu schonender - nice - nice 15 -> niedrigste Priorität  
+## nice -n 15 clamscan && clamscan -ir /tmp
+```
+
+### clamscan return - codes 
+
+```
+0 : No virus found.
+1 : Virus(es) found.
+2 : Some error(s) occurred.
+```
+
+### Variante 1: on access scanning (clamonacc) 
+
+  * https://gist.github.com/ChadDevOps/dc5428e8d816344f68b03c99359731f9
+
+#### Schritt 1: config ändern 
+
+```
+vi /etc/clamav/clamd.conf 
+```
+
+```
+## Anhängen
+BytecodeTimeout 60000
+OnAccessMaxFileSize 5M
+OnAccessMountPath /home
+OnAccessIncludePath /home
+OnAccessExcludeUname root
+OnAccessPrevention true
+OnAccessExtraScanning false
+VirusEvent /etc/clamav/detected.sh
+OnAccessExcludeRootUID yes
+OnAccessRetryAttempts 3
+```
+
+### Schritt 2: Unit ändern 
+
+```
+systemctl edit --full clamav-clamonacc.service
+```
+
+```
+## --fdpass einfügen
+## >
+## See: https://medium.com/@aaronbrighton/installation-configuration-of-clamav-a>
+
+[Unit]
+Description=ClamAV On-Access Scanner
+Documentation=man:clamonacc(8) man:clamd.conf(5) https://docs.clamav.net/
+Requires=clamav-daemon.service
+After=clamav-daemon.service syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/bin/bash -c "while [ ! -S /run/clamav/clamd.ctl ]; do sleep 1; do>
+ExecStart=/usr/sbin/clamonacc --fdpass -F --log=/var/log/clamav/clamonacc.log ->
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+systemctl restart clamav-clamonacc.service
+```
+
+
+
+### Variante 2:  on access scannning without changing service 
+
+```
+vi /etc/clamav/clamd.conf
+```
+
+```
+BytecodeTimeout 60000
+OnAccessMaxFileSize 5M
+OnAccessMountPath /home
+OnAccessIncludePath /home
+OnAccessExcludeUname root
+OnAccessPrevention true
+OnAccessExtraScanning false
+VirusEvent /etc/clamav/detected.sh
+OnAccessExcludeRootUID yes
+OnAccessRetryAttempts 3
+OnAccessExcludeUID 0
+```
+
+```
+systemctl restart clamav-clamonacc.service
+```
+
+
+
+
+## Erweiterte Dateiattribute (xattr) 
+
+### lsattr/chattr
+
+
+### Datei immutable machen 
+
+  * Kann nicht gelöscht oder verändert 
+  * geht auch für Verzeichnisse
+
+```
+cd /root
+touch meindatei 
+chattr +i meindatei
+## Diese Datei kann jetzt nicht gelöscht oder verändert
+## auch nicht unbenannt 
+lsattr meindatei
+
+## Heilen mit 
+## D.h. root kann das auch wieder rausnehme
+## Schutz vor mir selbst ;o) 
+chattr -i meindatei
+```
+
+```
+## Verzeichnisse
+cd /root
+mkdir meinverzeichnis
+chattr +i meinverzeichnis
+cd meinverzeichnis
+## wichtig Option -d nehmen 
+lsattr -d . 
+## Jetzt können keine neuen Dateien angelegt werden
+## oder gelöscht werden
+## aber bestehende Dateien können inhaltlich geändert werden
+```
 
 ## apparmor 
 
@@ -728,6 +2630,17 @@ $ sudo reboot
 ### apparmor walkthrough ubuntu
 
 
+### Step 0: set lang to english
+
+```
+sudo dpkg-reconfigure locales
+-> en.US
+-> Step 2 also
+
+su - 
+```
+
+
 ### Step 1: Create script and execute it without protection
 
 ```
@@ -788,7 +2701,7 @@ example.sh
 
 Session 1:
 ## analyze log and add changed things
-logprof 
+aa-logprof 
 
 Session 2:
 ## now try again.
@@ -808,6 +2721,507 @@ example.sh
 ### Kubernetes
 
   * https://kubernetes.io/docs/tutorials/security/apparmor/
+
+## SecureBoot / TPM / luks /clevis 
+
+### Überblick
+
+
+### SecureBoot 
+
+![image](https://github.com/user-attachments/assets/6ed06482-9ae5-4ddf-8649-9192080254ad)
+(Quelle: Juniper Community Blog) 
+
+
+### Measured Boot 
+
+![image](https://github.com/user-attachments/assets/f187c99b-512a-4444-ad60-febd9c03582f)
+
+### Reference 
+
+  * https://community.juniper.net/blogs/elevate-member/2020/12/22/whats-the-difference-between-secure-boot-and-measured-boot
+
+### MOK
+
+
+### MOK 
+
+  * machine owner keys
+
+### MOK and UEFI 
+
+  * When installing a distribution such as Ubuntu with secure boot activated, the installer creates a MOK key in the NVRAM which can be seen with ‘mokutil -l ’.
+  * You can see it with mokutil -l
+  * Not part of core UEFI - Specificatin.
+
+```
+The concept of MOK is not officially part of Microsoft's Secure Boot. It's implemented by Shim, a special loader that actually overrides the firmware's Secure Boot handling – it has its own signature verification code that allows MOK-signed loaders to completely bypass the built-in SB verification.
+
+Therefore the MOK database is stored as an ordinary EFI NVRAM variable named MokList
+```
+
+### mokutil
+
+  * Tool, um die Machine Owner Keys zu manipulieren
+  * Reference: https://manpages.ubuntu.com/manpages/bionic/man1/mokutil.1.html
+
+### Herausfinden, ob secure boot aktiviert ist 
+
+```
+mokutil --sb-state
+```
+
+### UEFI
+
+
+### Secureboot 
+
+  * SecureBoot wird im UEFI-Bios aktiviert 
+
+### Was ist UEFI ? 
+
+  * UEFI ist der Nachfolger vom Bios (Legacy)
+  * Bietet mehr Funkionen
+  * Hat einen anderen Weg zu starten 
+
+### Was ist SHIM 
+
+  * Shim ist ein kleiner Bootloader, der mit einem MicroSoft - Key signiert
+  * Daher erlaubt das UEFI - Bios diesen zu starten
+  * SHIM hat dann nur die Aufgabe signierte Komponenten zu starten (kernel, initrd)
+  * Erlaubt Linux Distributionen mit SecureBoot laufen zu lassen 
+
+### UKI
+
+
+  * Unified kernel image (UKI) is a single executable which can be booted directly from UEFI firmware
+  * shim, kernel,initrd,resourcen 
+
+### How to see contents 
+
+  * https://discourse.ubuntu.com/t/how-to-inspect-kernel-efi-uki-universal-kernel-image-binary/38266
+
+### TPM
+
+
+### Overview (Hierarchie)
+
+#### Endorsement Key (EK)
+
+  * Eingebrannt, nicht lesbar, nicht veränderbar
+  * Eindeutig pro TPM (2048bit Schlüssellänge)
+  * Private and Public Part (Private Part will never leave the system)
+
+#### Storage Root Key (SRK)
+
+  * Wurzel des TPM-Schlüsselbaumes
+  * Lediglich zur Verschlüsselung weiterer Benutzer Schlüssel
+
+#### Attestation Identity Keys (AIK)
+
+  * Dienen zum signieren von PCR werten (Flüchtiger Speicher)
+
+### Sicherheitsfunktionen des TPM 
+
+#### Versiegelung (sealing)
+
+```
+Durch Bilden eines Hash-Wertes aus der System-Konfiguration (Hard- und Software)
+können Daten an ein einziges TPM gebunden werden.
+
+Hierbei werden die Daten mit diesem Hash-Wert verschlüsselt.
+Eine Entschlüsselung gelingt nur, wenn der gleiche Hash-Wert wieder ermittelt wird 
+```
+
+  * Wichtig: Ein TPM kann mithilfe von PCR-Messungen (Platform Configuration Register) Richtlinien implementieren, die den nicht autorisierten Zugriff auf vertrauliche Daten beschränken. 
+
+#### Eigener Zufallsgenerator 
+
+### PCR's (Platform Configuration Registers)
+
+  * PCR sind register, die während der Laufzeit befüllt werden
+  * Werden während der Laufzeit anhand von Messungen befehlt, die verschiedenen Register
+  * 24 Register (jedes kann noch verschiedene Algorithm anbiet
+  * Daten werden nur rausgegeben, wenn der hash der gleiche ist wie beim Sealen (PCR Slots sind flüchtig und werden bei jedem Boot neu beschrieben -> Volatile) - einige nicht alle 
+
+```
+tpm2_pcrread 
+```
+
+### Commands 
+
+#### Show the tpm-devices 
+
+```
+ls -la /dev/tp* 
+```
+
+
+#### tpm2-commands 
+
+```
+apt install -y tpm2-tools
+```
+
+```
+## List all pcr's
+tpm2-pcrread 
+```
+
+```
+## See fixed properties
+tpm2_getcap properties-fixed 
+## get variable properties 
+tpm2_getcap properties-variable
+```
+
+
+### Install SecureBoot Ubuntu
+
+
+### Einschränkung
+
+  * Verschlüsselung mit tpm wird beim Installer noch nicht unterstützt
+
+### Vorgehen 
+
+  * Im BIOS: SecureBoot aktivieren
+  * TPM2 aktivieren
+
+### Bei der Installation 
+
+  * Partition verschlüsseln (Verschlüsselung von LVM)
+  * Passwort muss angegeben werden
+
+### Was wird verwendet ?
+
+  * Unter der Haube wird luks verwenden
+  * In /etc/crypttab ist die entschlüsselung der Systempartition hinterlegt
+
+### Manuell Anbindung an tpm 
+
+```
+## Ist secure boot 
+mokutil --sb-state 
+
+## clevis
+apt install -y clevis-systemd clevis-luks clevis-tpm2 clevis-initramfs cryptsetup-bin mokutil
+systemd-cryptenroll /dev/sda3
+```
+
+```
+tpm2_pcrread
+tpm2_getcap properties-fixed
+tpm2_getcap properties-variable
+tpm2_pcrread sha256
+tpm2_pcrread sha256:7
+```
+
+```
+ls -la /dev/tp*
+crw-rw---- 1 tss root  10,   224 Sep 13 08:33 /dev/tpm0
+crw-rw---- 1 tss tss  253, 65536 Sep 13 08:33 /dev/tpmrm0
+```
+
+```
+## Device ausfinding machen, das verschlüsselt und lvm im Bauch hat
+lsblk 
+
+clevis luks bind -d /dev/sda3 tpm2 '{ "pcr_bank":"sha256", "pcr_ids":"7"}'
+
+## falls nicht eingehängt, kann man das testen
+## Bei uns Fehler, weil / schon gemountet ist 
+clevis luks unlock -d /dev/sda3
+```
+
+```
+## Prüfung ob askpass aktiviert ist
+systemctl status clevis-luks-askpass.path
+```
+
+```
+## Folgender Eintrag muss in der Cryptsetup sein
+cat /etc/crypttab
+dm_crypt-0 UUID=14959c59-1db3-4a19-bfb0-e494edea07c2 none luks
+```
+
+```
+## Informationen in die initramfs eintragen
+update-initramfs -u -k all
+```
+
+```
+## Have a look if new slot was used
+systemd-cryptenroll /dev/sda3
+```
+
+```
+##SLOT TYPE
+##   0 password
+##   1 password
+##   2 other
+```
+
+```
+## Reboot
+Should not work without entering password 
+```
+
+### now disable secure - boot 
+
+```
+poweroff
+## disable secureboot
+## power system on
+## now you should need to enter password again
+mokutil --sb-state
+```
+
+```
+SecureBoot disabled 
+```
+
+
+### Arch Secure Boot
+
+
+### Good / clear explanation, also for the tpm part 
+
+  * https://jpetazzo.github.io/2024/02/23/archlinux-luks-tpm-secureboot-install/
+
+### Encrypte DataPartition
+
+
+### Walkthrough 
+
+```
+1. Platte in virtualbox erstellen
+2. hochfahren
+```
+
+```
+## Device identifizieren
+lsblk
+## Platte formatieren mit parted z.B. 
+
+## Verschlüsseln der Partition
+cryptsetup luksFormat --type luks2 /dev/sdb1
+cryptsetup open /dev/sdb1 test
+## now available und /dev/mapper/test
+mkfs.ext4 /dev/mapper/test
+## testweise einhängen
+mkdir /mnt/test
+mount /dev/mapper/test /mnt/test 
+umount /mnt/test
+
+
+
+```
+
+```
+## Set in /etc/crypttab
+echo "test /dev/sdb1 none" >> /etc/crypttab"
+## find out uuid
+lsblk -o name,uuid
+## Get uuid of /dev/mapper/test
+echo "UUID=f521fd74-e82a-41f9-9b95-4dc417d7f50b /mnt/test ext4 defaults 0 0" >> /etc/fstab
+```
+
+```
+## Try to reboot, you need to enter password
+
+```
+
+```
+## Now set tpm with systemd-cryptenroll
+systemd-cryptenroll --tmp2-device /dev/tpmrm0 --tpm2-pcrs 7 /dev/sdb1
+```
+
+```
+## Try to reboot, now you do not need to enter password
+```
+
+
+
+
+```
+tpm2_getcap pcrs
+tpm2_pcrread sha256
+tpm2_pcrread sha256:7
+
+systemd-cryptenroll /test.img
+systemd-cryptenroll --tpm2-device /dev/tpmrm0 --tpm2-pcrs 7 /test.img
+echo "test /test.img none" >> /etc/crypttab
+
+cryptsetup open test.img test
+
+## Does not work 
+uuid=$(lsblk -o UUID /dev/mapper/test -n)
+## figure it out manually 
+echo $uuid
+
+mkdir /mnt/test
+mkfs.ext4 /dev/mapper/test
+cd /mnt 
+mount /dev/mapper/test test
+cd test
+ls -la
+touch helloyou
+reboot
+```
+
+```
+## After reboot 
+cd /mnt/test
+ls -la
+```
+
+### Raus
+
+
+![image](https://github.com/user-attachments/assets/78f87112-7ba4-4ed5-9553-beb8a44a6bc6)
+
+### Referenz:
+
+  * https://youtu.be/CGVubXFVLn8?si=TlxAETGMpGo3a-KZ
+
+## Wireshark / tcpdump / nmap
+
+### Examples tcpdump
+
+
+### What interfaces are available for listening ? 
+
+```
+tcpdump -D 
+## Eventually doublecheck with 
+ip a
+
+```
+
+### -n / -nn (Disable hostname / port resolving) 
+
+```
+## I would always recommend to do so, because it saves performance 
+
+## Do not do hostname lookups 
+tcpdump -i ens3 -n
+
+## Do not do hostname and port lookups 
+tcpdump -i ens3 -nn 
+```
+
+### Exclude specific ports 
+
+```
+tcpdump ! -p stp -i eth0 
+## more user friendly 
+tcpdump -i eth0 not stp and not icmp
+```
+
+### Include ascii output 
+
+```
+## s0 show unlimited content 
+## -A ASCII 
+tcpdump -A -s0 port 80
+
+```
+
+### Only from and/or to a specific host 
+
+```
+## to or from host
+tcpdump -i eth0 host 10.10.1.1
+
+## To a specific host 
+tcpdump -i eth0 dst 10.10.1.20
+```
+
+### Write to a pcap file 
+
+```
+tcpdump -i eth0 -w output.pcap 
+
+```
+
+### Only show GET requests 
+
+```
+## this show only all tcp packages 
+tcpdump -i eth0 tcp 
+
+## now let us filter specific ones -> 0x474554 -> is equivalent for GET as hex - numbers 
+## https://www.torsten-horn.de/techdocs/ascii.htm
+## tcp header has 20 bytes and maximum of 60 bytes, allowing for up to 40 bytes of options in the header.
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
+
+## Same goes for post - operations 
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
+
+```
+
+
+
+```
+## Deeply explained here
+https://security.stackexchange.com/questions/121011/wireshark-tcp-filter-tcptcp121-0xf0-24
+
+```
+
+### Extra http get/post urls 
+
+```
+## show linewise 
+tcpdump -s 0 -v -n -l | egrep -i "POST /|GET /|Host:"
+
+## show linewise only using port http
+tcpdump -s 0 -v -n -l port http and not port ssh | egrep -i "POST /|GET /|Host:"
+
+```
+
+
+### Refs: 
+
+  * https://hackertarget.com/tcpdump-examples/
+
+### Example nmap
+
+
+### Example 1 
+
+```
+## including additional information 
+nmap -A main.training.local 
+```
+
+### Example 1a
+
+```
+nmap -A -F -T4 192.168.56.102
+```
+
+### Example 2
+
+```
+## ping target system 
+nmap -sP main
+```
+
+
+### Example 3 
+
+```
+Server 1:
+nmap -p 80 --script=http-enum.nse targetip 
+
+Server 2: 
+tcpdump -nn port 80 | grep "GET /" 
+```
+
+### Ref:
+
+  * http://schulung.t3isp.de/documents/linux-security.pdf
 
 ## Host Intrusion Detection 
 
@@ -1401,11 +3815,8 @@ echo "11.11.11.11 bad.host.com bad" >> /etc/hosts
 ### Do the check 
 
 ```
-## In Ubuntu like so 
-aide.wrapper --check
-
 ## In Debian like so
-aide --check --config=/etc/aide/aide.conf
+aide --check --config=/etc/aide/aide.conf > /var/log/report-scan.log 
 ```
 ### Check is done on a daily basis 
 
@@ -1569,503 +3980,6 @@ grep -E "^warning|^suggestion" /var/log/lynis-report.dat
 ```
 
 
-## Malware / Viren - Scans 
-
-### maldet - lmd
-
-
-```
-cd /usr/src
-wget https://www.rfxn.com/downloads/maldetect-current.tar.gz
-mkdir maldetect 
-mv maldetect-current.tar.gz maldetect 
-cd maldetect 
-tar xvf maldetect-current.tar.gz 
-
-```
-
-```
-cd /usr/src/maldetect/maldetect-1.6.4 
-./install.sh 
-
-## version anzeigen
-maldet 
-## update der Signaturen
-maldet -u 
-## Update der Software
-maldet -d 
-
-## Evtl config anpassen wenn gewünscht.
-## Standardmäßig erfolgt 1x nächtlich ein Scan 
-## /usr/local/maldetect/conf.maldet 
-
-wget -P /tmp https://secure.eicar.org/eicar_com.zip 
-cd /tmp
-cp -a eicar* /home/linux 
-
-maldet -a /home/linux 
-## reportliste 
-maldet -e 
-```
-
-```
-## Als Service betreiben 
-## vi /usr/local/maldetect/monitor_paths
-/etc
-/home 
-
-## /usr/local/maldetect/conf.maldet 
-## default_monitor_mode auf /usr/local... setzen 
-## default_monitor_mode="users"
-default_monitor_mode="/usr/local/maldetect/monitor_paths"
-
-## 
-apt install inotify-tools 
-
-systemctl start maldet 
-
-## Logs anschauen ob monitoring auf Pfade erfolgt 
-
-## 2. Session auf machen als user 'linux'
-## und datei downloaden. 
-wget https://secure.eicar.org/eicar_com.zip 
-
-## 1. Session als root. logs beobachten
-/usr/local/maldetect/logs/event_log 
-
-
-
-```
-
-
-
-### clamav
-
-
-### Komponenten 
-
-```
-clamav - client 
-clamav-daemon - daemon
-clamav-freshclam - service -> Dienst der die Virensignaturen aktualisiert 
-```
-
-### Wichtige clamscan Kommandos 
-
-```
-clamscan - Optionen
-Option	Beschreibung
--i oder --infected	Gibt nur infizierte Dateien aus (und nicht alle Dateien die gescannt werden).
---remove	Entfernt infizierte Dateien. Mit Vorsicht benutzen!
---move=VERZEICHNIS	Verschiebt alle infizierten Dateien in das Verzeichnis VERZEICHNIS.
--r oder --recursive	Scannt Unterverzeichnisse rekursiv.
---no-archive	Alle Archiv-Dateien werden nicht gescannt.
--h oder --help	Zeigt alle Optionen von clamscan an.
-```
-
-### Virendatenbank 
-
-  * Virendatenbank wird in /var/lib/freshclam gespeichert. 
-  * Aktualisierung durch den clamav-freshclam - Dienst oder manuell: freshclam 
-
-### Aktualisierung durch Dienst 
-
-```
-## Konfiguration unter des Dienstes (clamav-freshclam) unter:
-/etc/clamav/freshclam.conf 
-
-## Dies kann auch so erfolgen
-dpkg-reconfigure clamav-freshclam
-
-## Frequenz 
-Festlegen wie oft runtergeladen wird -> voreingestellt ist 24 mal am Tag.
-```
-
-### Virendatenbank manuell aktualisieren.
-
-```
-## Dienst darf dafür nicht laufen, weil er ein LOCK hält 
-systemctl stop clamav-freshclam
-freshclam
-systemctl start clamav-freshclam 
-```
-
-### Installation / Walkthrough 
-
-```
-apt install -y clamav clamav-daemon
-## Achtung: Der Daemon läuft erst wenn die Virensignatur 1x runtergeladen worden sind
-systemctl status clamav-daemon
-systemctl status clamav-freshclam 
-
-```
-
-### Privaten Mirror einrichten 
-
-```
-## Auf dediziertem Server
-##!/bin/bash 
-apt update
-apt install -y python3 pip apache2 
-pip3 install cvdupdate 
-cvd config set --dbdir=/var/www/html
-## better set this up as cron 
-cvd update 
-```
-
-```
-## In freshclam verwenden 
-## /etc/clamav/freshclam.conf 
-PrivateMirror=http://46.101.158.176
-systemctl restart clamav-freshclam 
-
-## Oder dpkg-reconfigure clamav-freshclam 
-
-```
-
-
-
-### Testen 
-
-```
-wget -P /tmp https://secure.eicar.org/eicar_com.zip
-## clamscan -ir /tmp
-## better: so you can see what is going on:
-clamscan --debug -vir /tmp
-
-## cpu schonender - nice - nice 15 -> niedrigste Priorität  
-## nice -n 15 clamscan && clamscan -ir /tmp
-```
-
-### clamscan return - codes 
-
-```
-0 : No virus found.
-1 : Virus(es) found.
-2 : Some error(s) occurred.
-```
-
-### on access scanning (clamonacc) 
-
-  * https://gist.github.com/ChadDevOps/dc5428e8d816344f68b03c99359731f9
-
-```
-## konfig in 
-man clamd.conf 
-vi /etc/clamav/clamd.conf 
-
-## Wichtig: Service erstellen 
-systemctl edit --full --force clamonacc.service
-```
-
-## Firewall 
-
-### nftables
-
-
-### Prerequisites 
-
-```
-Disable firewalld and ufw if we you want to use nftables (by itself) 
-
-systemctl stop firewalld
-systemctl disable firewalld
-```
-
-### Schaubild 
-
-  * https://www.teldat.com/blog/wp-content/uploads/2020/11/figure_05.png
-
-### Hierarchie-Ebenen 
-
-#### Ebene 1: Ruleset 
-
-```
-## quasi das Gehäuse 
-nft list ruleset 
-
-## Leer ? 
-## Per default ist noch nichts hinterlegt. 
-
-## Config wie in iptables INPUT, OUTPUT, FORWARD 
-## System hat einen Vorschlag 
-## Dieser findet sich in
-## Das ist auch gleichzeitig die Konfigurationsdatei 
-## /etc/nftables.conf 
-## Beim Starten werden diese Regeln geladen. 
-## Und zwar mit folgendem Dienst 
-systemctl status nftables 
-systemctl start nftables
-systemctl status nftables
-nft list ruleset
-```
-
-#### Ebene 2: Table 
-
-#### Ebene 3: Chain 
-
-
-#### Ebene 4: Rule 
-
-
-### Gegenüberstellung iptables und nft (Befehle) 
-
-```   
-iptables -L  -> nft list table ip filter
-iptables -L INPUT -> nft list chain ip filter INPUT
-
-iptables -t nat -L PREROUTING nft list chain ip nat PREROUTING
-```
-
-### Beispiel 1:
-
- 
-```
-flush ruleset
-
-table inet firewall {
-                                                                                 
-    chain inbound_ipv4 {
-        # accepting ping (icmp-echo-request) for diagnostic purposes.
-        # However, it also lets probes discover this host is alive.
-        # This sample accepts them within a certain rate limit:
-        #
-        # icmp type echo-request limit rate 5/second accept      
-    }
-
-    chain inbound_ipv6 {                                                         
-        # accept neighbour discovery otherwise connectivity breaks
-        #
-        icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
-                                                                                 
-        # accepting ping (icmpv6-echo-request) for diagnostic purposes.
-        # However, it also lets probes discover this host is alive.
-        # This sample accepts them within a certain rate limit:
-        #
-        # icmpv6 type echo-request limit rate 5/second accept
-    }
-
-    chain inbound {                                                              
-
-        # By default, drop all traffic unless it meets a filter
-        # criteria specified by the rules that follow below.
-        type filter hook input priority 0; policy drop;
-
-        # Allow traffic from established and related packets, drop invalid
-        ct state vmap { established : accept, related : accept, invalid : drop } 
-
-        # Allow loopback traffic.
-        iifname lo accept
-
-        # Jump to chain according to layer 3 protocol using a verdict map
-        meta protocol vmap { ip : jump inbound_ipv4, ip6 : jump inbound_ipv6 }
-
-        # Allow SSH on port TCP/22 and allow HTTP(S) TCP/80 and TCP/443
-        # for IPv4 and IPv6.
-        tcp dport { 22, 80, 443} accept
-
-        # Uncomment to enable logging of denied inbound traffic
-        # log prefix "[nftables] Inbound Denied: " counter drop
-    }                                                                            
-                                                                                 
-    chain forward {                                                              
-        # Drop everything (assumes this device is not a router)                  
-        type filter hook forward priority 0; policy drop;                        
-    }                                                                            
-                                                                                 
-    # no need to define output chain, default policy is accept if undefined.
-}
-```
-
-
-
-### Documentation 
-
-  * https://wiki.nftables.org/wiki-nftables/index.php/Quick_reference-nftables_in_10_minutes
-
-### firewalld
-
-
-### Install firewalld and restrict ufw 
-
-```
-## Schritt 1: ufw deaktivieren 
-systemctl stop ufw
-systemctl disable ufw 
-ufw disable # zur Sicherheit 
-ufw status
-## -> inactive # this has to be the case 
-
-## Schritt 2: firewalld
-apt update
-apt install -y firewalld
-
-## Schritt 3: firewalld 
-apt install firewalld 
-systemctl start firewalld 
-systemctl enable firewalld 
-systemctl status firewalld 
-systemctl status ufw 
-
-```
-
-
-### Is firewalld running ?
-```
-## is it set to enabled ?
-systemctl status firewalld 
-firewall-cmd --state
-```
-
-### Command to control firewalld 
-  
-  * firewall-cmd 
-
-
-
-### Zones documentation 
-
-man firewalld.zones 
-
-### Zones available 
-
-```
-firewall-cmd --get-zones 
-block dmz drop external home internal public trusted work
-```
-
-### Active Zones 
-
-```
-firewall-cmd --get-active-zones
-## in our case empty 
-```
-
-### Add Interface to Zone = Active Zone 
-
-```
-## Variante 1
-firewall-cmd --zone=public --add-interface=enp0s8 --permanent 
-firewall-cmd --reload 
-
-## Variante 2
-firewall-cmd --zone=public --add-interface=enp0s8
-firewall-cmd --get-active-zones 
-## Nach dem Testen 
-firewall-cmd --runtime-to-permanent 
-firewall-cmd --list-all 
-firewall-cmd --list-all --permanent 
-
-firewall-cmd --get-active-zones 
-public
-  interfaces: enp0s8
-
-```
-
-### Show information about all zones that are used 
-```
-## Anzeigen der runtime 
-firewall-cmd --list-all 
-## Anzeigen der permanenten Konfiguration 
-firewall-cmd --list-all --permanent 
-
-firewall-cmd --list-all-zones 
-```
-
-
-### Default Zone 
-
-```
-## if not specifically mentioned when using firewall-cmd
-## .. add things to this zone 
-firewall-cmd --get-default-zone
-public
-```
-
-### Show services / Info
-```
-firewall-cmd --get-services 
-firewall-cmd --info-service=http
-```
-
-### Adding/Removing a service 
-
-```
-## Version 1 - more practical 
-## set in runtime 
-firewall-cmd --zone=public --add-service=http
-firewall-cmd --runtime-to-permanent 
-
-## Version 2 - less practical
-firewall-cmd --permanent --zone=public --add-service=http
-firewall-cmd --reload 
-```
-
-```
-### Service wieder entfernen
-firewall-cmd --permanent --zone=public --remove-service=ssh
-firewall-cmd --reload 
-```
-
-### Best way to add a new rule 
-```
-## Walkthrough / Ubuntu 
-## in /etc/apache2/ports.conf 
-## Hinzufügen 
-## Listen 81 
-echo "Listen 81" >> /etc/apache2/ports.conf 
-systemctl restart apache2 
-
-## Best Practice version 
-firewall-cmd --add-port=81/tcp 
-## after testing 
-firewall-cmd --runtime-to-permanent 
-
-```
-
-### Enable / Disabled icmp 
-```
-firewall-cmd --get-icmptypes
-## none present yet 
-firewall-cmd --zone=public --add-icmp-block-inversion --permanent
-firewall-cmd --reload
-```
-
-### Working with rich rules 
-```
-## Documentation 
-## man firewalld.richlanguage
-
-## throttle connectons 
-firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10/32 service name=http log level=notice prefix="firewalld rich rule INFO:   " limit value="100/h" accept' 
-firewall-cmd --reload # 
-firewall-cmd --zone=public --list-all
-
-## port forwarding 
-firewall-cmd --get-active-zones
-firewall-cmd --zone=public --list-all
-firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.50.10 forward-port port=42343 protocol=tcp to-port=22'
-firewall-cmd --reload 
-firewall-cmd --zone=public --list-all
-firewall-cmd --remove-service=ssh --zone=public
-
-## 
-
-
-## list only the rich rules 
-firewall-cmd --zone=public --list-rich-rules
-
-## persist all runtime rules 
-firewall-cmd --runtime-to-permanent
-
-```
-
-
-### References 
-
-  * https://www.linuxjournal.com/content/understanding-firewalld-multi-zone-configurations#:~:text=Going%20line%20by%20line%20through,or%20source%20associated%20with%20it.
-  * https://www.answertopia.com/ubuntu/basic-ubuntu-firewall-configuration-with-firewalld/
-
 ## IPSec 
 
 ### IPSec
@@ -2083,6 +3997,31 @@ firewall-cmd --runtime-to-permanent
 ### Linux Security
 
   * http://schulung.t3isp.de/documents/linux-security.pdf
+
+## SELinux 
+
+### Debian Installation
+
+
+### Walkthrough 
+
+```
+apt-get install selinux-basics selinux-policy-default auditd
+selinux-activate
+reboot
+
+## for checking
+## Also refer to our other documents 
+## e.g. apache walkthrough
+setenforce 1 
+
+check-selinux-installation 
+echo $?
+```
+
+### Howto on Debian 
+
+  * https://wiki.debian.org/SELinux/Setup
 
 ## Wireshark / tcpdump / nmap
 
@@ -2153,10 +4092,10 @@ tcpdump -i eth0 tcp
 ## now let us filter specific ones -> 0x474554 -> is equivalent for GET as hex - numbers 
 ## https://www.torsten-horn.de/techdocs/ascii.htm
 ## tcp header has 20 bytes and maximum of 60 bytes, allowing for up to 40 bytes of options in the header.
-tcpdump -s 0 -A -vv 'tcp[((tcp[12:1]((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
 
 ## Same goes for post - operations 
-tcpdump -s 0 -A -vv 'tcp[((tcp[12:1]((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
+tcpdump -s 0 -A -vv 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354'
 
 ```
 
@@ -2827,11 +4766,8 @@ echo "11.11.11.11 bad.host.com bad" >> /etc/hosts
 ### Do the check 
 
 ```
-## In Ubuntu like so 
-aide.wrapper --check
-
 ## In Debian like so
-aide --check --config=/etc/aide/aide.conf
+aide --check --config=/etc/aide/aide.conf > /var/log/report-scan.log 
 ```
 ### Check is done on a daily basis 
 
@@ -3436,6 +5372,14 @@ restorecon -vr /var/www/html
 ### Analyze 
 
 ```
+## sesearch is needed,
+## install if not present
+dnf whatprovides sesearch
+dnf install setools-console
+```
+
+
+```
 ## Under which type/domain does httpd run 
 ps auxZ | grep httpd
 
@@ -3501,6 +5445,7 @@ unconfined_u:object_r:httpd_sys_content_t:s0 /var/www/html/index.html
 ### Find out, which are available 
 
 ```
+## show all 
 getsebool -a | grep nis 
 ## shows all booleans with short description 
 semanage boolean -l 
@@ -3623,13 +5568,15 @@ it MIGHT BE selinux <-- !!!
 ```
 ## /etc/httpd/conf/httpd.conf
 ## Ergänzen 
-## Listen 83 
+Listen 83 
 
-systemctl restart httpd 
+## Startet nicht neu ....
+systemctl restart httpd
+
 ```
 
 
-### Step 2: Findout what got into the way, with smart tools
+#### Step 2: Find problems with sealert 
 
 ```
 dnf whatprovides sealert 
@@ -3640,10 +5587,10 @@ cd /var/log/audit
 sealert -a audit.log > report.txt
 ```
 
-### Step 3: Debug and fix 
+#### Step 3: Debug and fix 
 
 ```
-sealert -a /var/log/audit.log > report.txt
+## sealert -a /var/log/audit/audit.log > report.txt
 ## Extract advice from file 
 ## find http_port_t
 semanage port -l | grep 80
@@ -3653,6 +5600,12 @@ semanage port -l | grep 83
 systemctl start httpd
 ## now apache also listens on port 83
 lsof -i
+## also add port in firewall if running
+firewall-cmd --state
+## add to runtime 
+firewall-cmd --add-port=83/tcp
+## make permanent 
+firewall-cmd --runtime-to-permanent 
 ```
 
   * [Alternative way using sealert](#troubleshoot-with-sealert-on-centosredhat) 
