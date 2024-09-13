@@ -24,7 +24,7 @@
      * [Defaults statt chage in /etc/login.defs](shadow/defaults.md)
 
   1. password / PAM Security
-     * [Passwort Encryption Method](/security/password/encryption_method.md) 
+     * [Passwort Encryption Method](security/password/encryption_method.md) 
      * [Pam Security](/security/pam/overview.md)
 
   1. Logging
@@ -49,7 +49,7 @@
   1. LSM-Modules (aka SELinux or apparmor) 
      * [Kernel Docs](https://www.kernel.org/doc/html/v5.15/admin-guide/LSM/index.html)
      * [apparmor Überblick](/apparmor.md)
-     * [apparmor eigenes Profil erstellen](/apparmor-walkthrough-ubuntu.md)
+     * [apparmor eigenes Profil erstellen](apparmor-walkthrough-ubuntu.md)
    
   1. SELinux 
      * [Important commands and files](selinux-commands.md)
@@ -78,15 +78,15 @@
      * [apparmor and docker/kubernetes](apparmor-docker-kubernetes.md)
 
   1. SecureBoot / TPM / luks /clevis 
-     * [Überblick](/secureboot/00-overview-secure-boot-measured-boot.md)
-     * [MOK](/secureboot/01-mok-mokutil.md)
-     * [UEFI](/secureboot/01-uefi-secureboot.md)
-     * [UKI](/secureboot/02-uki.md)
-     * [TPM](/secureboot/03-tpm.md)
-     * [Install SecureBoot Ubuntu](/secureboot/04-secureboot-ubuntu24-04.md)
-     * [Arch Secure Boot](/secureboot/05-secureboot-luks-tpm-arch.md)
-     * [Encrypte DataPartition](/secureboot/06-encrypt-data-with-luks-tpm.md)
-     * [Raus](/secureboot/99-trusted-boot-aushebeln.md)
+     * [Überblick](secureboot/00-overview-secure-boot-measured-boot.md)
+     * [MOK](secureboot/01-mok-mokutil.md)
+     * [UEFI](secureboot/01-uefi-secureboot.md)
+     * [UKI](secureboot/02-uki.md)
+     * [TPM](secureboot/03-tpm.md)
+     * [Install SecureBoot Ubuntu](secureboot/04-secureboot-ubuntu24-04.md)
+     * [Arch Secure Boot](secureboot/05-secureboot-luks-tpm-arch.md)
+     * [Encrypte DataPartition](secureboot/06-encrypt-data-with-luks-tpm.md)
+     * [Raus](secureboot/99-trusted-boot-aushebeln.md)
 
   1. Wireshark / tcpdump / nmap
      * [Examples tcpdump](tcpdump-examples.md) 
@@ -162,7 +162,7 @@
      * [Restricting Syscall in Docker/Podman](docker-seccomp.md)
 
   1. Attacks 
-     * [Slow loris Attack - apache](/attacks/slow-loris-apache.md)
+     * [Slow loris Attack - apache](attacks/slow-loris-apache.md)
   
   1. Kernel Hardening 
      * [modules_disabled,unprivileged_bpf_disabled,kexec_load_disabled](kernel-hardening.md)
