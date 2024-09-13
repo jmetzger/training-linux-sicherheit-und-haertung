@@ -26,7 +26,7 @@
 mokutil --sb-state 
 
 # clevis
-apt install -y clevis-systemd clevis-luks clevis-tpm2 cryptsetup-bin mokutil
+apt install -y clevis-systemd clevis-luks clevis-tpm2 clevis-initramfs cryptsetup-bin mokutil
 systemd-cryptenroll /dev/sda3
 ```
 
