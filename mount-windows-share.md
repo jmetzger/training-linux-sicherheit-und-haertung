@@ -34,11 +34,13 @@ mount -o username=ITS-Admin,password='my@ver0secretpass'  -t cifs //10.10.22.143
 
 ```
 # In Linux sehen wir die Protokoll-Version
-cat /proc/mounts 
+cat /proc/mounts | grep cifs
 //10.10.22.143/test /mnt/test cifs rw,relatime,vers=3.1.1,cache=strict,username=ITS-Admin,uid=0,noforceuid,gid=0,noforcegid,addr=10.10.22.143,file_mode=0755,dir_mode=0755,seal,soft,nounix,serverino,mapposix,rsize=4194304,wsize=4194304,bsize=1048576,retrans=1,echo_interval=60,actimeo=1,closetimeo=1 0 0
 ```
 
 ```
+# powershell ausführen als Administrator auf Windows 
+
 # Auf Windows - Seite können wir die Verbindungen so einstellen, dass immer verschlüsselt wird (für den gesamten Server)
 Set-SmbServerConfiguration –EncryptData
 Get-SmbServerConfiguration
