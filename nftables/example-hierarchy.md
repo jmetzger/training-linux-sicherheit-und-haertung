@@ -7,11 +7,11 @@ Disable firewalld and ufw if we you want to use nftables (by itself)
 
 systemctl stop firewalld
 systemctl disable firewalld
+
+ufw disable
+systemctl stop ufw
+systemctl disable ufw 
 ```
-
-## Schaubild 
-
-  * https://www.teldat.com/blog/wp-content/uploads/2020/11/figure_05.png
 
 ## Hierarchie-Ebenen 
 
