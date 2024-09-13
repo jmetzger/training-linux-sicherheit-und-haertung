@@ -14,5 +14,5 @@
 
   * Shim ist ein kleiner Bootloader, der mit einem MicroSoft - Key signiert
   * Daher erlaubt das UEFI - Bios diesen zu starten
-  * SHIM hat dann nur die Aufgabe signierte
+  * SHIM hat dann nur die Aufgabe signierte Komponenten zu starten (kernel, initrd)
   * Erlaubt Linux Distributionen mit SecureBoot laufen zu lassen 
