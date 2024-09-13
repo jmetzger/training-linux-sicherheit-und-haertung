@@ -1,10 +1,43 @@
 # Encrypt data with Luks and tpm 
 
-cd /
-dd bs=1M count=1024 if=/dev/zero of=test.img
-cryptsetup luksFormat --type luks2 test.img
-cryptsetup open test.img test
-cryptsetup close test
+## Walkthrough 
+
+```
+1. Platte in virtualbox erstellen
+2. hochfahren
+```
+
+```
+# Device identifizieren
+lsblk
+# Platte formatieren mit parted z.B. 
+
+# Verschlüsseln der Partition
+cryptsetup luksFormat --type luks2 /dev/sdb1
+cryptsetup open /dev/sdb1 test
+# now available und /dev/mapper/test
+mkfs.ext4 /dev/mapper/test
+# testweise einhängen
+mkdir /mnt/test
+mount /dev/mapper/test /mnt/test 
+umount /mnt/test
+
+
+
+```
+
+```
+# Set in /etc/crypttab
+echo "test /dev/sdb1 none" >> /etc/crypttab"
+# find out uuid
+lsblk -o name,uuid
+# Get uuid from /dev/sdb1
+echo "UUID=f521fd74-e82a-41f9-9b95-4dc417d7f50b /mnt/test ext4 defaults 0 0" >> /etc/fstab
+```
+
+
+
+
 
 tpm2_getcap pcrs
 tpm2_pcrread sha256
