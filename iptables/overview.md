@@ -68,18 +68,6 @@ iptables -L -n -v --line-numbers
 iptables -F
 ```
 
-## Set rules persistent 
-
-```
-# not present anymore 
-apt search iptables-save
-
-# use netscript-ipfilter
-apt install -y netscript-ipfilter
-``` 
-
-  * https://ncomputers.org/netscript
-
 ## Show / Set Default policy for Input 
 
 ```
