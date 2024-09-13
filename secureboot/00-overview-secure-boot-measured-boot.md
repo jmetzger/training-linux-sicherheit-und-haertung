@@ -2,11 +2,13 @@
 
 ## SecureBoot 
 
-![Image](https://higherlogicdownload.s3.amazonaws.com/JUNIPER/MigratedInlineFiles3/5fd7f45aa7a040db80f7cd2401689b51_0ba8d07931df4bb49b3b04dd83923040)
+![image](https://github.com/user-attachments/assets/6ed06482-9ae5-4ddf-8649-9192080254ad)
+(Quelle: Juniper Community Blog) 
+
 
 ## Measured Boot 
 
-![Image](https://higherlogicdownload.s3.amazonaws.com/JUNIPER/MigratedInlineFiles3/5fd7f45aa7a040db80f7cd2401689b51_673dc3620921464b9d858e94ba3267fb)
+![image](https://github.com/user-attachments/assets/f187c99b-512a-4444-ad60-febd9c03582f)
 
 ## Reference 
 
