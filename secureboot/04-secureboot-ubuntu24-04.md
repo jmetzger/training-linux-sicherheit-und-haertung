@@ -85,7 +85,20 @@ systemd-cryptenroll /dev/sda3
 
 ```
 # Reboot
+Should not work without entering password 
 ```
 
+## now disable secure - boot 
 
+```
+poweroff
+# disable secureboot
+# power system on
+# now you should need to enter password again
+mokutil --sb-state
+```
+
+```
+SecureBoot disabled 
+```
 
