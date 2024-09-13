@@ -44,8 +44,23 @@ filter
 ## See all rules 
 
 ```
+## -L : List rules.
+## -v : Display detailed information. This option makes the list command show the interface name, the rule options, and the TOS masks. The packet and byte counters are also listed, with the suffix ‘K’, ‘M’ or ‘G’ for 1000, 1,000,000 and 1,000,000,000 multipliers respectively.
+## -n : Display IP address and port in numeric format. Do not use DNS to resolve names. This will speed up listing.
+
 iptables -L -n -v
+
+## with line-numbers
+## Important when deleting 
+iptables -L -n -v --line-numbers
 ```
+
+## Adding / Deleting Lines 
+
+```
+# example for input
+```
+
 
 ## Flush all rules 
 
@@ -53,6 +68,17 @@ iptables -L -n -v
 iptables -F
 ```
 
+## Set rules persistent 
+
+```
+# not present anymore 
+apt search iptables-save
+
+# use netscript-ipfilter
+apt install -y netscript-ipfilter
+``` 
+
+  * https://ncomputers.org/netscript
 
 ## Show / Set Default policy for Input 
 
