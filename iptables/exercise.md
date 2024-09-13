@@ -37,3 +37,14 @@ iptables -L --line-numbers
 ```
 iptables -F
 ```
+
+```
+# persistent auch nach Booten
+apt install iptables-persistent
+# Speichert automatisch die bestehenden Regeln in /etc/iptables/rules.v4
+
+# Oder man schreibt sie direkt dort ein mit
+iptables-save > /etc/iptables/rules.v4
+
+
+```
