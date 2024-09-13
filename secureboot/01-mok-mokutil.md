@@ -24,5 +24,5 @@ Therefore the MOK database is stored as an ordinary EFI NVRAM variable named Mok
 ## Herausfinden, ob secure boot aktiviert ist 
 
 ```
-mokutil sb-state
+mokutil --sb-state
 ```
