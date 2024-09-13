@@ -42,12 +42,17 @@ cat /proc/mounts | grep cifs
 # powershell ausführen als Administrator auf Windows 
 
 # Auf Windows - Seite können wir die Verbindungen so einstellen, dass immer verschlüsselt wird (für den gesamten Server)
-Set-SmbServerConfiguration –EncryptData
-Get-SmbServerConfiguration
+Set-SmbServerConfiguration –EncryptData $true
+Get-SmbServerConfiguration 
 ### wichtig die Zeile
 Get-SmbServerConfiguration
 ---> RejectUnencryptedAccess         : True
 ```
+
+
+## Encrypted 
+
+![image](https://github.com/user-attachments/assets/f9d4b9d4-d9f0-435d-b988-ce711e4914ac)
 
 ```
 # Ein Share kann explzit so eingestellt werden, dass er encrypted ist bei der Übertragung
@@ -73,7 +78,7 @@ root@kurs-VirtualBox:/mnt# cat /proc/mounts | grep cifs
 
 ```
 Share mit Verschlüsselung erstellen
-New-SmbShare –Name test3 -Path C:\test3 –EncryptData $true
+New-SmbShare –Name test5 -Path C:\test5 –EncryptData $true
 ```
 
 ```
