@@ -42,7 +42,7 @@ echo "UUID=f521fd74-e82a-41f9-9b95-4dc417d7f50b /mnt/test ext4 defaults 0 0" >> 
 
 ```
 # Now set tpm with systemd-cryptenroll
-systemd-cryptenroll --tmp2-device /dev/tpmrm0 --tpm2-pcrs 7 /dev/sdb1
+systemd-cryptenroll --tpm2-device /dev/tpmrm0 --tpm2-pcrs 7 /dev/sdb1
 ```
 
 ```
