@@ -9,7 +9,7 @@
 
 ```
 "quick-and-dirty-fix" für Rocky:
-sudo sed -i s/"\$rltype"/".4"/g /etc/yum.repos.d/rocky-*.repo
+sudo sed -i s/"\$rltype"/".4"/g /etc/yum.repos.d/rocky*.repo
 # Kudos go to D. 
 ```
 
